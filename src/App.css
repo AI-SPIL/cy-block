@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+/* Container yard 3D canvas styles */
+canvas {
+  cursor: grab;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
