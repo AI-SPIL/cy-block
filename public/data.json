@@ -1,0 +1,1657 @@
+[
+  {
+    "container_yard": "CY1",
+    "blocks": [
+      {
+        "block_name": "A",
+        "slots": [
+          {
+            "kode_kontainer": "ABCD1234567",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL01-101",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "EFGH2345678",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL02-102",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "IJKL3456789",
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL03-103",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "MNOP4567890",
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL04-104",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "QRST5678901",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL05-105",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "UVWX6789012",
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL06-106",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "YZAB7890123",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL07-107",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "CDEF8901234",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL08-108",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "GHIJ9012345",
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL09-109",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": "KLMN0123456",
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "occupied",
+            "vessel_voy": "VESSEL10-110",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": "OPQR1234567",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL11-111",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "STUV2345678",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL12-112",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "WXYZ3456789",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL13-113",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": "ABCD4567890",
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL14-114",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      },
+      {
+        "block_name": "B",
+        "slots": [
+          {
+            "kode_kontainer": "EFGH5678901",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL15-115",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "IJKL6789012",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL16-116",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": "MNOP7890123",
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL17-117",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "QRST8901234",
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "occupied",
+            "vessel_voy": "VESSEL18-118",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "UVWX9012345",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL19-119",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "YZAB0123456",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL20-120",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "CDEF1234567",
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL21-121",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "GHIJ2345678",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL22-122",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "KLMN3456789",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL23-123",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "OPQR4567890",
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL24-124",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "STUV5678901",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL25-125",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "WXYZ6789012",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL26-126",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "ABCD7890123",
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL27-127",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      },
+      {
+        "block_name": "C",
+        "slots": [
+          {
+            "kode_kontainer": "EFGH8901234",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL28-128",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "IJKL9012345",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL29-129",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "MNOP0123456",
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL30-130",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "QRST1234567",
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL31-131",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "UVWX2345678",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL32-132",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "YZAB3456789",
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL33-133",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "CDEF4567890",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL34-134",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "GHIJ5678901",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL35-135",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "KLMN6789012",
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL36-136",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "OPQR7890123",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL37-137",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "STUV8901234",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL38-138",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "WXYZ9012345",
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL39-139",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "ABCD0123456",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL40-140",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      },
+      {
+        "block_name": "D",
+        "slots": [
+          {
+            "kode_kontainer": "EFGH1234567",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL41-141",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "IJKL2345678",
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL42-142",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "MNOP3456789",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL43-143",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "QRST4567890",
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL44-144",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "UVWX5678901",
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL45-145",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "YZAB6789012",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL46-146",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "CDEF7890123",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL47-147",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "GHIJ8901234",
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL48-148",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "KLMN9012345",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL49-149",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "OPQR0123456",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL50-150",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "STUV1234567",
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL51-151",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "WXYZ2345678",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL52-152",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "ABCD3456789",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL53-153",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "EFGH4567890",
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL54-154",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      },
+      {
+        "block_name": "E",
+        "slots": [
+          {
+            "kode_kontainer": "IJKL5678901",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL55-155",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "MNOP6789012",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL56-156",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "QRST7890123",
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL57-157",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "UVWX8901234",
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL58-158",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "YZAB9012345",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL59-159",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "CDEF0123456",
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL60-160",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "GHIJ1234567",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL61-161",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "KLMN2345678",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL62-162",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "OPQR3456789",
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL63-163",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "STUV4567890",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL64-164",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "WXYZ5678901",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL65-165",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "ABCD6789012",
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL66-166",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "EFGH7890123",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL67-167",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      },
+      {
+        "block_name": "F",
+        "slots": [
+          {
+            "kode_kontainer": "IJKL8901234",
+            "row": 1,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL68-168",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "MNOP9012345",
+            "row": 1,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL69-169",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "QRST0123456",
+            "row": 1,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL70-170",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "UVWX1234567",
+            "row": 1,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL71-171",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "YZAB2345678",
+            "row": 1,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL72-172",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 1,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "CDEF3456789",
+            "row": 2,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL73-173",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "GHIJ4567890",
+            "row": 2,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL74-174",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "KLMN5678901",
+            "row": 2,
+            "column": 2,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL75-175",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "OPQR6789012",
+            "row": 2,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL76-176",
+            "size": "20ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 2,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "STUV7890123",
+            "row": 3,
+            "column": 1,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL77-177",
+            "size": "40ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "WXYZ8901234",
+            "row": 3,
+            "column": 1,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL78-178",
+            "size": "20ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 1,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "ABCD9012345",
+            "row": 3,
+            "column": 2,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL79-179",
+            "size": "40ft",
+            "grade": "A"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 2,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 2,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          },
+          {
+            "kode_kontainer": "EFGH0123456",
+            "row": 3,
+            "column": 3,
+            "tier": 1,
+            "status": "occupied",
+            "vessel_voy": "VESSEL80-180",
+            "size": "20ft",
+            "grade": "B"
+          },
+          {
+            "kode_kontainer": "IJKL1234567",
+            "row": 3,
+            "column": 3,
+            "tier": 2,
+            "status": "occupied",
+            "vessel_voy": "VESSEL81-181",
+            "size": "40ft",
+            "grade": "C"
+          },
+          {
+            "kode_kontainer": null,
+            "row": 3,
+            "column": 3,
+            "tier": 3,
+            "status": "empty",
+            "vessel_voy": null,
+            "size": null,
+            "grade": null
+          }
+        ]
+      }
+    ]
+  }
+]
