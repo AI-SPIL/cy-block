@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, HashRouter, RouterProvider } from "react-router";
 import "./index.css";
 import Depo4 from "./routes/authenticated/depo-4.tsx";
 import DepoJapfa from "./routes/authenticated/depo-japfa.tsx";
@@ -43,6 +43,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<HashRouter>
+			<RouterProvider router={router} />
+		</HashRouter>
 	</StrictMode>
 );
