@@ -1,5 +1,5 @@
-import ContainerYard3D from "../components/ContainerYard3D";
+import Demo from "../components/examples/Demo";
 
 export default function Example() {
-	return <ContainerYard3D />;
+	return <Demo />;
 }
