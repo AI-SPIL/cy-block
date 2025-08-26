@@ -1,7 +1,7 @@
 import { Html, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useState } from "react";
-import data from "../../public/data.json";
+import data from "../../data/data.json";
 import "./container-yard.css";
 
 const blockColors = {
