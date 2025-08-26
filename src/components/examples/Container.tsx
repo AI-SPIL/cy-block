@@ -29,17 +29,11 @@ export const ContainerGrade = {
 export type ContainerGrade = (typeof ContainerGrade)[keyof typeof ContainerGrade];
 
 export interface ContainerInfo {
-	/** Unique container code/identifier */
 	code: string;
-	/** Vessel and voyage information */
 	vesselVoyage?: string;
-	/** Container size (20ft or 40ft) */
 	size: ContainerSize;
-	/** Container grade/quality */
 	grade: ContainerGrade;
-	/** Container status */
 	status: ContainerStatus;
-	/** Additional metadata */
 	metadata?: {
 		weight?: number;
 		destination?: string;
@@ -50,39 +44,23 @@ export interface ContainerInfo {
 	};
 }
 
-/**
- * Container component props
- */
 export interface ContainerProps {
-	/** Container position in 3D space [x, y, z] */
 	position: [number, number, number];
-	/** Container information */
 	info: ContainerInfo;
-	/** Container color */
 	color?: string;
-	/** Container rotation in radians [x, y, z] */
 	rotation?: [number, number, number];
-	/** Whether the container is selected */
 	selected?: boolean;
-	/** Callback when container is clicked */
 	onClick?: (info: ContainerInfo) => void;
-	/** Callback when container is hovered */
 	onHover?: (info: ContainerInfo | null) => void;
-	/** Whether to show tooltip on hover */
 	showTooltip?: boolean;
-	/** Custom tooltip content renderer */
 	renderTooltip?: (info: ContainerInfo) => React.ReactNode;
 }
 
-/**
- * Enhanced tooltip component matching the reference image design
- * Fixed overlapping issues with proper positioning and cleaner layout
- */
 const ContainerTooltip: React.FC<{ info: ContainerInfo; color: string }> = ({ info, color }) => {
 	const getStatusColor = (status: ContainerStatus) => {
 		switch (status) {
 			case ContainerStatus.OCCUPIED:
-				return "#00ff88"; // Bright green like in reference
+				return "#00ff88";
 			case ContainerStatus.EMPTY:
 				return "#ffaa00";
 			case ContainerStatus.RESERVED:
@@ -206,14 +184,12 @@ export function Container({ position, info, color = "#64b5f6", rotation = [0, 0,
 	const [hovered, setHovered] = useState(false);
 	const meshRef = useRef<Mesh>(null);
 
-	// Get container dimensions based on size
 	const getDimensions = (size: ContainerSize): [number, number, number] => {
 		return size === ContainerSize.FORTY_FOOT ? [2, 1, 1] : [1, 1, 1];
 	};
 
 	const dimensions = getDimensions(info.size);
 
-	// Subtle animation for interactivity
 	useFrame(() => {
 		if (meshRef.current) {
 			const targetScale = hovered || selected ? 1.05 : 1;
@@ -235,7 +211,6 @@ export function Container({ position, info, color = "#64b5f6", rotation = [0, 0,
 		onClick?.(info);
 	};
 
-	// Skip rendering for empty containers
 	if (info.status === ContainerStatus.EMPTY) {
 		return null;
 	}
@@ -286,24 +261,16 @@ export function Container({ position, info, color = "#64b5f6", rotation = [0, 0,
 	);
 }
 
-/**
- * Empty Container Slot component - shows white border for empty positions
- */
 export interface EmptySlotProps {
-	/** Container position in 3D space [x, y, z] */
 	position: [number, number, number];
-	/** Container size for the empty slot */
 	size: ContainerSize;
-	/** Whether the slot is selected */
 	selected?: boolean;
-	/** Callback when slot is clicked */
 	onClick?: () => void;
 }
 
-export const EmptySlot: React.FC<EmptySlotProps> = ({ position, size, selected = false, onClick }) => {
+export function EmptySlot({ position, size, selected = false, onClick }: EmptySlotProps) {
 	const [hovered, setHovered] = useState(false);
 
-	// Get container dimensions based on size
 	const getDimensions = (size: ContainerSize): [number, number, number] => {
 		return size === ContainerSize.FORTY_FOOT ? [2, 1, 1] : [1, 1, 1];
 	};
@@ -345,17 +312,13 @@ export const EmptySlot: React.FC<EmptySlotProps> = ({ position, size, selected =
  * Ground Grid component - shows white border grid on the ground for empty positions
  */
 export interface GroundGridProps {
-	/** Grid position on ground [x, y, z] */
 	position: [number, number, number];
-	/** Size of the grid area */
 	size: ContainerSize;
-	/** Whether the grid is selected */
 	selected?: boolean;
-	/** Rotation angle in radians (optional, for tilted grids) */
 	rotation?: number;
 }
 
-export const GroundGrid: React.FC<GroundGridProps> = ({ position, size, selected = false, rotation = 0 }) => {
+export function GroundGrid({ position, size, selected = false, rotation = 0 }: GroundGridProps){
 	const [hovered, setHovered] = useState(false);
 
 	// Get grid dimensions based on container size
@@ -367,30 +330,30 @@ export const GroundGrid: React.FC<GroundGridProps> = ({ position, size, selected
 
 	return (
 		<group position={position} rotation={[0, rotation, 0]}>
-			{/* Ground grid outline - only outer border */}
+			{/* Ground grid outline - properly positioned to prevent overlapping */}
 			<group onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)}>
 				{/* Create border lines manually to avoid diagonal lines */}
 				{/* Top border */}
-				<mesh position={[0, 0.01, -depth / 2]} rotation={[-Math.PI / 2, 0, 0]}>
-					<planeGeometry args={[width, 0.05]} />
+				<mesh position={[0, 0.005, -depth / 2]} rotation={[-Math.PI / 2, 0, 0]}>
+					<planeGeometry args={[width, 0.03]} />
 					<meshBasicMaterial color="#ffffff" transparent opacity={hovered || selected ? 0.9 : 0.6} />
 				</mesh>
 
 				{/* Bottom border */}
-				<mesh position={[0, 0.01, depth / 2]} rotation={[-Math.PI / 2, 0, 0]}>
-					<planeGeometry args={[width, 0.05]} />
+				<mesh position={[0, 0.005, depth / 2]} rotation={[-Math.PI / 2, 0, 0]}>
+					<planeGeometry args={[width, 0.03]} />
 					<meshBasicMaterial color="#ffffff" transparent opacity={hovered || selected ? 0.9 : 0.6} />
 				</mesh>
 
 				{/* Left border */}
-				<mesh position={[-width / 2, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-					<planeGeometry args={[0.05, depth]} />
+				<mesh position={[-width / 2, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+					<planeGeometry args={[0.03, depth]} />
 					<meshBasicMaterial color="#ffffff" transparent opacity={hovered || selected ? 0.9 : 0.6} />
 				</mesh>
 
 				{/* Right border */}
-				<mesh position={[width / 2, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-					<planeGeometry args={[0.05, depth]} />
+				<mesh position={[width / 2, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+					<planeGeometry args={[0.03, depth]} />
 					<meshBasicMaterial color="#ffffff" transparent opacity={hovered || selected ? 0.9 : 0.6} />
 				</mesh>
 			</group>

@@ -167,15 +167,25 @@ const generateTerminalLayout = (): { containers: ContainerSlot[]; groundGrids: G
 					}
 				} else if (!isNearCenter) {
 					// Create ground grid marker for empty position (but not near center)
-					// Sometimes create tilted grids for more realistic appearance
-					const shouldTilt = Math.random() < 0.3; // 30% chance of tilted grid
-					const rotation = shouldTilt ? ((Math.random() - 0.5) * Math.PI) / 3 : 0; // Random tilt between -30° and +30°
+					// Reduce overlapping by using a grid-based approach instead of random rotations
+					const shouldTilt = Math.random() < 0.15; // Reduced chance of tilted grid to 15%
+					const rotation = shouldTilt ? (Math.random() < 0.5 ? Math.PI / 6 : -Math.PI / 6) : 0; // Fixed angles to prevent overlap
 
-					groundGrids.push({
-						position: [stackPos.x, 0.01, stackPos.z], // Just above ground level
-						size: stackPos.size,
-						rotation: rotation,
+					// Only add grid if there's enough spacing from existing grids
+					const minDistance = stackPos.size === ContainerSize.FORTY_FOOT ? 3 : 2;
+					const tooClose = groundGrids.some(existingGrid => {
+						const dx = Math.abs(existingGrid.position[0] - stackPos.x);
+						const dz = Math.abs(existingGrid.position[2] - stackPos.z);
+						return dx < minDistance && dz < minDistance;
 					});
+
+					if (!tooClose) {
+						groundGrids.push({
+							position: [stackPos.x, 0.005, stackPos.z], // Lower height to prevent z-fighting
+							size: stackPos.size,
+							rotation: rotation,
+						});
+					}
 				}
 			});
 		}
@@ -237,11 +247,21 @@ const generateAdditionalYardAreas = (startCounter: number): { containers: Contai
 				},
 			});
 		} else {
-			groundGrids.push({
-				position: [pos.x, 0.01, pos.z],
-				size,
-				rotation: pos.rotation,
+			// Improved grid placement for empty positions in curved section
+			const minDistance = size === ContainerSize.FORTY_FOOT ? 3 : 2;
+			const tooClose = groundGrids.some(existingGrid => {
+				const dx = Math.abs(existingGrid.position[0] - pos.x);
+				const dz = Math.abs(existingGrid.position[2] - pos.z);
+				return dx < minDistance && dz < minDistance;
 			});
+
+			if (!tooClose) {
+				groundGrids.push({
+					position: [pos.x, 0.005, pos.z], // Lower height to prevent overlap
+					size,
+					rotation: pos.rotation,
+				});
+			}
 		}
 	});
 
@@ -312,12 +332,21 @@ const generateAdditionalYardAreas = (startCounter: number): { containers: Contai
 						}
 					}
 				} else {
-					// Add empty grid
-					groundGrids.push({
-						position: [worldX, 0.01, worldZ],
-						size,
-						rotation: block.rotation,
+					// Add empty grid with overlap prevention
+					const minDistance = size === ContainerSize.FORTY_FOOT ? 3 : 2;
+					const tooClose = groundGrids.some(existingGrid => {
+						const dx = Math.abs(existingGrid.position[0] - worldX);
+						const dz = Math.abs(existingGrid.position[2] - worldZ);
+						return dx < minDistance && dz < minDistance;
 					});
+
+					if (!tooClose) {
+						groundGrids.push({
+							position: [worldX, 0.005, worldZ], // Lower height to prevent overlap
+							size,
+							rotation: block.rotation,
+						});
+					}
 				}
 			}
 		}
@@ -361,11 +390,21 @@ const generateAdditionalYardAreas = (startCounter: number): { containers: Contai
 				},
 			});
 		} else {
-			groundGrids.push({
-				position: [pos.x, 0.01, pos.z],
-				size,
-				rotation: pos.rotation,
+			// Add scattered area grid with overlap prevention
+			const minDistance = size === ContainerSize.FORTY_FOOT ? 3 : 2;
+			const tooClose = groundGrids.some(existingGrid => {
+				const dx = Math.abs(existingGrid.position[0] - pos.x);
+				const dz = Math.abs(existingGrid.position[2] - pos.z);
+				return dx < minDistance && dz < minDistance;
 			});
+
+			if (!tooClose) {
+				groundGrids.push({
+					position: [pos.x, 0.005, pos.z], // Lower height to prevent overlap
+					size,
+					rotation: pos.rotation,
+				});
+			}
 		}
 	});
 
@@ -520,33 +559,6 @@ export const TerminalLayout: React.FC = () => {
 					</button>
 				</div>
 			)}
-
-			{/* Instructions */}
-			<div
-				style={{
-					position: "absolute",
-					top: "20px",
-					right: "20px",
-					backgroundColor: "rgba(0, 0, 0, 0.8)",
-					color: "white",
-					padding: "16px",
-					borderRadius: "8px",
-					fontSize: "12px",
-					fontFamily: "system-ui, -apple-system, sans-serif",
-					backdropFilter: "blur(10px)",
-					zIndex: 1000,
-					maxWidth: "200px",
-				}}
-			>
-				<div style={{ marginBottom: "8px", fontWeight: "bold" }}>Realistic Container Yard</div>
-				<div>• Main 3x3 core blocks</div>
-				<div>• Curved/angled sections</div>
-				<div>• Organized stacking areas</div>
-				<div>• Tilted containers & grids</div>
-				<div>• 20ft & 40ft mixed sizes</div>
-				<div>• White borders: Empty slots</div>
-				<div>• Click containers for details</div>
-			</div>
 
 			{/* Legend */}
 			<div
