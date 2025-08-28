@@ -54,6 +54,22 @@
 						"container_code": "Awesome Rubber Salad",
 						"row": 18,
 						"column": 1,
+						"tier": 1,
+						"size": "40",
+						"grade": null
+					},
+					{
+						"container_code": "Awesome Rubber Salad",
+						"row": 18,
+						"column": 1,
+						"tier": 2,
+						"size": "40",
+						"grade": null
+					},
+					{
+						"container_code": "Awesome Rubber Salad",
+						"row": 18,
+						"column": 1,
 						"tier": 3,
 						"size": "40",
 						"grade": null
@@ -83,7 +99,15 @@
 						"container_code": "Incredible Plastic Ball",
 						"row": 2,
 						"column": 1,
-						"tier": 4,
+						"tier": 1,
+						"size": "40",
+						"grade": null
+					},
+					{
+						"container_code": "Incredible Plastic Ball",
+						"row": 2,
+						"column": 1,
+						"tier": 2,
 						"size": "40",
 						"grade": null
 					}

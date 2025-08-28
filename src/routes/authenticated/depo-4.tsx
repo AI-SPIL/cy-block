@@ -110,33 +110,30 @@ export default function Depo4() {
 
 					const containerHeight = containerDimensions[1]; // Y dimension is height
 
-					// Create containers for each tier (stacked vertically)
-					for (let tier = 1; tier <= slot.tier; tier++) {
-						// Position containers starting from the mesh surface
-						const yPosition =
-							meshData.position[1] +
-							meshData.size[1] / 2 +
-							(tier - 1) * containerHeight +
-							containerHeight / 2;
+					// Create a single container for this slot at the specified tier
+					const yPosition =
+						meshData.position[1] +
+						meshData.size[1] / 2 +
+						(slot.tier - 1) * containerHeight +
+						containerHeight / 2;
 
-						const container: PositionedContainer = {
-							position: [meshData.position[0], yPosition, meshData.position[2]],
-							meshSize: meshData.size,
-							rotation: meshData.rotation,
-							color: colors[containerIndex % colors.length],
-							name: `${meshName}_T${tier}`,
-							containerCode: slot.container_code,
-							size: slot.size,
-							grade: slot.grade,
-							row: slot.row,
-							column: slot.column,
-							tier: tier,
-							blockName: block.block_name,
-						};
+					const container: PositionedContainer = {
+						position: [meshData.position[0], yPosition, meshData.position[2]],
+						meshSize: meshData.size,
+						rotation: meshData.rotation,
+						color: colors[containerIndex % colors.length],
+						name: `${meshName}_T${slot.tier}`,
+						containerCode: slot.container_code,
+						size: slot.size,
+						grade: slot.grade,
+						row: slot.row,
+						column: slot.column,
+						tier: slot.tier,
+						blockName: block.block_name,
+					};
 
-						newContainers.push(container);
-						containerIndex++;
-					}
+					newContainers.push(container);
+					containerIndex++;
 				} else {
 					console.warn(`Mesh not found for ${meshName}`);
 				}
