@@ -39,11 +39,7 @@ export function Container({
 		const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 		const cardinalAngles = [0, 90, 180, 270];
 
-		return !cardinalAngles.some(
-			(cardinal) =>
-				Math.abs(degrees - cardinal) <= tolerance ||
-				Math.abs(degrees - (cardinal + 360)) <= tolerance
-		);
+		return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
 	};
 
 	const rotationToApply = [
@@ -84,7 +80,8 @@ export function Container({
 		: // For aligned containers, use exact mesh dimensions
 		  ([
 				container.meshSize[0],
-				container.meshSize[1],
+				3,
+				// container.meshSize[1],
 				container.meshSize[2],
 		  ] as const);
 
@@ -104,44 +101,22 @@ export function Container({
 		<group position={container.position}>
 			{/* Apply rotation only if not near cardinal directions */}
 			<group rotation={rotationToApply}>
-				<mesh
-					onClick={handleClick}
-					onPointerEnter={handlePointerEnter}
-					onPointerLeave={handlePointerLeave}
-					castShadow
-					receiveShadow
-				>
-					{/* Use adaptive dimensions based on rotation */}
-					<boxGeometry args={containerDimensions} />
-					<meshStandardMaterial
-						color={hovered || selected ? "#ffffff" : container.color}
-						transparent
-						opacity={hovered ? 0.95 : selected ? 0.8 : 1.0}
-						metalness={0.2}
-						roughness={0.4}
-						emissive={hovered ? container.color : "#000000"}
-						emissiveIntensity={hovered ? 0.1 : 0}
-					/>
-				</mesh>
-
-				{(hovered || selected) && (
-					<mesh position={[0, 0, 0]}>
-						{/* Wireframe uses adaptive dimensions */}
-						<boxGeometry
-							args={[
-								containerDimensions[0] + 0.1,
-								containerDimensions[1] + 0.1,
-								containerDimensions[2] + 0.1,
-							]}
-						/>
-						<meshBasicMaterial
-							color={container.color}
-							wireframe
+				{/* Position the container so its bottom sits on the surface */}
+				<group position={[0, containerDimensions[1] / 2, 0]}>
+					<mesh onClick={handleClick} onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave} castShadow receiveShadow>
+						{/* Use adaptive dimensions based on rotation */}
+						<boxGeometry args={containerDimensions} />
+						<meshStandardMaterial
+							color={hovered || selected ? "#ffffff" : container.color}
 							transparent
-							opacity={0.8}
+							opacity={hovered ? 0.95 : selected ? 0.8 : 1.0}
+							metalness={0.2}
+							roughness={0.4}
+							emissive={hovered ? container.color : "#000000"}
+							emissiveIntensity={hovered ? 0.1 : 0}
 						/>
 					</mesh>
-				)}
+				</group>
 			</group>{" "}
 			{/* Smart rotation group */}
 		</group>

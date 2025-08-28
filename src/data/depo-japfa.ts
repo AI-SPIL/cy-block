@@ -1,0 +1,147 @@
+import type { ExampleResponse } from "./types";
+
+export const depoJapfaData = {
+	depo_name: "depo-4",
+	blocks: [
+		{
+			block_name: "A",
+			slots: [
+				{
+					container_code: "Rustic Wooden Shoes",
+					row: 1,
+					column: 1,
+					tier: 1,
+					size: "20",
+					grade: null,
+				},
+				{
+					container_code: "Fantastic Plastic Chips",
+					row: 3,
+					column: 1,
+					tier: 4,
+					size: "20",
+					grade: "B",
+				},
+				{
+					container_code: "Tasty Rubber Soap",
+					row: 4,
+					column: 1,
+					tier: 1,
+					size: "40",
+					grade: null,
+				},
+			],
+		},
+		{
+			block_name: "B",
+			slots: [
+				{
+					container_code: "Handcrafted Cotton Tuna",
+					row: 5,
+					column: 1,
+					tier: 1,
+					size: "20",
+					grade: "C",
+				},
+				{
+					container_code: "Awesome Rubber Salad",
+					row: 3,
+					column: 3,
+					tier: 1,
+					size: "40",
+					grade: null,
+				},
+				{
+					container_code: "Awesome Rubber Salad",
+					row: 2,
+					column: 2,
+					tier: 2,
+					size: "40",
+					grade: null,
+				},
+				{
+					container_code: "Awesome Rubber Salad",
+					row: 18,
+					column: 1,
+					tier: 3,
+					size: "40",
+					grade: null,
+				},
+				{
+					container_code: "Sleek Wooden Pants",
+					row: 23,
+					column: 1,
+					tier: 2,
+					size: "40",
+					grade: null,
+				},
+			],
+		},
+		{
+			block_name: "C",
+			slots: [
+				{
+					container_code: "Practical Granite Fish",
+					row: 1,
+					column: 1,
+					tier: 1,
+					size: "20",
+					grade: "A",
+				},
+				{
+					container_code: "Incredible Plastic Ball",
+					row: 2,
+					column: 1,
+					tier: 1,
+					size: "40",
+					grade: null,
+				},
+				{
+					container_code: "Incredible Plastic Ball",
+					row: 2,
+					column: 1,
+					tier: 2,
+					size: "40",
+					grade: null,
+				},
+			],
+		},
+		{
+			block_name: "FM",
+			slots: [
+				{
+					container_code: "Awesome Frozen Chair",
+					row: 3,
+					column: 2,
+					tier: 2,
+					size: "20",
+					grade: null,
+				},
+				{
+					container_code: "Sleek Metal Keyboard",
+					row: 1,
+					column: 17,
+					tier: 1,
+					size: "20",
+					grade: "B",
+				},
+				{
+					container_code: "Rustic Cotton Mouse",
+					row: 15,
+					column: 2,
+					tier: 3,
+					size: "40",
+					grade: null,
+				},
+				{
+					container_code: "Intelligent Wooden Soap",
+					row: 18,
+					column: 1,
+					tier: 4,
+					size: "20",
+					grade: "C",
+				},
+			],
+		},
+	],
+} satisfies ExampleResponse;
