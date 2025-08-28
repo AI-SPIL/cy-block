@@ -6,6 +6,13 @@ export interface PositionedContainer {
 	rotation: [number, number, number];
 	color: string;
 	name: string;
+	containerCode?: string;
+	size?: string;
+	grade?: string | null;
+	row?: number;
+	column?: number;
+	tier?: number;
+	blockName?: string;
 }
 
 export function Container({

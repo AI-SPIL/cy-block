@@ -6,6 +6,7 @@ import {
 	type PositionedContainer,
 } from "../../components/container";
 import { Floor } from "../../components/floor";
+import depo4Data from "../../data/depo4-data.json";
 
 export default function Depo4() {
 	const [selectedContainer, setSelectedContainer] = useState<string | null>(
@@ -71,22 +72,80 @@ export default function Depo4() {
 			"#44ee88",
 		];
 
-		const newContainers: PositionedContainer[] = Object.entries(positions).map(
-			([meshName, data], index) => {
-				return {
-					position: [
-						data.position[0],
-						data.position[1] + 1.5,
-						data.position[2],
-					], // Lift containers 1.5m above ground
-					meshSize: data.size,
-					rotation: data.rotation,
-					color: colors[index % colors.length],
-					name: meshName,
-				};
-			}
-		);
+		// Get container data from the mock API
+		const depoData = depo4Data[0]; // First depo is depo-4
+		const newContainers: PositionedContainer[] = [];
+		let containerIndex = 0;
 
+		// Process each block from the data
+		depoData.blocks.forEach((block) => {
+			block.slots.forEach((slot) => {
+				// Create mesh name in format: BLOCK_COLUMN_ROW
+				const meshName = `${block.block_name}_${slot.column}_${slot.row}`;
+
+				// Find corresponding mesh position
+				const meshData = positions[meshName];
+				if (meshData) {
+					// Determine container dimensions (similar logic to Container component)
+					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+						const cardinalAngles = [0, 90, 180, 270];
+						return !cardinalAngles.some(
+							(cardinal) =>
+								Math.abs(degrees - cardinal) <= tolerance ||
+								Math.abs(degrees - (cardinal + 360)) <= tolerance
+						);
+					};
+
+					const isRotated = [
+						meshData.rotation[0],
+						meshData.rotation[1],
+						meshData.rotation[2],
+					].some((r) => shouldApplyRotation(r));
+
+					// Get container dimensions based on rotation
+					const containerDimensions = isRotated
+						? [2.1, 2.0, 4.9] // Default vertical container size
+						: [meshData.size[0], meshData.size[1], meshData.size[2]]; // Use mesh dimensions
+
+					const containerHeight = containerDimensions[1]; // Y dimension is height
+
+					// Create containers for each tier (stacked vertically)
+					for (let tier = 1; tier <= slot.tier; tier++) {
+						// Position containers starting from the mesh surface
+						const yPosition =
+							meshData.position[1] +
+							meshData.size[1] / 2 +
+							(tier - 1) * containerHeight +
+							containerHeight / 2;
+
+						const container: PositionedContainer = {
+							position: [meshData.position[0], yPosition, meshData.position[2]],
+							meshSize: meshData.size,
+							rotation: meshData.rotation,
+							color: colors[containerIndex % colors.length],
+							name: `${meshName}_T${tier}`,
+							containerCode: slot.container_code,
+							size: slot.size,
+							grade: slot.grade,
+							row: slot.row,
+							column: slot.column,
+							tier: tier,
+							blockName: block.block_name,
+						};
+
+						newContainers.push(container);
+						containerIndex++;
+					}
+				} else {
+					console.warn(`Mesh not found for ${meshName}`);
+				}
+			});
+		});
+
+		console.log(
+			`Created ${newContainers.length} containers from ${depoData.blocks.length} blocks`
+		);
 		setContainers(newContainers);
 	};
 
@@ -142,7 +201,10 @@ export default function Depo4() {
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Floor path="/cy-block/depo-4.glb" onMeshPositionsReady={handleMeshPositionsReady} />
+				<Floor
+					path="/cy-block/depo-4_(standard-naming).glb"
+					onMeshPositionsReady={handleMeshPositionsReady}
+				/>
 
 				{/* Render custom containers at mesh centers */}
 				{containers.map((containerData, index) => (
@@ -201,48 +263,63 @@ export default function Depo4() {
 					>
 						Container Information - Depo 4
 					</h3>
-					<div>
-						<strong>Position:</strong> {selectedContainer}
-					</div>
-					<div>
-						<strong>Size:</strong> 10ft Container
-					</div>
-					<div>
-						<strong>Height:</strong> 10ft (3m)
-					</div>
-					<div>
-						<strong>Type:</strong> Depo 4 Container
-					</div>
 					{(() => {
 						const container = containers.find(
 							(c) => c.name === selectedContainer
 						);
 						return container ? (
-							<div
-								style={{
-									marginTop: "16px",
-									paddingTop: "16px",
-									borderTop: "1px solid #333",
-								}}
-							>
+							<div>
 								<div>
-									<strong>Mesh Size:</strong> {container.meshSize[0].toFixed(1)}{" "}
-									x {container.meshSize[1].toFixed(1)} x{" "}
-									{container.meshSize[2].toFixed(1)}
+									<strong>Container Code:</strong>{" "}
+									{container.containerCode || "N/A"}
 								</div>
 								<div>
-									<strong>Position:</strong> ({container.position[0].toFixed(1)}
-									, {container.position[1].toFixed(1)},{" "}
-									{container.position[2].toFixed(1)})
+									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Color:</strong> {container.color}
+									<strong>Position:</strong> Row {container.row}, Column{" "}
+									{container.column}
 								</div>
 								<div>
-									<strong>Rotation (degrees):</strong> X:
-									{((container.rotation[0] * 180) / Math.PI).toFixed(1)}°, Y:
-									{((container.rotation[1] * 180) / Math.PI).toFixed(1)}°, Z:
-									{((container.rotation[2] * 180) / Math.PI).toFixed(1)}°
+									<strong>Tier:</strong> {container.tier || "N/A"}
+								</div>
+								<div>
+									<strong>Size:</strong> {container.size || "N/A"}ft Container
+								</div>
+								<div>
+									<strong>Grade:</strong> {container.grade || "No Grade"}
+								</div>
+								<div
+									style={{
+										marginTop: "16px",
+										paddingTop: "16px",
+										borderTop: "1px solid #333",
+									}}
+								>
+									<div>
+										<strong>Mesh Name:</strong> {selectedContainer}
+									</div>
+									<div>
+										<strong>3D Position:</strong> (
+										{container.position[0].toFixed(1)},{" "}
+										{container.position[1].toFixed(1)},{" "}
+										{container.position[2].toFixed(1)})
+									</div>
+									<div>
+										<strong>Mesh Size:</strong>{" "}
+										{container.meshSize[0].toFixed(1)} x{" "}
+										{container.meshSize[1].toFixed(1)} x{" "}
+										{container.meshSize[2].toFixed(1)}
+									</div>
+									<div>
+										<strong>Color:</strong> {container.color}
+									</div>
+									<div>
+										<strong>Rotation (degrees):</strong> X:
+										{((container.rotation[0] * 180) / Math.PI).toFixed(1)}°, Y:
+										{((container.rotation[1] * 180) / Math.PI).toFixed(1)}°, Z:
+										{((container.rotation[2] * 180) / Math.PI).toFixed(1)}°
+									</div>
 								</div>
 							</div>
 						) : null;
@@ -287,7 +364,7 @@ export default function Depo4() {
 				}}
 			>
 				<div style={{ marginBottom: "8px", fontWeight: "bold" }}>
-					Depo 4 Container Positions
+					Depo 4 Containers ({containers.length} total)
 				</div>
 				{containers.map((container) => (
 					<div
@@ -296,7 +373,9 @@ export default function Depo4() {
 							display: "flex",
 							alignItems: "center",
 							marginBottom: "4px",
+							cursor: "pointer",
 						}}
+						onClick={() => handleContainerClick(container.name)}
 					>
 						<div
 							style={{
@@ -304,9 +383,16 @@ export default function Depo4() {
 								height: "12px",
 								backgroundColor: container.color,
 								marginRight: "8px",
+								flexShrink: 0,
 							}}
 						></div>
-						{container.name}
+						<span style={{ fontSize: "10px" }}>
+							{container.blockName}-{container.row}-{container.column} T
+							{container.tier}
+							{container.containerCode
+								? ` (${container.containerCode.substring(0, 15)}...)`
+								: ""}
+						</span>
 					</div>
 				))}
 			</div>
