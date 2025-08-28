@@ -6,8 +6,9 @@ import { depo4Data } from "../data/depo-4";
 import type { ExampleResponse } from "../data/types";
 import { Floor } from "./floor";
 import { depoJapfaData } from "../data/depo-japfa";
+import { mappingBayurData } from "../data/mapping-bayur";
 
-type DepoType = "JAPFA" | "4";
+type DepoType = "JAPFA" | "4" | "BAYUR";
 
 interface DisplayYardProps {
 	name: DepoType;
@@ -21,6 +22,10 @@ const PATH_MAPPING = {
 	"4": {
 		model: "/cy-block/depo-4.glb",
 		data: depo4Data,
+	},
+	BAYUR: {
+		model: "/cy-block/mapping-bayur.glb",
+		data: mappingBayurData,
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
