@@ -17,10 +17,18 @@ export interface PositionedContainer {
 
 export function Container({
 	container,
+	defaultSize20Vertical = [2.1, 2.0, 4.9],
+	defaultSize20Horizontal = [4.9, 2.0, 2.1],
+	defaultSize40Horizontal = [10.8, 2.0, 2.2],
+	defaultSize40Vertical = [2.2, 2.0, 10.8],
 	selected,
 	onSelect,
 }: {
 	container: PositionedContainer;
+	defaultSize20Vertical?: [number, number, number];
+	defaultSize20Horizontal?: [number, number, number];
+	defaultSize40Horizontal?: [number, number, number];
+	defaultSize40Vertical?: [number, number, number];
 	selected: boolean;
 	onSelect: (name: string) => void;
 }) {
@@ -47,35 +55,38 @@ export function Container({
 	// Determine if any rotation is actually being applied
 	const isRotated = rotationToApply.some((r) => Math.abs(r) > 0.01);
 
+	// Get default dimensions based on container size and rotation
+	const getDefaultDimensions = (): [number, number, number] => {
+		if (container.size === "20") {
+			// For 20ft containers, determine orientation based on mesh dimensions
+			// If mesh is wider than it is deep, use horizontal orientation
+			const meshWidth = container.meshSize[0];
+			const meshDepth = container.meshSize[2];
+			const isHorizontalMesh = meshWidth > meshDepth;
+
+			return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+		} else if (container.size === "40") {
+			// For 40ft containers, determine orientation based on mesh dimensions
+			// If mesh is deeper than it is wide, use vertical orientation
+			const meshWidth = container.meshSize[0];
+			const meshDepth = container.meshSize[2];
+			const isVerticalMesh = meshDepth > meshWidth;
+
+			return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+		}
+		// Fallback to 20ft vertical if size is not specified
+		return defaultSize20Vertical;
+	};
+
 	// Adjust container dimensions based on rotation
 	const containerDimensions = isRotated
-		? // Default vertical container size: 2.1 x 2.0 x 4.9
-		  ([2.1, 2.0, 4.9] as const)
+		? getDefaultDimensions()
 		: // For aligned containers, use exact mesh dimensions
 		  ([
 				container.meshSize[0],
 				container.meshSize[1],
 				container.meshSize[2],
 		  ] as const);
-
-	// Debug logging for specific containers
-	if (container.name === "D024" || container.name.includes("A")) {
-		const originalDegrees = container.rotation.map((r) =>
-			((r * 180) / Math.PI).toFixed(1)
-		);
-		const finalDegrees = rotationToApply.map((r) =>
-			((r * 180) / Math.PI).toFixed(1)
-		);
-		console.log(`${container.name} rotation:`, {
-			original: originalDegrees,
-			applied: finalDegrees,
-			isRotated: isRotated,
-			dimensions: containerDimensions,
-			shouldRotateX: shouldApplyRotation(container.rotation[0]),
-			shouldRotateY: shouldApplyRotation(container.rotation[1]),
-			shouldRotateZ: shouldApplyRotation(container.rotation[2]),
-		});
-	}
 
 	const handlePointerEnter = () => {
 		setHovered(true);

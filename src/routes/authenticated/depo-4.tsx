@@ -14,6 +14,34 @@ export default function Depo4() {
 	);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 
+	// Default dimensions for this depo
+	const defaultSize20Vertical: [number, number, number] = [2.1, 2.0, 4.9];
+	const defaultSize20Horizontal: [number, number, number] = [4.9, 2.0, 2.1];
+	const defaultSize40Horizontal: [number, number, number] = [10.8, 2.0, 2.2];
+	const defaultSize40Vertical: [number, number, number] = [2.2, 2.0, 10.8];
+
+	// Helper function to get container dimensions (same logic as in Container component)
+	const getContainerDimensions = (
+		containerSize: string,
+		meshSize: [number, number, number],
+		isRotated: boolean
+	): [number, number, number] => {
+		if (isRotated) {
+			if (containerSize === "20") {
+				// For 20ft containers, use vertical orientation as default
+				return defaultSize20Vertical;
+			} else if (containerSize === "40") {
+				// For 40ft containers, use horizontal orientation as default
+				return defaultSize40Horizontal;
+			}
+			// Fallback to 20ft vertical if size is not specified
+			return defaultSize20Vertical;
+		} else {
+			// For aligned containers, use exact mesh dimensions
+			return meshSize;
+		}
+	};
+
 	const handleMeshPositionsReady = (positions: {
 		[key: string]: {
 			position: [number, number, number];
@@ -72,21 +100,18 @@ export default function Depo4() {
 			"#44ee88",
 		];
 
-		// Get container data from the mock API
-		const depoData = depo4Data[0]; // First depo is depo-4
+		const depoData = depo4Data[0];
 		const newContainers: PositionedContainer[] = [];
 		let containerIndex = 0;
 
-		// Process each block from the data
 		depoData.blocks.forEach((block) => {
 			block.slots.forEach((slot) => {
-				// Create mesh name in format: BLOCK_COLUMN_ROW
 				const meshName = `${block.block_name}_${slot.column}_${slot.row}`;
 
 				// Find corresponding mesh position
 				const meshData = positions[meshName];
 				if (meshData) {
-					// Determine container dimensions (similar logic to Container component)
+					// Determine container dimensions
 					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 						const cardinalAngles = [0, 90, 180, 270];
@@ -103,14 +128,15 @@ export default function Depo4() {
 						meshData.rotation[2],
 					].some((r) => shouldApplyRotation(r));
 
-					// Get container dimensions based on rotation
-					const containerDimensions = isRotated
-						? [2.1, 2.0, 4.9] // Default vertical container size
-						: [meshData.size[0], meshData.size[1], meshData.size[2]]; // Use mesh dimensions
+					// Get container dimensions based on rotation and size
+					const containerDimensions = getContainerDimensions(
+						slot.size,
+						meshData.size,
+						isRotated
+					);
 
-					const containerHeight = containerDimensions[1]; // Y dimension is height
+					const containerHeight = containerDimensions[1]; // Y size
 
-					// Create a single container for this slot at the specified tier
 					const yPosition =
 						meshData.position[1] +
 						meshData.size[1] / 2 +
@@ -135,14 +161,11 @@ export default function Depo4() {
 					newContainers.push(container);
 					containerIndex++;
 				} else {
-					console.warn(`Mesh not found for ${meshName}`);
+					console.error(`Mesh not found for ${meshName}`);
 				}
 			});
 		});
 
-		console.log(
-			`Created ${newContainers.length} containers from ${depoData.blocks.length} blocks`
-		);
 		setContainers(newContainers);
 	};
 
@@ -208,6 +231,10 @@ export default function Depo4() {
 					<Container
 						key={`container-${index}`}
 						container={containerData}
+						defaultSize20Vertical={defaultSize20Vertical}
+						defaultSize20Horizontal={defaultSize20Horizontal}
+						defaultSize40Horizontal={defaultSize40Horizontal}
+						defaultSize40Vertical={defaultSize40Vertical}
 						selected={selectedContainer === containerData.name}
 						onSelect={handleContainerClick}
 					/>

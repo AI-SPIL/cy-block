@@ -6,7 +6,7 @@ export function Floor({
 	path,
 	onMeshPositionsReady,
 }: {
-	path: string,
+	path: string;
 	onMeshPositionsReady: (positions: {
 		[key: string]: {
 			position: [number, number, number];
