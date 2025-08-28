@@ -2,9 +2,11 @@ import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { Box3, Vector3, type Mesh } from "three";
 
-export function Depo4GLBModel({
+export function Floor({
+	path,
 	onMeshPositionsReady,
 }: {
+	path: string,
 	onMeshPositionsReady: (positions: {
 		[key: string]: {
 			position: [number, number, number];
@@ -13,14 +15,12 @@ export function Depo4GLBModel({
 		};
 	}) => void;
 }) {
-	const { nodes } = useGLTF("/cy-block/3D Platform Depo 4.glb");
+	const { nodes } = useGLTF(path);
 	const meshRefs = useRef<{ [key: string]: Mesh }>({});
 
 	useEffect(() => {
-		// Get mesh names from the GLB nodes
 		const actualMeshNames = Object.keys(nodes).filter((name) => {
 			const node = nodes[name];
-			// Exclude the base layer mesh
 			return node && node.type === "Mesh" && name !== "#BASE_LAYER";
 		});
 

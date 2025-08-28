@@ -4,8 +4,8 @@ import { useState } from "react";
 import {
 	Container,
 	type PositionedContainer,
-} from "../../components/main/container";
-import { Depo4GLBModel } from "../../components/main/depo4-model";
+} from "../../components/container";
+import { Floor } from "../../components/floor";
 
 export default function Depo4() {
 	const [selectedContainer, setSelectedContainer] = useState<string | null>(
@@ -142,7 +142,7 @@ export default function Depo4() {
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Depo4GLBModel onMeshPositionsReady={handleMeshPositionsReady} />
+				<Floor path="/cy-block/depo-4.glb" onMeshPositionsReady={handleMeshPositionsReady} />
 
 				{/* Render custom containers at mesh centers */}
 				{containers.map((containerData, index) => (
@@ -314,4 +314,4 @@ export default function Depo4() {
 	);
 }
 
-useGLTF.preload("/cy-block/3D Platform Depo 4.glb");
+useGLTF.preload("/cy-block/depo-4.glb");
