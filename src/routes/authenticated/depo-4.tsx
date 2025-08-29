@@ -1,7 +1,5 @@
+import DisplayYard from "../../components/display-yard";
+
 export default function Depo4() {
-	return (
-		<div className="grid place-items-center min-h-svh">
-			<p className="text-2xl font-semibold">Depo 4</p>
-		</div>
-	);
+	return <DisplayYard name="4" containerSize={{ size20: [4.9, 2.0, 2.1], size40: [10.8, 2.0, 2.2] }} />;
 }
