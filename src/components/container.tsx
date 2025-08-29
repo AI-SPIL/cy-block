@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getAdjustedRotation, shouldApplyRotation } from "../helpers/depo-rotation-helpers";
 
 export interface PositionedContainer {
 	position: [number, number, number];
@@ -13,6 +14,8 @@ export interface PositionedContainer {
 	column?: number;
 	tier?: number;
 	blockName?: string;
+	blockOrientation?: "horizontal" | "vertical";
+	isBlockRotated?: boolean;
 }
 
 export function Container({
@@ -23,6 +26,7 @@ export function Container({
 	defaultSize40Vertical,
 	selected,
 	onSelect,
+	depoName,
 }: {
 	container: PositionedContainer;
 	defaultSize20Vertical: [number, number, number];
@@ -31,16 +35,9 @@ export function Container({
 	defaultSize40Vertical: [number, number, number];
 	selected: boolean;
 	onSelect: (name: string) => void;
+	depoName?: string;
 }) {
 	const [hovered, setHovered] = useState(false);
-
-	// Only rotate if not near cardinal directions (0°, 90°, 180°, 270°)
-	const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
-		const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
-		const cardinalAngles = [0, 90, 180, 270];
-
-		return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
-	};
 
 	const rotationToApply = [
 		shouldApplyRotation(container.rotation[0]) ? container.rotation[0] : 0,
@@ -48,31 +45,58 @@ export function Container({
 		shouldApplyRotation(container.rotation[2]) ? container.rotation[2] : 0,
 	] as const;
 
+	// Apply depo-specific rotation adjustments using the helper function
+	const finalRotation = getAdjustedRotation({
+		depoName,
+		blockOrientation: container.blockOrientation,
+		isBlockRotated: container.isBlockRotated,
+		baseRotation: rotationToApply,
+	});
+
+	// Determine if any rotation is actually being applied
+	const isRotated = finalRotation.some((r) => Math.abs(r) > 0.01);
+
 	// Get default dimensions based on container size and rotation
 	const getDefaultDimensions = (): [number, number, number] => {
 		if (container.size === "20") {
-			// For 20ft containers, determine orientation based on mesh dimensions
-			// If mesh is wider than it is deep, use horizontal orientation
+			// For 20ft containers, determine orientation based on mesh dimensions AND rotation
 			const meshWidth = container.meshSize[0];
 			const meshDepth = container.meshSize[2];
 			const isHorizontalMesh = meshWidth > meshDepth;
 
-			return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+			// If the block is rotated, we need to consider the rotation when choosing orientation
+			if (isRotated) {
+				// For rotated blocks, match the mesh orientation
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+			} else {
+				// For non-rotated blocks, use mesh dimensions to determine orientation
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+			}
 		} else if (container.size === "40") {
 			// For 40ft containers, determine orientation based on mesh dimensions
-			// If mesh is deeper than it is wide, use vertical orientation
 			const meshWidth = container.meshSize[0];
 			const meshDepth = container.meshSize[2];
 			const isVerticalMesh = meshDepth > meshWidth;
 
-			return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+			if (isRotated) {
+				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+			} else {
+				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+			}
 		}
 		// Fallback to 20ft vertical if size is not specified
 		return defaultSize20Vertical;
 	};
 
 	// Adjust container dimensions based on rotation
-	const containerDimensions = getDefaultDimensions();
+	const containerDimensions = isRotated
+		? getDefaultDimensions()
+		: // For aligned containers, use exact mesh dimensions
+		  ([
+				container.meshSize[0],
+				getDefaultDimensions()[1],
+				container.meshSize[2],
+		  ] as const);
 
 	const handlePointerEnter = () => {
 		setHovered(true);
@@ -88,8 +112,8 @@ export function Container({
 
 	return (
 		<group position={container.position}>
-			{/* Apply rotation only if not near cardinal directions */}
-			<group rotation={rotationToApply}>
+			{/* Apply rotation including special depo-japfa adjustment */}
+			<group rotation={finalRotation}>
 				{/* Position the container so its bottom sits on the surface */}
 				<group position={[0, containerDimensions[1] / 2, 0]}>
 					<mesh onClick={handleClick} onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave} castShadow receiveShadow>

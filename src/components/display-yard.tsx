@@ -1,12 +1,12 @@
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-import { Container, type PositionedContainer } from "./container";
 import { depo4Data } from "../data/depo-4";
-import type { ExampleResponse } from "../data/types";
-import { Floor } from "./floor";
 import { depoJapfaData } from "../data/depo-japfa";
 import { mappingBayurData } from "../data/mapping-bayur";
+import type { ExampleResponse } from "../data/types";
+import { Container, type PositionedContainer } from "./container";
+import { Floor } from "./floor";
 
 type DepoType = "JAPFA" | "4" | "BAYUR";
 
@@ -48,16 +48,43 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
 	const defaultSize40Horizontal = size40Container;
 
-	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number]): [number, number, number] => {
+	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], rotation: [number, number, number]): [number, number, number] => {
+		// Check if the block is rotated (not at cardinal directions)
+		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+			const cardinalAngles = [0, 90, 180, 270];
+			return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+		};
+
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) => shouldApplyRotation(r));
+
 		if (containerSize === "20") {
-			// For 20ft containers, use vertical orientation as default
-			return defaultSize20Vertical;
+			// For 20ft containers, determine orientation based on mesh dimensions
+			const meshWidth = meshSize[0];
+			const meshDepth = meshSize[2];
+			const isHorizontalMesh = meshWidth > meshDepth;
+
+			// If block is rotated, use standard dimensions, otherwise match mesh orientation
+			if (isRotated) {
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+			} else {
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+			}
 		} else if (containerSize === "40") {
-			// For 40ft containers, use horizontal orientation as default
-			return defaultSize40Horizontal;
+			// For 40ft containers, determine orientation based on mesh dimensions
+			const meshWidth = meshSize[0];
+			const meshDepth = meshSize[2];
+			const isVerticalMesh = meshDepth > meshWidth;
+
+			if (isRotated) {
+				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+			} else {
+				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+			}
 		}
 
-		return meshSize;
+		// Fallback: use mesh dimensions with actual mesh height
+		return [meshSize[0], meshSize[1], meshSize[2]];
 	};
 
 	const handleMeshPositionsReady = (positions: {
@@ -129,17 +156,22 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				// Find corresponding mesh position
 				const meshData = positions[meshName];
 				if (meshData) {
-					// Determine container dimensions
-					// const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
-					// 	const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
-					// 	const cardinalAngles = [0, 90, 180, 270];
-					// 	return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
-					// };
+					// Check if the block is rotated (not at cardinal directions)
+					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+						const cardinalAngles = [0, 90, 180, 270];
+						return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+					};
 
-					// const isRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
+					const isBlockRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
+
+					// Determine block orientation based on mesh dimensions
+					const meshWidth = meshData.size[0];
+					const meshDepth = meshData.size[2];
+					const blockOrientation: "horizontal" | "vertical" = meshWidth > meshDepth ? "horizontal" : "vertical";
 
 					// Get container dimensions based on rotation and size
-					const containerDimensions = getContainerDimensions(slot.size, meshData.size);
+					const containerDimensions = getContainerDimensions(slot.size, meshData.size, meshData.rotation);
 
 					const containerHeight = containerDimensions[1]; // Y size
 
@@ -162,6 +194,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						column: slot.column,
 						tier: slot.tier,
 						blockName: block.block_name,
+						blockOrientation: blockOrientation,
+						isBlockRotated: isBlockRotated,
 					};
 
 					newContainers.push(container);
@@ -227,6 +261,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						defaultSize40Vertical={defaultSize40Vertical}
 						selected={selectedContainer === containerData.name}
 						onSelect={handleContainerClick}
+						depoName={name}
 					/>
 				))}
 
@@ -281,6 +316,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								</div>
 								<div>
 									<strong>Block:</strong> {container.blockName || "N/A"}
+								</div>
+								<div>
+									<strong>Block Orientation:</strong> {container.blockOrientation || "N/A"} {container.isBlockRotated ? "(Rotated)" : "(Aligned)"}
 								</div>
 								<div>
 									<strong>Position:</strong> Row {container.row}, Column {container.column}
