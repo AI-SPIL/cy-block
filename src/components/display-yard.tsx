@@ -1,10 +1,10 @@
+import { depo4Data } from "@/data/depo-4";
+import { depoJapfaData } from "@/data/depo-japfa";
+import { mappingBayurData } from "@/data/mapping-bayur";
+import type { ExampleResponse } from "@/data/types";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-import { depo4Data } from "../data/depo-4";
-import { depoJapfaData } from "../data/depo-japfa";
-import { mappingBayurData } from "../data/mapping-bayur";
-import type { ExampleResponse } from "../data/types";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
 
