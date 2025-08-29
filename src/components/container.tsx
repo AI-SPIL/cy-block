@@ -17,18 +17,18 @@ export interface PositionedContainer {
 
 export function Container({
 	container,
-	defaultSize20Vertical = [2.1, 2.0, 4.9],
-	defaultSize20Horizontal = [4.9, 2.0, 2.1],
-	defaultSize40Horizontal = [10.8, 2.0, 2.2],
-	defaultSize40Vertical = [2.2, 2.0, 10.8],
+	defaultSize20Vertical,
+	defaultSize20Horizontal,
+	defaultSize40Horizontal,
+	defaultSize40Vertical,
 	selected,
 	onSelect,
 }: {
 	container: PositionedContainer;
-	defaultSize20Vertical?: [number, number, number];
-	defaultSize20Horizontal?: [number, number, number];
-	defaultSize40Horizontal?: [number, number, number];
-	defaultSize40Vertical?: [number, number, number];
+	defaultSize20Vertical: [number, number, number];
+	defaultSize20Horizontal: [number, number, number];
+	defaultSize40Horizontal: [number, number, number];
+	defaultSize40Vertical: [number, number, number];
 	selected: boolean;
 	onSelect: (name: string) => void;
 }) {
@@ -47,9 +47,6 @@ export function Container({
 		shouldApplyRotation(container.rotation[1]) ? container.rotation[1] : 0,
 		shouldApplyRotation(container.rotation[2]) ? container.rotation[2] : 0,
 	] as const;
-
-	// Determine if any rotation is actually being applied
-	const isRotated = rotationToApply.some((r) => Math.abs(r) > 0.01);
 
 	// Get default dimensions based on container size and rotation
 	const getDefaultDimensions = (): [number, number, number] => {
@@ -75,15 +72,7 @@ export function Container({
 	};
 
 	// Adjust container dimensions based on rotation
-	const containerDimensions = isRotated
-		? getDefaultDimensions()
-		: // For aligned containers, use exact mesh dimensions
-		  ([
-				container.meshSize[0],
-				3,
-				// container.meshSize[1],
-				container.meshSize[2],
-		  ] as const);
+	const containerDimensions = getDefaultDimensions();
 
 	const handlePointerEnter = () => {
 		setHovered(true);

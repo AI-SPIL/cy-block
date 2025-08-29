@@ -10,8 +10,15 @@ import { mappingBayurData } from "../data/mapping-bayur";
 
 type DepoType = "JAPFA" | "4" | "BAYUR";
 
+// Default to Horizontal
+export interface ContainerDefaultSize {
+	size20: [number, number, number];
+	size40: [number, number, number];
+}
+
 interface DisplayYardProps {
 	name: DepoType;
+	containerSize: ContainerDefaultSize;
 }
 
 const PATH_MAPPING = {
@@ -29,32 +36,28 @@ const PATH_MAPPING = {
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
-export default function DisplayYard({ name }: DisplayYardProps) {
+export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 
-	// Default dimensions for this depo
-	const defaultSize20Vertical: [number, number, number] = [2.1, 2.0, 4.9];
-	const defaultSize20Horizontal: [number, number, number] = [4.9, 2.0, 2.1];
-	const defaultSize40Horizontal: [number, number, number] = [10.8, 2.0, 2.2];
-	const defaultSize40Vertical: [number, number, number] = [2.2, 2.0, 10.8];
+	const size20Container = containerSize.size20;
+	const size40Container = containerSize.size40;
 
-	// Helper function to get container dimensions (same logic as in Container component)
-	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], isRotated: boolean): [number, number, number] => {
-		if (isRotated) {
-			if (containerSize === "20") {
-				// For 20ft containers, use vertical orientation as default
-				return defaultSize20Vertical;
-			} else if (containerSize === "40") {
-				// For 40ft containers, use horizontal orientation as default
-				return defaultSize40Horizontal;
-			}
-			// Fallback to 20ft vertical if size is not specified
+	const defaultSize20Vertical = [size20Container[2], size20Container[1], size20Container[0]] satisfies [number, number, number];
+	const defaultSize20Horizontal = size20Container;
+	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
+	const defaultSize40Horizontal = size40Container;
+
+	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number]): [number, number, number] => {
+		if (containerSize === "20") {
+			// For 20ft containers, use vertical orientation as default
 			return defaultSize20Vertical;
-		} else {
-			// For aligned containers, use exact mesh dimensions
-			return meshSize;
+		} else if (containerSize === "40") {
+			// For 40ft containers, use horizontal orientation as default
+			return defaultSize40Horizontal;
 		}
+
+		return meshSize;
 	};
 
 	const handleMeshPositionsReady = (positions: {
@@ -127,16 +130,16 @@ export default function DisplayYard({ name }: DisplayYardProps) {
 				const meshData = positions[meshName];
 				if (meshData) {
 					// Determine container dimensions
-					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
-						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
-						const cardinalAngles = [0, 90, 180, 270];
-						return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
-					};
+					// const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+					// 	const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+					// 	const cardinalAngles = [0, 90, 180, 270];
+					// 	return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+					// };
 
-					const isRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
+					// const isRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
 
 					// Get container dimensions based on rotation and size
-					const containerDimensions = getContainerDimensions(slot.size, meshData.size, isRotated);
+					const containerDimensions = getContainerDimensions(slot.size, meshData.size);
 
 					const containerHeight = containerDimensions[1]; // Y size
 
@@ -303,9 +306,6 @@ export default function DisplayYard({ name }: DisplayYardProps) {
 									</div>
 									<div>
 										<strong>3D Position:</strong> ({container.position[0].toFixed(1)}, {container.position[1].toFixed(1)}, {container.position[2].toFixed(1)})
-									</div>
-									<div>
-										<strong>Mesh Size:</strong> {container.meshSize[0].toFixed(1)} x {container.meshSize[1].toFixed(1)} x {container.meshSize[2].toFixed(1)}
 									</div>
 									<div>
 										<strong>Color:</strong> {container.color}
