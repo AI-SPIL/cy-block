@@ -1,3 +1,10 @@
+export interface IUser {
+	role: string;
+	email: string;
+	password: string;
+	permissions: string[];
+}
+
 export const credentials = [
 	{
 		role: "superadmin",

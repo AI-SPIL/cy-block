@@ -13,7 +13,7 @@ export default function Login() {
 					<CardDescription>Enter your email below to login to your account</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<Form action="/login" method="post">
+					<Form action="/" method="post">
 						<div className="flex flex-col gap-6">
 							<div className="grid gap-2">
 								<Label htmlFor="email">Email</Label>

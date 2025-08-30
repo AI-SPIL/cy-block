@@ -9,15 +9,14 @@ import Landing from "./routes/home.tsx";
 import Login from "./routes/login.tsx";
 
 import { toast } from "sonner";
+import AdminRoutes from "./components/layouts/admin-routes.tsx";
+import ProtectedRoutes from "./components/layouts/protected-routes.tsx";
+import SuperAdminRoutes from "./components/layouts/superadmin-routes.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { credentials } from "./constants/credentials.ts";
 import "./index.css";
 
 const router = createHashRouter([
-	{
-		path: "/home",
-		element: <Landing />,
-	},
 	{
 		path: "/",
 		element: <Login />,
@@ -30,6 +29,7 @@ const router = createHashRouter([
 
 			if (user) {
 				toast.error("Login success");
+				localStorage.setItem("user", JSON.stringify(user));
 				if (user.role === "superadmin") return redirect("/home");
 				return redirect(`/${user.permissions[0]}`);
 			}
@@ -38,20 +38,39 @@ const router = createHashRouter([
 		},
 	},
 	{
-		path: "/depo-japfa",
-		element: <DepoJapfa />,
-	},
-	{
-		path: "/depo-4",
-		element: <Depo4 />,
-	},
-	{
-		path: "/depo-teluk-bayur",
-		element: <DepoTelukBayur />,
-	},
-	{
-		path: "/depo-yon",
-		element: <DepoYon />,
+		element: <ProtectedRoutes />,
+		children: [
+			{
+				element: <SuperAdminRoutes />,
+				children: [
+					{
+						path: "/home",
+						element: <Landing />,
+					},
+				],
+			},
+			{
+				element: <AdminRoutes />,
+				children: [
+					{
+						path: "/depo-japfa",
+						element: <DepoJapfa />,
+					},
+					{
+						path: "/depo-4",
+						element: <Depo4 />,
+					},
+					{
+						path: "/depo-teluk-bayur",
+						element: <DepoTelukBayur />,
+					},
+					{
+						path: "/depo-yon",
+						element: <DepoYon />,
+					},
+				],
+			},
+		],
 	},
 ]);
 
