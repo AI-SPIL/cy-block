@@ -7,6 +7,7 @@ import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
+import { ScrollArea } from "./ui/scroll-area";
 
 type DepoType = "JAPFA" | "4" | "BAYUR";
 
@@ -377,50 +378,30 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			)}
 
 			{/* Container Legend */}
-			<div
-				style={{
-					position: "absolute",
-					bottom: "20px",
-					right: "20px",
-					backgroundColor: "rgba(0, 0, 0, 0.8)",
-					color: "white",
-					padding: "16px",
-					borderRadius: "8px",
-					fontSize: "12px",
-					fontFamily: "system-ui, -apple-system, sans-serif",
-					backdropFilter: "blur(10px)",
-					zIndex: 1000,
-					maxHeight: "300px",
-					overflowY: "auto",
-				}}
-			>
-				<div style={{ marginBottom: "8px", fontWeight: "bold" }}>Depo 4 Containers ({containers.length} total)</div>
-				{containers.map((container) => (
-					<div
-						key={container.name}
-						style={{
-							display: "flex",
-							alignItems: "center",
-							marginBottom: "4px",
-							cursor: "pointer",
-						}}
-						onClick={() => handleContainerClick(container.name)}
-					>
-						<div
-							style={{
-								width: "12px",
-								height: "12px",
-								backgroundColor: container.color,
-								marginRight: "8px",
-								flexShrink: 0,
-							}}
-						></div>
-						<span style={{ fontSize: "10px" }}>
-							{container.blockName}-{container.row}-{container.column} T{container.tier}
-							{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
-						</span>
+			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
+				<div className="mb-2 font-bold text-sm">
+					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : `Depo ${name}`} Containers ({containers.length} total)
+				</div>
+				<ScrollArea className="h-44">
+					<div className="space-y-0.5 pr-3">
+						{containers.map((container) => (
+							<div
+								key={container.name}
+								className="flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors"
+								onClick={() => handleContainerClick(container.name)}
+							>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: container.color }}
+								></div>
+								<span className="text-xs truncate">
+									{container.blockName}-{container.row}-{container.column} T{container.tier}
+									{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+								</span>
+							</div>
+						))}
 					</div>
-				))}
+				</ScrollArea>
 			</div>
 		</div>
 	);
