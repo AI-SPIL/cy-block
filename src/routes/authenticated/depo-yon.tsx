@@ -1,7 +1,10 @@
+import DisplayYard from "../../components/display-yard";
+
 export default function DepoYon() {
 	return (
-		<div className="grid place-items-center min-h-svh">
-			<p className="text-2xl font-semibold">Depo Yon</p>
-		</div>
+		<DisplayYard
+			name="YON"
+			containerSize={{ size20: [7.13, 2.6, 2.64], size40: [15.3, 2.6, 2.64] }}
+		/>
 	);
 }
