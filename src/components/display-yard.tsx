@@ -1,15 +1,16 @@
 import { depo4Data } from "@/data/depo-4";
 import { depoJapfaData } from "@/data/depo-japfa";
+import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
 import { ScrollArea } from "./ui/scroll-area";
 
-type DepoType = "JAPFA" | "4" | "BAYUR";
+type DepoType = "JAPFA" | "4" | "BAYUR" | 'YON';
 
 // Default to Horizontal
 export interface ContainerDefaultSize {
@@ -24,7 +25,7 @@ interface DisplayYardProps {
 
 const PATH_MAPPING = {
 	JAPFA: {
-		model: "/cy-block/japfa.glb",
+		model: "/cy-block/depo-japfa.glb",
 		data: depoJapfaData,
 	},
 	"4": {
@@ -35,6 +36,10 @@ const PATH_MAPPING = {
 		model: "/cy-block/mapping-bayur.glb",
 		data: mappingBayurData,
 	},
+	YON: {
+		model: "/cy-block/depo-yon.glb",
+		data: depoYonData,
+	}
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
 export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
@@ -319,9 +324,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Block Orientation:</strong> {container.blockOrientation || "N/A"} {container.isBlockRotated ? "(Rotated)" : "(Aligned)"}
-								</div>
-								<div>
 									<strong>Position:</strong> Row {container.row}, Column {container.column}
 								</div>
 								<div>
@@ -344,16 +346,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 										<strong>Mesh Name:</strong> {selectedContainer}
 									</div>
 									<div>
-										<strong>3D Position:</strong> ({container.position[0].toFixed(1)}, {container.position[1].toFixed(1)}, {container.position[2].toFixed(1)})
-									</div>
-									<div>
 										<strong>Color:</strong> {container.color}
-									</div>
-									<div>
-										<strong>Rotation (degrees):</strong> X:
-										{((container.rotation[0] * 180) / Math.PI).toFixed(1)}°, Y:
-										{((container.rotation[1] * 180) / Math.PI).toFixed(1)}°, Z:
-										{((container.rotation[2] * 180) / Math.PI).toFixed(1)}°
 									</div>
 								</div>
 							</div>
@@ -380,7 +373,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : `Depo ${name}`} Containers ({containers.length} total)
+					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === 'YON' ? "Depo YON" : `Depo ${name}`} Containers ({containers.length} total)
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
@@ -406,5 +399,3 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		</div>
 	);
 }
-
-useGLTF.preload("/cy-block/depo-4.glb");
