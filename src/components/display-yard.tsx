@@ -3,12 +3,14 @@ import { depoJapfaData } from "@/data/depo-japfa";
 import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
+import { getContainerColor, STATUS_COLORS, GRADE_COLORS, getStatusColorName } from "@/helpers/color-helpers";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
 import { ScrollArea } from "./ui/scroll-area";
+import { Button } from "./ui/button";
 
 type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
 
@@ -45,6 +47,11 @@ const PATH_MAPPING = {
 export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
+	const [colorBy, setColorBy] = useState<"grade" | "status">("grade");
+	const [draggedContainer, setDraggedContainer] = useState<PositionedContainer | null>(null);
+	const [dragMode, setDragMode] = useState<boolean>(false);
+	const [isDragging, setIsDragging] = useState<boolean>(false);
+	const [, setDragPosition] = useState<[number, number, number] | null>(null);
 
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
@@ -100,63 +107,11 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			rotation: [number, number, number];
 		};
 	}) => {
-		const colors = [
-			"#ff4444",
-			"#44ff44",
-			"#4444ff",
-			"#ffff44",
-			"#ff44ff",
-			"#44ffff",
-			"#ff8844",
-			"#88ff44",
-			"#4488ff",
-			"#ff4488",
-			"#8844ff",
-			"#44ff88",
-			"#ff6666",
-			"#66ff66",
-			"#6666ff",
-			"#ffff66",
-			"#ff66ff",
-			"#66ffff",
-			"#ffaa44",
-			"#aaffaa",
-			"#44aaff",
-			"#ffaa88",
-			"#aa88ff",
-			"#88ffaa",
-			"#cc4444",
-			"#44cc44",
-			"#4444cc",
-			"#cccc44",
-			"#cc44cc",
-			"#44cccc",
-			"#ff2222",
-			"#22ff22",
-			"#2222ff",
-			"#ffff22",
-			"#ff22ff",
-			"#22ffff",
-			"#dd6644",
-			"#66dd44",
-			"#4466dd",
-			"#dd6688",
-			"#6644dd",
-			"#44dd66",
-			"#ee8844",
-			"#88ee44",
-			"#4488ee",
-			"#ee8888",
-			"#8844ee",
-			"#44ee88",
-		];
-
 		const depoData = PATH_MAPPING[name].data;
 		const newContainers: PositionedContainer[] = [];
-		let containerIndex = 0;
 
-		depoData.blocks.forEach((block) => {
-			block.slots.forEach((slot) => {
+		depoData.depo_blocks.forEach((block) => {
+			block.block_slots.forEach((slot) => {
 				const meshName = `${block.block_name}_${slot.column}_${slot.row}`;
 
 				// Find corresponding mesh position
@@ -187,15 +142,25 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					// Since we now anchor containers at their bottom, we don't add containerHeight / 2
 					const yPosition = meshData.position[1] + meshData.size[1] / 2 + (slot.tier - 1) * containerHeight;
 
+					// Get color based on current color mode
+					let containerColor: string;
+					try {
+						containerColor = getContainerColor(slot.status, slot.grade, colorBy);
+					} catch (error) {
+						console.warn("Error getting container color, using fallback:", error);
+						containerColor = "#666666"; // Default gray color
+					}
+
 					const container: PositionedContainer = {
 						position: [meshData.position[0], yPosition, meshData.position[2]],
 						meshSize: meshData.size,
 						rotation: meshData.rotation,
-						color: colors[containerIndex % colors.length],
+						color: containerColor,
 						name: `${meshName}_T${slot.tier}`,
 						containerCode: slot.container_code,
 						size: slot.size,
 						grade: slot.grade,
+						status: slot.status,
 						row: slot.row,
 						column: slot.column,
 						tier: slot.tier,
@@ -205,7 +170,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					};
 
 					newContainers.push(container);
-					containerIndex++;
 				} else {
 					console.error(`Mesh not found for ${meshName}`);
 				}
@@ -216,8 +180,125 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	};
 
 	const handleContainerClick = (containerName: string) => {
+		if (dragMode && draggedContainer) {
+			// Handle drop operation
+			const targetContainer = containers.find(c => c.name === containerName);
+			if (targetContainer && targetContainer.isDropTarget) {
+				handleDrop(targetContainer, draggedContainer);
+				return;
+			}
+		}
 		setSelectedContainer(selectedContainer === containerName ? null : containerName);
 	};
+
+	const handleDragMove = (newPosition: [number, number, number]) => {
+		setDragPosition(newPosition);
+		
+		// Update the dragged container's position in real-time
+		if (draggedContainer) {
+			setContainers(currentContainers =>
+				currentContainers.map(c => 
+					c.name === draggedContainer.name 
+						? { ...c, position: [newPosition[0], newPosition[1], newPosition[2]] }
+						: c
+				)
+			);
+		}
+	};
+
+	const handleDragStart = (container: PositionedContainer) => {
+		setDraggedContainer(container);
+		setDragMode(true);
+		setIsDragging(true);
+		setDragPosition(container.position);
+		
+		// Update containers to show drag state
+		setContainers(currentContainers => 
+			currentContainers.map(c => ({
+				...c,
+				isDragging: c.name === container.name,
+				isDropTarget: c.name !== container.name && 
+					c.blockName === container.blockName && // Same block
+					c.row === container.row && 
+					c.column === container.column && 
+					c.tier !== container.tier // Different tier only
+			}))
+		);
+	};
+
+	const handleDragEnd = () => {
+		// Reset dragged container position if not dropped on valid target
+		if (draggedContainer) {
+			setContainers(currentContainers =>
+				currentContainers.map(c => {
+					if (c.name === draggedContainer.name) {
+						// Reset to original position
+						const originalContainer = containers.find(orig => orig.name === c.name);
+						return originalContainer ? { ...c, position: originalContainer.position } : c;
+					}
+					return {
+						...c,
+						isDragging: false,
+						isDropTarget: false
+					};
+				})
+			);
+		}
+		
+		setDraggedContainer(null);
+		setIsDragging(false);
+		setDragPosition(null);
+	};
+
+	const handleDrop = (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => {
+		if (!draggedContainer || targetContainer.name === draggedContainer.name) {
+			return;
+		}
+
+		// Swap container positions/tiers
+		setContainers(currentContainers => 
+			currentContainers.map(c => {
+				if (c.name === draggedContainer.name) {
+					return {
+						...c,
+						tier: targetContainer.tier,
+						position: [targetContainer.position[0], targetContainer.position[1], targetContainer.position[2]],
+						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`
+					};
+				} else if (c.name === targetContainer.name) {
+					return {
+						...c,
+						tier: draggedContainer.tier,
+						position: [draggedContainer.position[0], draggedContainer.position[1], draggedContainer.position[2]],
+						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`
+					};
+				}
+				return c;
+			})
+		);
+
+		handleDragEnd();
+	};
+
+	// Update container colors when colorBy mode changes
+	useEffect(() => {
+		setContainers(currentContainers => {
+			if (currentContainers.length > 0) {
+				return currentContainers.map(container => {
+					try {
+						return {
+							...container,
+							color: getContainerColor(container.status || "", container.grade || null, colorBy)
+						};
+					} catch (error) {
+						console.warn("Error updating container color:", error);
+						return container; // Keep original container if color update fails
+					}
+				});
+			}
+			return currentContainers;
+		});
+	}, [colorBy]);
 
 	return (
 		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -267,15 +348,19 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						defaultSize40Vertical={defaultSize40Vertical}
 						selected={selectedContainer === containerData.name}
 						onSelect={handleContainerClick}
+						onDragStart={dragMode ? handleDragStart : undefined}
+						onDragEnd={dragMode ? handleDragEnd : undefined}
+						onDrop={dragMode ? handleDrop : undefined}
+						onDragMove={dragMode ? handleDragMove : undefined}
 						depoName={name}
 					/>
 				))}
 
-				{/* Camera Controls */}
+				{/* Camera Controls - Disabled only when actively dragging */}
 				<OrbitControls
-					enablePan={true}
-					enableZoom={true}
-					enableRotate={true}
+					enablePan={!isDragging}
+					enableZoom={!isDragging}
+					enableRotate={!isDragging}
 					minPolarAngle={0}
 					maxPolarAngle={Math.PI / 2.2}
 					target={[0, 2, 0]}
@@ -284,6 +369,79 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					rotateSpeed={0.5}
 				/>
 			</Canvas>
+
+			{/* Color Mode Toggle and Drag Mode Toggle */}
+			<div className="fixed top-5 left-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000]">
+				<div className="flex gap-2 mb-2">
+					<Button
+						onClick={() => setColorBy("grade")}
+						size="sm"
+						className={`text-xs ${
+							colorBy === "grade" 
+								? "bg-white text-black hover:bg-gray-200" 
+								: "bg-transparent text-white border border-white hover:bg-white/10"
+						}`}
+					>
+						Grade Colors
+					</Button>
+					<Button
+						onClick={() => setColorBy("status")}
+						size="sm"
+						className={`text-xs ${
+							colorBy === "status" 
+								? "bg-white text-black hover:bg-gray-200" 
+								: "bg-transparent text-white border border-white hover:bg-white/10"
+						}`}
+					>
+						Status Colors
+					</Button>
+				</div>
+				<div className="flex gap-2">
+					<Button
+						onClick={() => setDragMode(!dragMode)}
+						size="sm"
+						className={`text-xs ${
+							dragMode 
+								? "bg-yellow-500 text-black hover:bg-yellow-400" 
+								: "bg-transparent text-white border border-white hover:bg-white/10"
+						}`}
+					>
+						{dragMode ? "🔒 Drag ON" : "🔓 Drag OFF"}
+					</Button>
+				</div>
+			</div>
+
+			{/* Color Legend - Moved down a bit */}
+			<div className="fixed top-16 right-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] text-xs min-w-[160px]">
+				<div className="font-bold mb-2">
+					{colorBy === "grade" ? "Grade Legend" : "Status Legend"}
+				</div>
+				{dragMode && (
+					<div className="mb-2 p-2 bg-yellow-900/50 rounded border border-yellow-500">
+						<div className="text-yellow-300 font-bold text-xs">🔥 DRAG MODE ACTIVE</div>
+						<div className="text-xs text-yellow-200">Click & drag containers to move them between tiers</div>
+					</div>
+				)}
+				{colorBy === "grade" ? (
+					<div className="space-y-1">
+						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
+							<div key={grade} className="flex items-center gap-2">
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
+								<span>Grade {grade}</span>
+							</div>
+						))}
+					</div>
+				) : (
+					<div className="space-y-1">
+						{Object.entries(STATUS_COLORS).map(([status, color]) => (
+							<div key={status} className="flex items-center gap-2">
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
+								<span className="text-xs">{status} - {getStatusColorName(status)}</span>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
 
 			{/* Info Panel */}
 			{selectedContainer && (
@@ -334,6 +492,21 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								</div>
 								<div>
 									<strong>Grade:</strong> {container.grade || "No Grade"}
+								</div>
+								<div>
+									<strong>Status:</strong> {container.status || "N/A"} 
+									{container.status && (
+										<span style={{ 
+											marginLeft: "8px",
+											padding: "2px 6px",
+											borderRadius: "4px",
+											fontSize: "10px",
+											backgroundColor: getContainerColor(container.status, null, "status"),
+											color: "white"
+										}}>
+											{getStatusColorName(container.status)}
+										</span>
+									)}
 								</div>
 							</div>
 						) : null;

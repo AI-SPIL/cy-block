@@ -1,11 +1,12 @@
 import type { ExampleResponse } from "./types";
 
 export const depoYonData = {
+	id: "3",
 	depo_name: "depo-yon",
-	blocks: [
+	depo_blocks: [
 		{
 			block_name: "A",
-			slots: [
+			block_slots: [
 				// Block A: 6 columns, 12 rows, size 20
 				{
 					container_code: "Container A-2-1",
@@ -14,6 +15,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTD",
 				},
 				{
 					container_code: "Container A-2-1-T2",
@@ -22,6 +24,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "B",
+					status: "MTA",
 				},
 				{
 					container_code: "Container A-4-3",
@@ -30,6 +33,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTS",
 				},
 				{
 					container_code: "Container A-6-2",
@@ -38,6 +42,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTB",
 				},
 				{
 					container_code: "Container A-8-5",
@@ -46,6 +51,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "FTL",
 				},
 				{
 					container_code: "Container A-8-5-T2",
@@ -54,6 +60,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "B",
+					status: "STR",
 				},
 				{
 					container_code: "Container A-10-4",
@@ -62,6 +69,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTD",
 				},
 				{
 					container_code: "Container A-12-6",
@@ -70,12 +78,13 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTA",
 				},
 			],
 		},
 		{
 			block_name: "B",
-			slots: [
+			block_slots: [
 				// Block B: 7 columns, 15 rows, size 20
 				{
 					container_code: "Container B-1-3",
@@ -84,6 +93,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTS",
 				},
 				{
 					container_code: "Container B-3-1",
@@ -92,6 +102,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTB",
 				},
 				{
 					container_code: "Container B-3-1-T2",
@@ -100,6 +111,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "C",
+					status: "FTL",
 				},
 				{
 					container_code: "Container B-5-7",
@@ -108,6 +120,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "STR",
 				},
 				{
 					container_code: "Container B-7-4",
@@ -116,6 +129,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTD",
 				},
 				{
 					container_code: "Container B-9-2",
@@ -124,6 +138,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTA",
 				},
 				{
 					container_code: "Container B-9-2-T2",
@@ -132,6 +147,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "A",
+					status: "MTS",
 				},
 				{
 					container_code: "Container B-11-6",
@@ -140,6 +156,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTB",
 				},
 				{
 					container_code: "Container B-13-5",
@@ -148,6 +165,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "FTL",
 				},
 				{
 					container_code: "Container B-15-3",
@@ -156,12 +174,13 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "STR",
 				},
 			],
 		},
 		{
 			block_name: "C",
-			slots: [
+			block_slots: [
 				// Block C: 7 columns, 15 rows, size 20
 				{
 					container_code: "Container C-2-2",
@@ -170,6 +189,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTD",
 				},
 				{
 					container_code: "Container C-4-5",
@@ -178,6 +198,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTA",
 				},
 				{
 					container_code: "Container C-4-5-T2",
@@ -186,6 +207,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "C",
+					status: "MTS",
 				},
 				{
 					container_code: "Container C-6-1",
@@ -194,6 +216,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTB",
 				},
 				{
 					container_code: "Container C-8-7",
@@ -202,6 +225,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "FTL",
 				},
 				{
 					container_code: "Container C-10-3",
@@ -210,6 +234,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "STR",
 				},
 				{
 					container_code: "Container C-10-3-T2",
@@ -218,6 +243,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "A",
+					status: "MTD",
 				},
 				{
 					container_code: "Container C-12-6",
@@ -226,6 +252,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTA",
 				},
 				{
 					container_code: "Container C-14-4",
@@ -234,6 +261,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTS",
 				},
 				{
 					container_code: "Container C-15-2",
@@ -242,12 +270,13 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTB",
 				},
 			],
 		},
 		{
 			block_name: "D",
-			slots: [
+			block_slots: [
 				// Block D: 6 columns, 1 row, size 20
 				{
 					container_code: "Container D-1-1",
@@ -256,6 +285,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "FTL",
 				},
 				{
 					container_code: "Container D-1-1-T2",
@@ -264,6 +294,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "B",
+					status: "STR",
 				},
 				{
 					container_code: "Container D-1-3",
@@ -272,6 +303,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTD",
 				},
 				{
 					container_code: "Container D-1-4",
@@ -280,6 +312,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTA",
 				},
 				{
 					container_code: "Container D-1-6",
@@ -288,6 +321,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTS",
 				},
 				{
 					container_code: "Container D-1-6-T2",
@@ -296,12 +330,13 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "C",
+					status: "MTB",
 				},
 			],
 		},
 		{
 			block_name: "E",
-			slots: [
+			block_slots: [
 				// Block E: 7 columns, 2 rows, size 20
 				{
 					container_code: "Container E-1-2",
@@ -310,6 +345,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "FTL",
 				},
 				{
 					container_code: "Container E-1-4",
@@ -318,6 +354,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "STR",
 				},
 				{
 					container_code: "Container E-1-4-T2",
@@ -326,6 +363,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "C",
+					status: "MTD",
 				},
 				{
 					container_code: "Container E-1-7",
@@ -334,6 +372,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTA",
 				},
 				{
 					container_code: "Container E-2-1",
@@ -342,6 +381,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "MTS",
 				},
 				{
 					container_code: "Container E-2-3",
@@ -350,6 +390,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTB",
 				},
 				{
 					container_code: "Container E-2-6",
@@ -358,12 +399,13 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "FTL",
 				},
 			],
 		},
 		{
 			block_name: "F",
-			slots: [
+			block_slots: [
 				// Block F: 7 columns, 2 rows, size 20
 				{
 					container_code: "Container F-1-1",
@@ -372,6 +414,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "STR",
 				},
 				{
 					container_code: "Container F-1-3",
@@ -380,6 +423,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTD",
 				},
 				{
 					container_code: "Container F-1-3-T2",
@@ -388,6 +432,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "A",
+					status: "MTA",
 				},
 				{
 					container_code: "Container F-1-5",
@@ -396,6 +441,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "MTS",
 				},
 				{
 					container_code: "Container F-1-7",
@@ -404,6 +450,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTB",
 				},
 				{
 					container_code: "Container F-2-2",
@@ -412,6 +459,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "A",
+					status: "FTL",
 				},
 				{
 					container_code: "Container F-2-4",
@@ -420,6 +468,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "C",
+					status: "STR",
 				},
 				{
 					container_code: "Container F-2-6",
@@ -428,6 +477,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "20",
 					grade: "B",
+					status: "MTD",
 				},
 			],
 		},
