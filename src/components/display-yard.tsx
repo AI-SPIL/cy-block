@@ -10,7 +10,7 @@ import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
 import { ScrollArea } from "./ui/scroll-area";
 
-type DepoType = "JAPFA" | "4" | "BAYUR" | 'YON';
+type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
 
 // Default to Horizontal
 export interface ContainerDefaultSize {
@@ -39,7 +39,7 @@ const PATH_MAPPING = {
 	YON: {
 		model: "/cy-block/depo-yon.glb",
 		data: depoYonData,
-	}
+	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
 export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
@@ -335,20 +335,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								<div>
 									<strong>Grade:</strong> {container.grade || "No Grade"}
 								</div>
-								<div
-									style={{
-										marginTop: "16px",
-										paddingTop: "16px",
-										borderTop: "1px solid #333",
-									}}
-								>
-									<div>
-										<strong>Mesh Name:</strong> {selectedContainer}
-									</div>
-									<div>
-										<strong>Color:</strong> {container.color}
-									</div>
-								</div>
 							</div>
 						) : null;
 					})()}
@@ -373,7 +359,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === 'YON' ? "Depo YON" : `Depo ${name}`} Containers ({containers.length} total)
+					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`} Containers ({containers.length}{" "}
+					total)
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
@@ -383,10 +370,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								className="flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors"
 								onClick={() => handleContainerClick(container.name)}
 							>
-								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: container.color }}
-								></div>
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
 								<span className="text-xs truncate">
 									{container.blockName}-{container.row}-{container.column} T{container.tier}
 									{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
