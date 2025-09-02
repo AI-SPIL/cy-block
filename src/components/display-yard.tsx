@@ -3,7 +3,12 @@ import { depoJapfaData } from "@/data/depo-japfa";
 import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
-import { getContainerColor, STATUS_COLORS, GRADE_COLORS, getStatusColorName } from "@/helpers/color-helpers";
+import {
+	getContainerColor,
+	STATUS_COLORS,
+	GRADE_COLORS,
+	getStatusColorName,
+} from "@/helpers/color-helpers";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
@@ -45,10 +50,13 @@ const PATH_MAPPING = {
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
 export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
-	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
+	const [selectedContainer, setSelectedContainer] = useState<string | null>(
+		null
+	);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 	const [colorBy, setColorBy] = useState<"grade" | "status">("grade");
-	const [draggedContainer, setDraggedContainer] = useState<PositionedContainer | null>(null);
+	const [draggedContainer, setDraggedContainer] =
+		useState<PositionedContainer | null>(null);
 	const [dragMode, setDragMode] = useState<boolean>(false);
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	const [, setDragPosition] = useState<[number, number, number] | null>(null);
@@ -56,20 +64,38 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
 
-	const defaultSize20Vertical = [size20Container[2], size20Container[1], size20Container[0]] satisfies [number, number, number];
+	const defaultSize20Vertical = [
+		size20Container[2],
+		size20Container[1],
+		size20Container[0],
+	] satisfies [number, number, number];
 	const defaultSize20Horizontal = size20Container;
-	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
+	const defaultSize40Vertical = [
+		size40Container[2],
+		size40Container[1],
+		size40Container[0],
+	] satisfies [number, number, number];
 	const defaultSize40Horizontal = size40Container;
 
-	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], rotation: [number, number, number]): [number, number, number] => {
+	const getContainerDimensions = (
+		containerSize: string,
+		meshSize: [number, number, number],
+		rotation: [number, number, number]
+	): [number, number, number] => {
 		// Check if the block is rotated (not at cardinal directions)
 		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 			const cardinalAngles = [0, 90, 180, 270];
-			return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+			return !cardinalAngles.some(
+				(cardinal) =>
+					Math.abs(degrees - cardinal) <= tolerance ||
+					Math.abs(degrees - (cardinal + 360)) <= tolerance
+			);
 		};
 
-		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) => shouldApplyRotation(r));
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) =>
+			shouldApplyRotation(r)
+		);
 
 		if (containerSize === "20") {
 			// For 20ft containers, determine orientation based on mesh dimensions
@@ -79,9 +105,13 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			// If block is rotated, use standard dimensions, otherwise match mesh orientation
 			if (isRotated) {
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			} else {
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			}
 		} else if (containerSize === "40") {
 			// For 40ft containers, determine orientation based on mesh dimensions
@@ -121,18 +151,31 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 						const cardinalAngles = [0, 90, 180, 270];
-						return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+						return !cardinalAngles.some(
+							(cardinal) =>
+								Math.abs(degrees - cardinal) <= tolerance ||
+								Math.abs(degrees - (cardinal + 360)) <= tolerance
+						);
 					};
 
-					const isBlockRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
+					const isBlockRotated = [
+						meshData.rotation[0],
+						meshData.rotation[1],
+						meshData.rotation[2],
+					].some((r) => shouldApplyRotation(r));
 
 					// Determine block orientation based on mesh dimensions
 					const meshWidth = meshData.size[0];
 					const meshDepth = meshData.size[2];
-					const blockOrientation: "horizontal" | "vertical" = meshWidth > meshDepth ? "horizontal" : "vertical";
+					const blockOrientation: "horizontal" | "vertical" =
+						meshWidth > meshDepth ? "horizontal" : "vertical";
 
 					// Get container dimensions based on rotation and size
-					const containerDimensions = getContainerDimensions(slot.size, meshData.size, meshData.rotation);
+					const containerDimensions = getContainerDimensions(
+						slot.size,
+						meshData.size,
+						meshData.rotation
+					);
 
 					const containerHeight = containerDimensions[1]; // Y size
 
@@ -140,14 +183,24 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					// For tier 1: bottom of container = top of block (meshData.position[1] + meshData.size[1] / 2)
 					// For higher tiers: stack containers on top of each other
 					// Since we now anchor containers at their bottom, we don't add containerHeight / 2
-					const yPosition = meshData.position[1] + meshData.size[1] / 2 + (slot.tier - 1) * containerHeight;
+					const yPosition =
+						meshData.position[1] +
+						meshData.size[1] / 2 +
+						(slot.tier - 1) * containerHeight;
 
 					// Get color based on current color mode
 					let containerColor: string;
 					try {
-						containerColor = getContainerColor(slot.status, slot.grade, colorBy);
+						containerColor = getContainerColor(
+							slot.status,
+							slot.grade,
+							colorBy
+						);
 					} catch (error) {
-						console.warn("Error getting container color, using fallback:", error);
+						console.warn(
+							"Error getting container color, using fallback:",
+							error
+						);
 						containerColor = "#666666"; // Default gray color
 					}
 
@@ -182,24 +235,29 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const handleContainerClick = (containerName: string) => {
 		if (dragMode && draggedContainer) {
 			// Handle drop operation
-			const targetContainer = containers.find(c => c.name === containerName);
+			const targetContainer = containers.find((c) => c.name === containerName);
 			if (targetContainer && targetContainer.isDropTarget) {
 				handleDrop(targetContainer, draggedContainer);
 				return;
 			}
 		}
-		setSelectedContainer(selectedContainer === containerName ? null : containerName);
+		setSelectedContainer(
+			selectedContainer === containerName ? null : containerName
+		);
 	};
 
 	const handleDragMove = (newPosition: [number, number, number]) => {
 		setDragPosition(newPosition);
-		
+
 		// Update the dragged container's position in real-time
 		if (draggedContainer) {
-			setContainers(currentContainers =>
-				currentContainers.map(c => 
-					c.name === draggedContainer.name 
-						? { ...c, position: [newPosition[0], newPosition[1], newPosition[2]] }
+			setContainers((currentContainers) =>
+				currentContainers.map((c) =>
+					c.name === draggedContainer.name
+						? {
+								...c,
+								position: [newPosition[0], newPosition[1], newPosition[2]],
+						  }
 						: c
 				)
 			);
@@ -211,17 +269,18 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		setDragMode(true);
 		setIsDragging(true);
 		setDragPosition(container.position);
-		
+
 		// Update containers to show drag state
-		setContainers(currentContainers => 
-			currentContainers.map(c => ({
+		setContainers((currentContainers) =>
+			currentContainers.map((c) => ({
 				...c,
 				isDragging: c.name === container.name,
-				isDropTarget: c.name !== container.name && 
+				isDropTarget:
+					c.name !== container.name &&
 					c.blockName === container.blockName && // Same block
-					c.row === container.row && 
-					c.column === container.column && 
-					c.tier !== container.tier // Different tier only
+					c.row === container.row &&
+					c.column === container.column &&
+					c.tier !== container.tier, // Different tier only
 			}))
 		);
 	};
@@ -229,48 +288,63 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const handleDragEnd = () => {
 		// Reset dragged container position if not dropped on valid target
 		if (draggedContainer) {
-			setContainers(currentContainers =>
-				currentContainers.map(c => {
+			setContainers((currentContainers) =>
+				currentContainers.map((c) => {
 					if (c.name === draggedContainer.name) {
 						// Reset to original position
-						const originalContainer = containers.find(orig => orig.name === c.name);
-						return originalContainer ? { ...c, position: originalContainer.position } : c;
+						const originalContainer = containers.find(
+							(orig) => orig.name === c.name
+						);
+						return originalContainer
+							? { ...c, position: originalContainer.position }
+							: c;
 					}
 					return {
 						...c,
 						isDragging: false,
-						isDropTarget: false
+						isDropTarget: false,
 					};
 				})
 			);
 		}
-		
+
 		setDraggedContainer(null);
 		setIsDragging(false);
 		setDragPosition(null);
 	};
 
-	const handleDrop = (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => {
+	const handleDrop = (
+		targetContainer: PositionedContainer,
+		draggedContainer: PositionedContainer
+	) => {
 		if (!draggedContainer || targetContainer.name === draggedContainer.name) {
 			return;
 		}
 
 		// Swap container positions/tiers
-		setContainers(currentContainers => 
-			currentContainers.map(c => {
+		setContainers((currentContainers) =>
+			currentContainers.map((c) => {
 				if (c.name === draggedContainer.name) {
 					return {
 						...c,
 						tier: targetContainer.tier,
-						position: [targetContainer.position[0], targetContainer.position[1], targetContainer.position[2]],
-						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`
+						position: [
+							targetContainer.position[0],
+							targetContainer.position[1],
+							targetContainer.position[2],
+						],
+						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`,
 					};
 				} else if (c.name === targetContainer.name) {
 					return {
 						...c,
 						tier: draggedContainer.tier,
-						position: [draggedContainer.position[0], draggedContainer.position[1], draggedContainer.position[2]],
-						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`
+						position: [
+							draggedContainer.position[0],
+							draggedContainer.position[1],
+							draggedContainer.position[2],
+						],
+						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`,
 					};
 				}
 				return c;
@@ -282,13 +356,17 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 	// Update container colors when colorBy mode changes
 	useEffect(() => {
-		setContainers(currentContainers => {
+		setContainers((currentContainers) => {
 			if (currentContainers.length > 0) {
-				return currentContainers.map(container => {
+				return currentContainers.map((container) => {
 					try {
 						return {
 							...container,
-							color: getContainerColor(container.status || "", container.grade || null, colorBy)
+							color: getContainerColor(
+								container.status || "",
+								container.grade || null,
+								colorBy
+							),
 						};
 					} catch (error) {
 						console.warn("Error updating container color:", error);
@@ -310,7 +388,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				style={{
 					width: "100%",
 					height: "100%",
-					background: "linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+					background:
+						"linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
 				}}
 				shadows
 			>
@@ -329,13 +408,26 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				/>
 
 				{/* Ground plane */}
-				<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
+				<mesh
+					rotation={[-Math.PI / 2, 0, 0]}
+					position={[0, -0.1, 0]}
+					receiveShadow
+				>
 					<planeGeometry args={[100, 100]} />
-					<meshStandardMaterial color="#1a1a1a" transparent opacity={0.8} roughness={0.8} metalness={0.1} />
+					<meshStandardMaterial
+						color="#1a1a1a"
+						transparent
+						opacity={0.8}
+						roughness={0.8}
+						metalness={0.1}
+					/>
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Floor path={PATH_MAPPING[name].model} onMeshPositionsReady={handleMeshPositionsReady} />
+				<Floor
+					path={PATH_MAPPING[name].model}
+					onMeshPositionsReady={handleMeshPositionsReady}
+				/>
 
 				{/* Render custom containers at mesh centers */}
 				{containers.map((containerData, index) => (
@@ -377,8 +469,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						onClick={() => setColorBy("grade")}
 						size="sm"
 						className={`text-xs ${
-							colorBy === "grade" 
-								? "bg-white text-black hover:bg-gray-200" 
+							colorBy === "grade"
+								? "bg-white text-black hover:bg-gray-200"
 								: "bg-transparent text-white border border-white hover:bg-white/10"
 						}`}
 					>
@@ -388,8 +480,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						onClick={() => setColorBy("status")}
 						size="sm"
 						className={`text-xs ${
-							colorBy === "status" 
-								? "bg-white text-black hover:bg-gray-200" 
+							colorBy === "status"
+								? "bg-white text-black hover:bg-gray-200"
 								: "bg-transparent text-white border border-white hover:bg-white/10"
 						}`}
 					>
@@ -401,8 +493,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						onClick={() => setDragMode(!dragMode)}
 						size="sm"
 						className={`text-xs ${
-							dragMode 
-								? "bg-yellow-500 text-black hover:bg-yellow-400" 
+							dragMode
+								? "bg-yellow-500 text-black hover:bg-yellow-400"
 								: "bg-transparent text-white border border-white hover:bg-white/10"
 						}`}
 					>
@@ -418,15 +510,22 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				</div>
 				{dragMode && (
 					<div className="mb-2 p-2 bg-yellow-900/50 rounded border border-yellow-500">
-						<div className="text-yellow-300 font-bold text-xs">🔥 DRAG MODE ACTIVE</div>
-						<div className="text-xs text-yellow-200">Click & drag containers to move them between tiers</div>
+						<div className="text-yellow-300 font-bold text-xs">
+							🔥 DRAG MODE ACTIVE
+						</div>
+						<div className="text-xs text-yellow-200">
+							Click & drag containers to move them between tiers
+						</div>
 					</div>
 				)}
 				{colorBy === "grade" ? (
 					<div className="space-y-1">
 						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
 							<div key={grade} className="flex items-center gap-2">
-								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: color }}
+								></div>
 								<span>Grade {grade}</span>
 							</div>
 						))}
@@ -435,8 +534,13 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<div className="space-y-1">
 						{Object.entries(STATUS_COLORS).map(([status, color]) => (
 							<div key={status} className="flex items-center gap-2">
-								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
-								<span className="text-xs">{status} - {getStatusColorName(status)}</span>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: color }}
+								></div>
+								<span className="text-xs">
+									{status} - {getStatusColorName(status)}
+								</span>
 							</div>
 						))}
 					</div>
@@ -457,7 +561,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						minWidth: "300px",
 						fontSize: "14px",
 						fontFamily: "system-ui, -apple-system, sans-serif",
-						border: `3px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
+						border: `3px solid ${
+							containers.find((c) => c.name === selectedContainer)?.color ||
+							"#64b5f6"
+						}`,
 						boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
 						backdropFilter: "blur(10px)",
 						zIndex: 1000,
@@ -466,23 +573,29 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<h3
 						style={{
 							margin: "0 0 16px 0",
-							color: containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6",
+							color:
+								containers.find((c) => c.name === selectedContainer)?.color ||
+								"#64b5f6",
 						}}
 					>
 						Container Information - Depo 4
 					</h3>
 					{(() => {
-						const container = containers.find((c) => c.name === selectedContainer);
+						const container = containers.find(
+							(c) => c.name === selectedContainer
+						);
 						return container ? (
 							<div>
 								<div>
-									<strong>Container Code:</strong> {container.containerCode || "N/A"}
+									<strong>Container Code:</strong>{" "}
+									{container.containerCode || "N/A"}
 								</div>
 								<div>
 									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Position:</strong> Row {container.row}, Column {container.column}
+									<strong>Position:</strong> Row {container.row}, Column{" "}
+									{container.column}
 								</div>
 								<div>
 									<strong>Tier:</strong> {container.tier || "N/A"}
@@ -494,16 +607,22 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 									<strong>Grade:</strong> {container.grade || "No Grade"}
 								</div>
 								<div>
-									<strong>Status:</strong> {container.status || "N/A"} 
+									<strong>Status:</strong> {container.status || "N/A"}
 									{container.status && (
-										<span style={{ 
-											marginLeft: "8px",
-											padding: "2px 6px",
-											borderRadius: "4px",
-											fontSize: "10px",
-											backgroundColor: getContainerColor(container.status, null, "status"),
-											color: "white"
-										}}>
+										<span
+											style={{
+												marginLeft: "8px",
+												padding: "2px 6px",
+												borderRadius: "4px",
+												fontSize: "10px",
+												backgroundColor: getContainerColor(
+													container.status,
+													null,
+													"status"
+												),
+												color: "white",
+											}}
+										>
 											{getStatusColorName(container.status)}
 										</span>
 									)}
@@ -517,7 +636,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 							marginTop: "16px",
 							padding: "8px 16px",
 							backgroundColor: "transparent",
-							border: `2px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
+							border: `2px solid ${
+								containers.find((c) => c.name === selectedContainer)?.color ||
+								"#64b5f6"
+							}`,
 							color: "white",
 							borderRadius: "6px",
 							cursor: "pointer",
@@ -532,8 +654,16 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`} Containers ({containers.length}{" "}
-					total)
+					{name === "JAPFA"
+						? "Depo JAPFA"
+						: name === "4"
+						? "Depo 4"
+						: name === "BAYUR"
+						? "Depo Teluk Bayur"
+						: name === "YON"
+						? "Depo YON"
+						: `Depo ${name}`}{" "}
+					Containers ({containers.length} total)
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
@@ -543,10 +673,16 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								className="flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors"
 								onClick={() => handleContainerClick(container.name)}
 							>
-								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: container.color }}
+								></div>
 								<span className="text-xs truncate">
-									{container.blockName}-{container.row}-{container.column} T{container.tier}
-									{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+									{container.blockName}-{container.row}-{container.column} T
+									{container.tier}
+									{container.containerCode
+										? ` (${container.containerCode.substring(0, 15)}...)`
+										: ""}
 								</span>
 							</div>
 						))}
