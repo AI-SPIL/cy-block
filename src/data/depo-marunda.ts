@@ -29,9 +29,264 @@ export const depoMarundaData = {
                     column: 3,
                     tier: 1,
                     size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-1-4",
+                    row: 1,
+                    column: 4,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-1-5",
+                    row: 1,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
                     grade: "B"
                 },
-                {}
+                {
+                    container_code: "Container A1-1-6",
+                    row: 1,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-1-7",
+                    row: 1,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-2-1",
+                    row: 2,
+                    column: 1,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-2-2",
+                    row: 2,
+                    column: 2,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-2-3",
+                    row: 2,
+                    column: 3,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-2-4",
+                    row: 2,
+                    column: 4,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-2-5",
+                    row: 2,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-2-6",
+                    row: 2,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-2-7",
+                    row: 2,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-3-2",
+                    row: 3,
+                    column: 2,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-3-3",
+                    row: 3,
+                    column: 3,
+                    tier: 1,
+                    size: "20",
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A1-3-4",
+                    row: 3,
+                    column: 4,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-3-5",
+                    row: 3,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A1-3-6",
+                    row: 3,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-3-7",
+                    row: 3,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-4-3",
+                    row: 4,
+                    column: 3,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-4-4",
+                    row: 4,
+                    column: 4,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-4-5",
+                    row: 4,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-4-6",
+                    row: 4,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-4-7",
+                    row: 4,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-5-4",
+                    row: 5,
+                    column: 4,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-5-5",
+                    row: 5,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-5-6",
+                    row: 5,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-5-7",
+                    row: 5,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-6-5",
+                    row: 6,
+                    column: 5,
+                    tier: 1,
+                    size: "20",
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A1-6-6",
+                    row: 6,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-6-7",
+                    row: 6,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A1-7-6",
+                    row: 7,
+                    column: 6,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A1-7-7",
+                    row: 7,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A1-8-7",
+                    row: 8,
+                    column: 7,
+                    tier: 1,
+                    size: "20",
+                    grade: "A"
+                }
             ]
         },
         {
@@ -1718,6 +1973,228 @@ export const depoMarundaData = {
                     size: 20,
                     grade: "B"
                 }
+            ]
+        },
+        {
+            block_name: "A3",
+            slots: [
+                {
+                    container_code: "Container A3-1-1",
+                    row: 1,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-1-2",
+                    row: 1,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-1-3",
+                    row: 1,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-1-4",
+                    row: 1,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-2-1",
+                    row: 2,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-2-2",
+                    row: 2,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-2-3",
+                    row: 2,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-2-4",
+                    row: 2,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-3-1",
+                    row: 3,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-3-2",
+                    row: 3,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-3-3",
+                    row: 3,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-3-4",
+                    row: 3,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-4-1",
+                    row: 4,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-4-2",
+                    row: 4,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-4-3",
+                    row: 4,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-4-4",
+                    row: 4,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-5-1",
+                    row: 5,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-5-2",
+                    row: 5,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-5-3",
+                    row: 5,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-5-4",
+                    row: 5,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-6-1",
+                    row: 6,
+                    column: 1,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                },
+                {
+                    container_code: "Container A3-6-2",
+                    row: 6,
+                    column: 2,
+                    tier: 1,
+                    size: 20,
+                    grade: "A"
+                },
+                {
+                    container_code: "Container A3-6-3",
+                    row: 6,
+                    column: 3,
+                    tier: 1,
+                    size: 20,
+                    grade: "C"
+                },
+                {
+                    container_code: "Container A3-6-4",
+                    row: 6,
+                    column: 4,
+                    tier: 1,
+                    size: 20,
+                    grade: "B"
+                }
+            ]
+        },
+        {
+            block_name: "B1",
+            slots: [
+                // Block B1: 7 columns, 9 rows, size 20, 63 containers
+                {}
+            ]
+        },
+        {
+            block_name: "B2",
+            slots: [
+                // Block B2: 9 columns, 9 rows, size 20, 78 containers
+            ]
+        },
+        {
+            block_name: "B3",
+            slots: [
+                // Block B3: 3 columns, 6 rows, size 20, 13 containers
+            ]
+        },
+        {
+            block_name: "C1",
+            slots: [
+                // Block C1: 13 columns, 13 rows, size 20, 169 containers
             ]
         }
     ]
