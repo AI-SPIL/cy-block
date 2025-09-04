@@ -298,7 +298,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -306,7 +306,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -314,7 +314,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -322,7 +322,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -330,7 +330,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -338,7 +338,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -346,7 +346,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -354,7 +354,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -362,7 +362,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -370,7 +370,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -378,7 +378,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -386,7 +386,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -394,7 +394,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -402,7 +402,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -410,7 +410,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -418,7 +418,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -426,7 +426,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -434,7 +434,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -442,7 +442,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -450,7 +450,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -458,7 +458,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -466,7 +466,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -474,7 +474,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -482,7 +482,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -490,7 +490,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -498,7 +498,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -506,7 +506,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -514,7 +514,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -522,7 +522,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -530,7 +530,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -538,7 +538,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -546,7 +546,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -554,7 +554,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -562,7 +562,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -570,7 +570,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -578,7 +578,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -586,7 +586,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -594,7 +594,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -602,7 +602,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -610,7 +610,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -618,7 +618,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -626,7 +626,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -634,7 +634,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -642,7 +642,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -650,7 +650,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -658,7 +658,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -666,7 +666,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -674,7 +674,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -682,7 +682,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -690,7 +690,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -698,7 +698,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -706,7 +706,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -714,7 +714,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -722,7 +722,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -730,7 +730,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -738,7 +738,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -746,7 +746,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -754,7 +754,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -762,7 +762,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -770,7 +770,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -778,7 +778,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -786,7 +786,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -794,7 +794,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -802,7 +802,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -810,7 +810,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -818,7 +818,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -826,7 +826,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -834,7 +834,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -842,7 +842,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -850,7 +850,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -858,7 +858,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -866,7 +866,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -874,7 +874,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -882,7 +882,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -890,7 +890,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -898,7 +898,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -906,7 +906,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -914,7 +914,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -922,7 +922,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -930,7 +930,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -938,7 +938,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -946,7 +946,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -954,7 +954,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -962,7 +962,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -970,7 +970,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -978,7 +978,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -986,7 +986,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -994,7 +994,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1002,7 +1002,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1010,7 +1010,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1018,7 +1018,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1026,7 +1026,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1034,7 +1034,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1042,7 +1042,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1050,7 +1050,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1058,7 +1058,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1066,7 +1066,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1074,7 +1074,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1082,7 +1082,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1090,7 +1090,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1098,7 +1098,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1106,7 +1106,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1114,7 +1114,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1122,7 +1122,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1130,7 +1130,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1138,7 +1138,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1146,7 +1146,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1154,7 +1154,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1162,7 +1162,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1170,7 +1170,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1178,7 +1178,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1186,7 +1186,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1194,7 +1194,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1202,7 +1202,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1210,7 +1210,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1218,7 +1218,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1226,7 +1226,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1234,7 +1234,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1242,7 +1242,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1250,7 +1250,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1258,7 +1258,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1266,7 +1266,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1274,7 +1274,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1282,7 +1282,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1290,7 +1290,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1298,7 +1298,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1306,7 +1306,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1314,7 +1314,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1322,7 +1322,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1330,7 +1330,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1338,7 +1338,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1346,7 +1346,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1354,7 +1354,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1362,7 +1362,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1370,7 +1370,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1378,7 +1378,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1386,7 +1386,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1394,7 +1394,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1402,7 +1402,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1410,7 +1410,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1418,7 +1418,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1426,7 +1426,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1434,7 +1434,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1442,7 +1442,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1450,7 +1450,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1458,7 +1458,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1466,7 +1466,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1474,7 +1474,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1482,7 +1482,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1490,7 +1490,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1498,7 +1498,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1506,7 +1506,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1514,7 +1514,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1522,7 +1522,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1530,7 +1530,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1538,7 +1538,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1546,7 +1546,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1554,7 +1554,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1562,7 +1562,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1570,7 +1570,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1578,7 +1578,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1586,7 +1586,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1594,7 +1594,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1602,7 +1602,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1610,7 +1610,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1618,7 +1618,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1626,7 +1626,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1634,7 +1634,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1642,7 +1642,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1650,7 +1650,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1658,7 +1658,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1666,7 +1666,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1674,7 +1674,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1682,7 +1682,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1690,7 +1690,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1698,7 +1698,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1706,7 +1706,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1714,7 +1714,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1722,7 +1722,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1730,7 +1730,7 @@ export const depoMarundaData = {
                     row: 18,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1738,7 +1738,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1746,7 +1746,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1754,7 +1754,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1762,7 +1762,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1770,7 +1770,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1778,7 +1778,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1786,7 +1786,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1794,7 +1794,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1802,7 +1802,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1810,7 +1810,7 @@ export const depoMarundaData = {
                     row: 19,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1818,7 +1818,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1826,7 +1826,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1834,7 +1834,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1842,7 +1842,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1850,7 +1850,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1858,7 +1858,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1866,7 +1866,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1874,7 +1874,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1882,7 +1882,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1890,7 +1890,7 @@ export const depoMarundaData = {
                     row: 20,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1898,7 +1898,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1906,7 +1906,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1914,7 +1914,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1922,7 +1922,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1930,7 +1930,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1938,7 +1938,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1946,7 +1946,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -1954,7 +1954,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1962,7 +1962,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1970,7 +1970,7 @@ export const depoMarundaData = {
                     row: 21,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 }
             ]
@@ -1983,7 +1983,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -1991,7 +1991,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -1999,7 +1999,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2007,7 +2007,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2015,7 +2015,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2023,7 +2023,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2031,7 +2031,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2039,7 +2039,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2047,7 +2047,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2055,7 +2055,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2063,7 +2063,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2071,7 +2071,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2079,7 +2079,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2087,7 +2087,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2095,7 +2095,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2103,7 +2103,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2111,7 +2111,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2119,7 +2119,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2127,7 +2127,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2135,7 +2135,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2143,7 +2143,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2151,7 +2151,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2159,7 +2159,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2167,7 +2167,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 }
             ]
@@ -2181,7 +2181,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2189,7 +2189,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                     },
                 {
@@ -2197,7 +2197,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2205,7 +2205,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2213,7 +2213,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2221,7 +2221,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2229,7 +2229,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2237,7 +2237,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2245,7 +2245,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2253,7 +2253,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2261,7 +2261,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2269,7 +2269,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2277,7 +2277,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2285,7 +2285,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2293,7 +2293,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2301,7 +2301,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2309,7 +2309,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2317,7 +2317,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2325,7 +2325,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2333,7 +2333,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2341,7 +2341,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2349,7 +2349,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2357,7 +2357,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2365,7 +2365,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2373,7 +2373,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2381,7 +2381,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2389,7 +2389,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2397,7 +2397,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2405,7 +2405,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2413,7 +2413,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2421,7 +2421,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2429,7 +2429,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2437,7 +2437,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2445,7 +2445,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2453,7 +2453,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2461,7 +2461,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2469,7 +2469,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2477,7 +2477,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2485,7 +2485,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2493,7 +2493,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2501,7 +2501,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2509,7 +2509,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2517,7 +2517,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2525,7 +2525,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2533,7 +2533,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2541,7 +2541,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2549,7 +2549,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2557,7 +2557,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2565,7 +2565,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2573,7 +2573,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2581,7 +2581,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2589,7 +2589,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2597,7 +2597,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2605,7 +2605,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2613,7 +2613,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2621,7 +2621,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2629,7 +2629,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2637,7 +2637,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2645,7 +2645,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2653,7 +2653,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2661,7 +2661,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2669,7 +2669,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2677,7 +2677,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
             ]
@@ -2691,7 +2691,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2699,7 +2699,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2707,7 +2707,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2715,7 +2715,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2723,7 +2723,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2731,7 +2731,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2739,7 +2739,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2747,7 +2747,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2755,7 +2755,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2763,7 +2763,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2771,7 +2771,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2779,7 +2779,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2787,7 +2787,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2795,7 +2795,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2803,7 +2803,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2811,7 +2811,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2819,7 +2819,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2827,7 +2827,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2835,7 +2835,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2843,7 +2843,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2851,7 +2851,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2859,7 +2859,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2867,7 +2867,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2875,7 +2875,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2883,7 +2883,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2891,7 +2891,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2899,7 +2899,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2907,7 +2907,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2915,7 +2915,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2923,7 +2923,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2931,7 +2931,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2939,7 +2939,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2947,7 +2947,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2955,7 +2955,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2963,7 +2963,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2971,7 +2971,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -2979,7 +2979,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -2987,7 +2987,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -2995,7 +2995,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3003,7 +3003,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3011,7 +3011,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3019,7 +3019,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3027,7 +3027,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3035,7 +3035,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3043,7 +3043,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3051,7 +3051,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3059,7 +3059,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3067,7 +3067,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3075,7 +3075,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3083,7 +3083,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3091,7 +3091,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3099,7 +3099,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3107,7 +3107,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3115,7 +3115,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3123,7 +3123,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3131,7 +3131,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3139,7 +3139,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3147,7 +3147,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3155,7 +3155,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3163,7 +3163,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3171,7 +3171,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3179,7 +3179,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3187,7 +3187,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3195,7 +3195,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3203,7 +3203,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3211,7 +3211,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3219,7 +3219,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3227,7 +3227,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3235,7 +3235,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3243,7 +3243,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3251,7 +3251,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3259,7 +3259,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3267,7 +3267,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3275,7 +3275,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3283,7 +3283,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3291,7 +3291,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3299,7 +3299,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3307,7 +3307,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 }
             ]
@@ -3321,7 +3321,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3329,7 +3329,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3337,7 +3337,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3345,7 +3345,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3353,7 +3353,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3361,7 +3361,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3369,7 +3369,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3377,7 +3377,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3385,7 +3385,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3393,7 +3393,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3401,7 +3401,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3409,7 +3409,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3417,7 +3417,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3425,7 +3425,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3433,7 +3433,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3441,7 +3441,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3449,7 +3449,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3457,7 +3457,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 }
             ]
@@ -3471,7 +3471,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3479,7 +3479,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3487,7 +3487,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3495,7 +3495,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3503,7 +3503,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3511,7 +3511,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3519,7 +3519,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3527,7 +3527,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3535,7 +3535,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3543,7 +3543,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3551,7 +3551,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3559,7 +3559,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3567,7 +3567,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3575,7 +3575,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3583,7 +3583,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3591,7 +3591,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3599,7 +3599,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3607,7 +3607,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3615,7 +3615,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3623,7 +3623,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3631,7 +3631,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3639,7 +3639,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3647,7 +3647,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3655,7 +3655,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3663,7 +3663,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3671,7 +3671,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3679,7 +3679,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3687,7 +3687,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3695,7 +3695,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3703,7 +3703,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3711,7 +3711,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3719,7 +3719,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3727,7 +3727,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3735,7 +3735,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3743,7 +3743,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3751,7 +3751,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3759,7 +3759,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3767,7 +3767,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3775,7 +3775,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3783,7 +3783,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3791,7 +3791,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3799,7 +3799,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3807,7 +3807,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3815,7 +3815,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3823,7 +3823,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3831,7 +3831,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3839,7 +3839,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3847,7 +3847,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3855,7 +3855,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3863,7 +3863,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3871,7 +3871,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3879,7 +3879,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3887,7 +3887,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3895,7 +3895,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3903,7 +3903,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3911,7 +3911,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3919,7 +3919,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3927,7 +3927,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3935,7 +3935,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3943,7 +3943,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3951,7 +3951,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3959,7 +3959,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3967,7 +3967,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3975,7 +3975,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -3983,7 +3983,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -3991,7 +3991,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -3999,7 +3999,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4007,7 +4007,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4015,7 +4015,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4023,7 +4023,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4031,7 +4031,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4039,7 +4039,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4047,7 +4047,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4055,7 +4055,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4063,7 +4063,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4071,7 +4071,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4079,7 +4079,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4087,7 +4087,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4095,7 +4095,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4103,7 +4103,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4111,7 +4111,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4119,7 +4119,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4127,7 +4127,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4135,7 +4135,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4143,7 +4143,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4151,7 +4151,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4159,7 +4159,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4167,7 +4167,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4175,7 +4175,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4183,7 +4183,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4191,7 +4191,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4199,7 +4199,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4207,7 +4207,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4215,7 +4215,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4223,7 +4223,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4231,7 +4231,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4239,7 +4239,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4247,7 +4247,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4255,7 +4255,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4263,7 +4263,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4271,7 +4271,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4279,7 +4279,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4287,7 +4287,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4295,7 +4295,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4303,7 +4303,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4311,7 +4311,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4319,7 +4319,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4327,7 +4327,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4335,7 +4335,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4343,7 +4343,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4351,7 +4351,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4359,7 +4359,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4367,7 +4367,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4375,7 +4375,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4383,7 +4383,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4391,7 +4391,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4399,7 +4399,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4407,7 +4407,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4415,7 +4415,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4423,7 +4423,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4431,7 +4431,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4439,7 +4439,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4447,7 +4447,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4455,7 +4455,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4463,7 +4463,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4471,7 +4471,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4479,7 +4479,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4487,7 +4487,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4495,7 +4495,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4503,7 +4503,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4511,7 +4511,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4519,7 +4519,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4527,7 +4527,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4535,7 +4535,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4543,7 +4543,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4551,7 +4551,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4559,7 +4559,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4567,7 +4567,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4575,7 +4575,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4583,7 +4583,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4591,7 +4591,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4599,7 +4599,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4607,7 +4607,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4615,7 +4615,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4623,7 +4623,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4631,7 +4631,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4639,7 +4639,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4647,7 +4647,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4655,7 +4655,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4663,7 +4663,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4671,7 +4671,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4679,7 +4679,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4687,7 +4687,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4695,7 +4695,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4703,7 +4703,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4711,7 +4711,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4719,7 +4719,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4727,7 +4727,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4735,7 +4735,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4743,7 +4743,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4751,7 +4751,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4759,7 +4759,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4767,7 +4767,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4775,7 +4775,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4783,7 +4783,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4791,7 +4791,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4799,7 +4799,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4807,7 +4807,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4815,7 +4815,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 }
             ]
@@ -4829,7 +4829,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4837,7 +4837,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4845,7 +4845,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4853,7 +4853,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4861,7 +4861,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4869,7 +4869,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4877,7 +4877,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4885,7 +4885,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4893,7 +4893,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4901,7 +4901,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4909,7 +4909,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4917,7 +4917,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4925,7 +4925,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4933,7 +4933,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4941,7 +4941,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4949,7 +4949,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4957,7 +4957,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4965,7 +4965,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4973,7 +4973,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -4981,7 +4981,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -4989,7 +4989,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -4997,7 +4997,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5005,7 +5005,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5013,7 +5013,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5021,7 +5021,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5029,7 +5029,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5037,7 +5037,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5045,7 +5045,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5053,7 +5053,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5061,7 +5061,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5069,7 +5069,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5077,7 +5077,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5085,7 +5085,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5093,7 +5093,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5101,7 +5101,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5109,7 +5109,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5117,7 +5117,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5125,7 +5125,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5133,7 +5133,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5141,7 +5141,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5149,7 +5149,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5157,7 +5157,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5165,7 +5165,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5173,7 +5173,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5181,7 +5181,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5189,7 +5189,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5197,7 +5197,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5205,7 +5205,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5213,7 +5213,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5221,7 +5221,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5229,7 +5229,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5237,7 +5237,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5245,7 +5245,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5253,7 +5253,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5261,7 +5261,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5269,7 +5269,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5277,7 +5277,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5285,7 +5285,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5293,7 +5293,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5301,7 +5301,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5309,7 +5309,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5317,7 +5317,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5325,7 +5325,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5333,7 +5333,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5341,7 +5341,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5349,7 +5349,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5357,7 +5357,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5365,7 +5365,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5373,7 +5373,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5381,7 +5381,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5389,7 +5389,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5397,7 +5397,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5405,7 +5405,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5413,7 +5413,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5421,7 +5421,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5429,7 +5429,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5437,7 +5437,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5445,7 +5445,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5453,7 +5453,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5461,7 +5461,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5469,7 +5469,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5477,7 +5477,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5485,7 +5485,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5493,7 +5493,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5501,7 +5501,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5509,7 +5509,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5517,7 +5517,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5525,7 +5525,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5533,7 +5533,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5541,7 +5541,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5549,7 +5549,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5557,7 +5557,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5565,7 +5565,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5573,7 +5573,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5581,7 +5581,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5589,7 +5589,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5597,7 +5597,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5605,7 +5605,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5613,7 +5613,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5621,7 +5621,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5629,7 +5629,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5637,7 +5637,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5645,7 +5645,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5653,7 +5653,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 }
             ]
@@ -5667,7 +5667,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5675,7 +5675,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5683,7 +5683,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5691,7 +5691,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5699,7 +5699,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5707,7 +5707,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5715,7 +5715,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5723,7 +5723,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5731,7 +5731,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5739,7 +5739,7 @@ export const depoMarundaData = {
                     row: 1,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5747,7 +5747,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5755,7 +5755,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5763,7 +5763,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5771,7 +5771,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5779,7 +5779,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5787,7 +5787,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5795,7 +5795,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5803,7 +5803,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5811,7 +5811,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5819,7 +5819,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5827,7 +5827,7 @@ export const depoMarundaData = {
                     row: 2,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5835,7 +5835,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5843,7 +5843,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5851,7 +5851,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5859,7 +5859,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5867,7 +5867,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5875,7 +5875,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5883,7 +5883,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5891,7 +5891,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5899,7 +5899,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5907,7 +5907,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5915,7 +5915,7 @@ export const depoMarundaData = {
                     row: 3,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5923,7 +5923,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5931,7 +5931,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5939,7 +5939,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5947,7 +5947,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5955,7 +5955,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5963,7 +5963,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5971,7 +5971,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -5979,7 +5979,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -5987,7 +5987,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -5995,7 +5995,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6003,7 +6003,7 @@ export const depoMarundaData = {
                     row: 4,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6011,7 +6011,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6019,7 +6019,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6027,7 +6027,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6035,7 +6035,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6043,7 +6043,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6051,7 +6051,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6059,7 +6059,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6067,7 +6067,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6075,7 +6075,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6083,7 +6083,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6091,7 +6091,7 @@ export const depoMarundaData = {
                     row: 5,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6099,7 +6099,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6107,7 +6107,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6115,7 +6115,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6123,7 +6123,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6131,7 +6131,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6139,7 +6139,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6147,7 +6147,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6155,7 +6155,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6163,7 +6163,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6171,7 +6171,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6179,7 +6179,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6187,7 +6187,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6195,7 +6195,7 @@ export const depoMarundaData = {
                     row: 6,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6203,7 +6203,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6211,7 +6211,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6219,7 +6219,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6227,7 +6227,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6235,7 +6235,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6243,7 +6243,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6251,7 +6251,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6259,7 +6259,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6267,7 +6267,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6275,7 +6275,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6283,7 +6283,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6291,7 +6291,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6299,7 +6299,7 @@ export const depoMarundaData = {
                     row: 7,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6307,7 +6307,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6315,7 +6315,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6323,7 +6323,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6331,7 +6331,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6339,7 +6339,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6347,7 +6347,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6355,7 +6355,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6363,7 +6363,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6371,7 +6371,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6379,7 +6379,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6387,7 +6387,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6395,7 +6395,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6403,7 +6403,7 @@ export const depoMarundaData = {
                     row: 8,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6411,7 +6411,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6419,7 +6419,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6427,7 +6427,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6435,7 +6435,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6443,7 +6443,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6451,7 +6451,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6459,7 +6459,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6467,7 +6467,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6475,7 +6475,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6483,7 +6483,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6491,7 +6491,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6499,7 +6499,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6507,7 +6507,7 @@ export const depoMarundaData = {
                     row: 9,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6515,7 +6515,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6523,7 +6523,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6531,7 +6531,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6539,7 +6539,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6547,7 +6547,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6555,7 +6555,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6563,7 +6563,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6571,7 +6571,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6579,7 +6579,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6587,7 +6587,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6595,7 +6595,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6603,7 +6603,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6611,7 +6611,7 @@ export const depoMarundaData = {
                     row: 10,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6619,7 +6619,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6627,7 +6627,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6635,7 +6635,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6643,7 +6643,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6651,7 +6651,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6659,7 +6659,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6667,7 +6667,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6675,7 +6675,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6683,7 +6683,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6691,7 +6691,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6699,7 +6699,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6707,7 +6707,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6715,7 +6715,7 @@ export const depoMarundaData = {
                     row: 11,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6723,7 +6723,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6731,7 +6731,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6739,7 +6739,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6747,7 +6747,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6755,7 +6755,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6763,7 +6763,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6771,7 +6771,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6779,7 +6779,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6787,7 +6787,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6795,7 +6795,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6803,7 +6803,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6811,7 +6811,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6819,7 +6819,7 @@ export const depoMarundaData = {
                     row: 12,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6827,7 +6827,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6835,7 +6835,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6843,7 +6843,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6851,7 +6851,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6859,7 +6859,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6867,7 +6867,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6875,7 +6875,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6883,7 +6883,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6891,7 +6891,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6899,7 +6899,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6907,7 +6907,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6915,7 +6915,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6923,7 +6923,7 @@ export const depoMarundaData = {
                     row: 13,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6931,7 +6931,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6939,7 +6939,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6947,7 +6947,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6955,7 +6955,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6963,7 +6963,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6971,7 +6971,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -6979,7 +6979,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -6987,7 +6987,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -6995,7 +6995,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7003,7 +7003,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7011,7 +7011,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7019,7 +7019,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7027,7 +7027,7 @@ export const depoMarundaData = {
                     row: 14,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7035,7 +7035,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7043,7 +7043,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7051,7 +7051,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7059,7 +7059,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7067,7 +7067,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7075,7 +7075,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7083,7 +7083,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7091,7 +7091,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7099,7 +7099,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7107,7 +7107,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7115,7 +7115,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7123,7 +7123,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7131,7 +7131,7 @@ export const depoMarundaData = {
                     row: 15,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7139,7 +7139,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7147,7 +7147,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7155,7 +7155,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7163,7 +7163,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7171,7 +7171,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7179,7 +7179,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7187,7 +7187,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7195,7 +7195,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7203,7 +7203,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7211,7 +7211,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7219,7 +7219,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7227,7 +7227,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7235,7 +7235,7 @@ export const depoMarundaData = {
                     row: 16,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7243,7 +7243,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 1,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7251,7 +7251,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 2,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7259,7 +7259,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 3,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7267,7 +7267,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 4,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7275,7 +7275,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 5,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7283,7 +7283,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 6,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7291,7 +7291,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 7,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7299,7 +7299,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 8,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7307,7 +7307,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 9,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7315,7 +7315,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 10,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 },
                 {
@@ -7323,7 +7323,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 11,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "B"
                 },
                 {
@@ -7331,7 +7331,7 @@ export const depoMarundaData = {
                     row: 17,
                     column: 12,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "A"
                 },
                 {
@@ -7339,10 +7339,10 @@ export const depoMarundaData = {
                     row: 17,
                     column: 13,
                     tier: 1,
-                    size: 20,
+                    size: "20",
                     grade: "C"
                 }
             ]
         }
     ]
-}
+} satisfies ExampleResponse
