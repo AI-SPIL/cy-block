@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { getAdjustedRotation, shouldApplyRotation } from "../helpers/depo-rotation-helpers";
+import {
+	getAdjustedRotation,
+	shouldApplyRotation,
+} from "../helpers/depo-rotation-helpers";
 import type { ThreeEvent } from "@react-three/fiber";
 
 export interface PositionedContainer {
@@ -45,7 +48,10 @@ export function Container({
 	onSelect: (name: string) => void;
 	onDragStart?: (container: PositionedContainer) => void;
 	onDragEnd?: () => void;
-	onDrop?: (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => void;
+	onDrop?: (
+		targetContainer: PositionedContainer,
+		draggedContainer: PositionedContainer
+	) => void;
 	onDragMove?: (position: [number, number, number]) => void;
 	depoName?: string;
 }) {
@@ -80,22 +86,33 @@ export function Container({
 			// If the block is rotated, we need to consider the rotation when choosing orientation
 			if (isRotated) {
 				// For rotated blocks, match the mesh orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			} else {
 				// For non-rotated blocks, use mesh dimensions to determine orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			}
 		} else if (container.size === "40") {
-			// For 40ft containers, determine orientation based on mesh dimensions
+			// For 40ft containers
 			const meshWidth = container.meshSize[0];
 			const meshDepth = container.meshSize[2];
 			const isVerticalMesh = meshDepth > meshWidth;
 
+			let selectedDimensions;
 			if (isRotated) {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			} else {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			}
+
+			return selectedDimensions;
 		}
 		// Fallback to 20ft vertical if size is not specified
 		return defaultSize20Vertical;
@@ -138,7 +155,7 @@ export function Container({
 			const newPosition: [number, number, number] = [
 				event.point.x,
 				event.point.y + 2, // Keep it elevated during drag
-				event.point.z
+				event.point.z,
 			];
 			onDragMove(newPosition);
 		}
@@ -154,10 +171,10 @@ export function Container({
 	// Calculate final position - elevate when dragging
 	const finalPosition: [number, number, number] = container.isDragging
 		? [
-			container.position[0],
-			container.position[1] + 1, // Elevate when dragging
-			container.position[2]
-		]
+				container.position[0],
+				container.position[1] + 1, // Elevate when dragging
+				container.position[2],
+		  ]
 		: container.position;
 
 	return (
@@ -166,45 +183,46 @@ export function Container({
 			<group rotation={finalRotation}>
 				{/* Position the container so its bottom sits on the surface */}
 				<group position={[0, containerDimensions[1] / 2, 0]}>
-					<mesh 
-						onClick={container.isDropTarget && onDrop ? 
-							(event) => {
-								event.stopPropagation();
-								// Will trigger drop logic in parent
-							} : 
-							handleClick
-						} 
-						onPointerEnter={handlePointerEnter} 
+					<mesh
+						onClick={
+							container.isDropTarget && onDrop
+								? (event) => {
+										event.stopPropagation();
+										// Will trigger drop logic in parent
+								  }
+								: handleClick
+						}
+						onPointerEnter={handlePointerEnter}
 						onPointerLeave={handlePointerLeave}
 						onPointerDown={onDragStart ? handleDragStart : undefined}
 						onPointerMove={isDragging ? handlePointerMove : undefined}
 						onPointerUp={onDragEnd ? handleDragEnd : undefined}
-						castShadow 
+						castShadow
 						receiveShadow
 					>
 						{/* Use adaptive dimensions based on rotation */}
 						<boxGeometry args={containerDimensions} />
 						<meshStandardMaterial
 							color={
-								isDragging 
+								isDragging
 									? "#ffff00" // Yellow when dragging
-									: hovered || selected 
-									? "#ffffff" 
-									: container.isDragging 
+									: hovered || selected
+									? "#ffffff"
+									: container.isDragging
 									? "#ffff00" // Yellow when being dragged from parent state
-									: container.isDropTarget 
+									: container.isDropTarget
 									? "#00ff00" // Green when valid drop target
 									: container.color
 							}
 							transparent
 							opacity={
-								isDragging || container.isDragging 
+								isDragging || container.isDragging
 									? 0.7 // More transparent when dragging
-									: hovered 
-									? 0.95 
-									: selected 
-									? 0.8 
-									: container.isDropTarget 
+									: hovered
+									? 0.95
+									: selected
+									? 0.8
+									: container.isDropTarget
 									? 0.9 // Slightly transparent when drop target
 									: 1.0
 							}
@@ -213,8 +231,8 @@ export function Container({
 							emissive={
 								isDragging || container.isDragging
 									? "#ffff00" // Yellow glow when dragging
-									: hovered 
-									? container.color 
+									: hovered
+									? container.color
 									: container.isDropTarget
 									? "#00ff00" // Green glow when drop target
 									: "#000000"
@@ -222,8 +240,8 @@ export function Container({
 							emissiveIntensity={
 								isDragging || container.isDragging
 									? 0.3 // Stronger glow when dragging
-									: hovered 
-									? 0.1 
+									: hovered
+									? 0.1
 									: container.isDropTarget
 									? 0.2 // Green glow when drop target
 									: 0

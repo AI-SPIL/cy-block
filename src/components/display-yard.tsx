@@ -44,7 +44,7 @@ const PATH_MAPPING = {
 		data: mappingBayurData,
 	},
 	YON: {
-		model: "/cy-block/depo-yon.glb",
+		model: "/cy-block/new-depo-yon.glb",
 		data: depoYonData,
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
@@ -114,19 +114,18 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					: defaultSize20Vertical;
 			}
 		} else if (containerSize === "40") {
-			// For 40ft containers, determine orientation based on mesh dimensions
-			const meshWidth = meshSize[0];
-			const meshDepth = meshSize[2];
-			const isVerticalMesh = meshDepth > meshWidth;
-
-			if (isRotated) {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
-			} else {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
-			}
-		}
-
-		// Fallback: use mesh dimensions with actual mesh height
+			// For 40ft containers, always use the default props dimensions
+			// Don't determine orientation based on mesh - use default size40 from props
+			console.log(
+				"Display-yard: Size 40 container using HORIZONTAL:",
+				defaultSize40Horizontal
+			);
+			console.log(
+				"Display-yard: Size 40 available vertical would be:",
+				defaultSize40Vertical
+			);
+			return defaultSize40Horizontal; // Always use horizontal orientation for size 40
+		} // Fallback: use mesh dimensions with actual mesh height
 		return [meshSize[0], meshSize[1], meshSize[2]];
 	};
 
@@ -140,12 +139,49 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		const depoData = PATH_MAPPING[name].data;
 		const newContainers: PositionedContainer[] = [];
 
+		// Helper function to detect if container name indicates fractional position
+		const getFractionalPosition = (
+			containerCode: string
+		): number | undefined => {
+			const match = containerCode.match(/(\d+)\.(\d+)/);
+			if (match) {
+				return parseFloat(`0.${match[2]}`); // Convert "1.5" to 0.5
+			}
+			return undefined;
+		};
+
+		// Helper function to get mesh name with support for fractional columns
+		const getMeshName = (
+			blockName: string,
+			column: number,
+			row: number,
+			containerCode: string,
+			size: string
+		): string => {
+			if (size === "40") {
+				// The 3D model uses "135" instead of "13.5" for fractional positions
+				return `${blockName}_${column}_${row}5`;
+			}
+			const fraction = getFractionalPosition(containerCode);
+			if (fraction !== undefined) {
+				return `${blockName}_${column}_${row}.${
+					fraction === 0.5 ? "5" : String(fraction).replace("0.", "")
+				}`;
+			}
+			return `${blockName}_${column}_${row}`;
+		};
+
 		depoData.depo_blocks.forEach((block) => {
 			block.block_slots.forEach((slot) => {
-				const meshName = `${block.block_name}_${slot.column}_${slot.row}`;
-
-				// Find corresponding mesh position
+				const meshName = getMeshName(
+					block.block_name,
+					slot.column,
+					slot.row,
+					slot.container_code,
+					slot.size
+				);
 				const meshData = positions[meshName];
+
 				if (meshData) {
 					// Check if the block is rotated (not at cardinal directions)
 					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
@@ -179,37 +215,17 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 					const containerHeight = containerDimensions[1]; // Y size
 
-					// Position container so its bottom sits on the top surface of the block
-					// For tier 1: bottom of container = top of block (meshData.position[1] + meshData.size[1] / 2)
-					// For higher tiers: stack containers on top of each other
-					// Since we now anchor containers at their bottom, we don't add containerHeight / 2
 					const yPosition =
 						meshData.position[1] +
 						meshData.size[1] / 2 +
 						(slot.tier - 1) * containerHeight;
 
-					// Get color based on current color mode
-					let containerColor: string;
-					try {
-						containerColor = getContainerColor(
-							slot.status,
-							slot.grade,
-							colorBy
-						);
-					} catch (error) {
-						console.warn(
-							"Error getting container color, using fallback:",
-							error
-						);
-						containerColor = "#666666"; // Default gray color
-					}
-
 					const container: PositionedContainer = {
 						position: [meshData.position[0], yPosition, meshData.position[2]],
-						meshSize: meshData.size,
+						meshSize: slot.size === "40" ? containerDimensions : meshData.size,
 						rotation: meshData.rotation,
-						color: containerColor,
-						name: `${meshName}_T${slot.tier}`,
+						color: getContainerColor(slot.status, slot.grade || null, colorBy),
+						name: `${block.block_name}_${slot.column}_${slot.row}_T${slot.tier}`,
 						containerCode: slot.container_code,
 						size: slot.size,
 						grade: slot.grade,
@@ -233,6 +249,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	};
 
 	const handleContainerClick = (containerName: string) => {
+		setSelectedContainer(
+			selectedContainer === containerName ? null : containerName
+		);
 		if (dragMode && draggedContainer) {
 			// Handle drop operation
 			const targetContainer = containers.find((c) => c.name === containerName);
