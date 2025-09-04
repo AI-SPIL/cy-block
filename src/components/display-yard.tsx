@@ -11,11 +11,12 @@ import {
 } from "@/helpers/color-helpers";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
 
@@ -60,6 +61,12 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const [dragMode, setDragMode] = useState<boolean>(false);
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	const [, setDragPosition] = useState<[number, number, number] | null>(null);
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
+
+	// Camera controls ref for programmatic camera movement
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const cameraControls = useRef<any>(null);
 
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
@@ -373,6 +380,54 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		handleDragEnd();
 	};
 
+	// Search functionality
+	const handleSearch = (query: string) => {
+		setSearchQuery(query);
+		if (query.trim() === "") {
+			setSearchResults([]);
+			return;
+		}
+
+		const results = containers.filter((container) =>
+			container.containerCode?.toLowerCase().includes(query.toLowerCase())
+		);
+		setSearchResults(results);
+
+		// Auto-select first result if only one match
+		if (results.length === 1) {
+			setSelectedContainer(results[0].name);
+		}
+	};
+
+	// Clear search function
+	const clearSearch = () => {
+		setSearchQuery("");
+		setSearchResults([]);
+		setSelectedContainer(null);
+	};
+
+	// Function to focus camera on a container
+	const focusOnContainer = (containerName: string) => {
+		const container = containers.find(c => c.name === containerName);
+		if (container) {
+			setSelectedContainer(containerName);
+			
+			// Move camera to focus on the container
+			if (cameraControls.current) {
+				const pos = container.position;
+				cameraControls.current.setLookAt(
+					pos[0] + 20, // Offset for better view
+					pos[1] + 15,
+					pos[2] + 20,
+					pos[0],
+					pos[1],
+					pos[2],
+					true // Animate transition
+				);
+			}
+		}
+	};
+
 	// Update container colors when colorBy mode changes
 	useEffect(() => {
 		setContainers((currentContainers) => {
@@ -469,6 +524,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 				{/* Camera Controls - Disabled only when actively dragging */}
 				<OrbitControls
+					ref={cameraControls}
 					enablePan={!isDragging}
 					enableZoom={!isDragging}
 					enableRotate={!isDragging}
@@ -483,6 +539,56 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			{/* Color Mode Toggle and Drag Mode Toggle */}
 			<div className="fixed top-5 left-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000]">
+				{/* Search Section */}
+				<div className="mb-3">
+					<div className="flex gap-2 items-center">
+						<Input
+							type="text"
+							placeholder="Search container code..."
+							value={searchQuery}
+							onChange={(e) => handleSearch(e.target.value)}
+							className="w-64 text-xs bg-black/50 border-white/30 text-white placeholder-white/60"
+						/>
+						{searchQuery && (
+							<Button
+								onClick={clearSearch}
+								size="sm"
+								className="text-xs bg-red-600 hover:bg-red-700 text-white"
+							>
+								Clear
+							</Button>
+						)}
+					</div>
+					{searchResults.length > 0 && (
+						<div className="mt-2 text-xs">
+							<div className="text-green-400 mb-1">
+								Found {searchResults.length} container(s):
+							</div>
+							<div className="max-h-20 overflow-y-auto space-y-1">
+								{searchResults.map((result, idx) => (
+									<div key={idx} className="flex items-center gap-2">
+										<Button
+											onClick={() => focusOnContainer(result.name)}
+											size="sm"
+											className="text-xs bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 h-6"
+										>
+											Focus
+										</Button>
+										<span className="text-white text-xs truncate">
+											{result.containerCode} ({result.blockName}-{result.row}-{result.column})
+										</span>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
+					{searchQuery && searchResults.length === 0 && (
+						<div className="mt-2 text-xs text-red-400">
+							No containers found
+						</div>
+					)}
+				</div>
+				
 				<div className="flex gap-2 mb-2">
 					<Button
 						onClick={() => setColorBy("grade")}
@@ -571,7 +677,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				<div
 					style={{
 						position: "absolute",
-						top: "20px",
+						bottom: "20px",
 						left: "20px",
 						backgroundColor: "rgba(0, 0, 0, 0.9)",
 						color: "white",
@@ -682,29 +788,43 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						: name === "YON"
 						? "Depo YON"
 						: `Depo ${name}`}{" "}
-					Containers ({containers.length} total)
+					{searchResults.length > 0 ? (
+						<span className="text-green-400">
+							Search Results ({searchResults.length})
+						</span>
+					) : (
+						<span>Containers ({containers.length} total)</span>
+					)}
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
-						{containers.map((container) => (
-							<div
-								key={container.name}
-								className="flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors"
-								onClick={() => handleContainerClick(container.name)}
-							>
+						{(searchResults.length > 0 ? searchResults : containers).map((container) => {
+							const isSearchMatch = searchResults.length > 0 && searchResults.includes(container);
+							return (
 								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: container.color }}
-								></div>
-								<span className="text-xs truncate">
-									{container.blockName}-{container.row}-{container.column} T
-									{container.tier}
-									{container.containerCode
-										? ` (${container.containerCode.substring(0, 15)}...)`
-										: ""}
-								</span>
-							</div>
-						))}
+									key={container.name}
+									className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+										isSearchMatch ? "bg-green-900/30 border border-green-500" : ""
+									}`}
+									onClick={() => handleContainerClick(container.name)}
+								>
+									<div
+										className="w-3 h-3 rounded-sm flex-shrink-0"
+										style={{ backgroundColor: container.color }}
+									></div>
+									<span className="text-xs truncate">
+										{container.blockName}-{container.row}-{container.column} T
+										{container.tier}
+										{container.containerCode
+											? ` (${container.containerCode.substring(0, 15)}...)`
+											: ""}
+									</span>
+									{isSearchMatch && (
+										<span className="text-green-400 text-xs ml-auto">✓</span>
+									)}
+								</div>
+							);
+						})}
 					</div>
 				</ScrollArea>
 			</div>
