@@ -9,6 +9,9 @@ const ROUTES_MAP = [
 	{ path: "/depo-japfa", title: "Depo Japfa" },
 	{ path: "/depo-teluk-bayur", title: "Depo Teluk Bayur" },
 	{ path: "/depo-yon", title: "Depo Yon" },
+	{ path: "/depo-marunda", title: "Depo Marunda" },
+	{ path: "/depo-teluk-langon", title: "Depo Teluk Langon" },
+	{ path: "/depo-perca", title: "Depo Perca" },
 ];
 
 function RoutesDropdown() {
