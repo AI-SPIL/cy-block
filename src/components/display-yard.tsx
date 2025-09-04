@@ -37,32 +37,52 @@ const PATH_MAPPING = {
 		data: mappingBayurData,
 	},
 	YON: {
-		model: "/cy-block/depo-yon.glb",
+		model: "/cy-block/new-depo-yon.glb",
 		data: depoYonData,
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
 export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
-	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
+	const [selectedContainer, setSelectedContainer] = useState<string | null>(
+		null
+	);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
 
-	const defaultSize20Vertical = [size20Container[2], size20Container[1], size20Container[0]] satisfies [number, number, number];
+	const defaultSize20Vertical = [
+		size20Container[2],
+		size20Container[1],
+		size20Container[0],
+	] satisfies [number, number, number];
 	const defaultSize20Horizontal = size20Container;
-	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
+	const defaultSize40Vertical = [
+		size40Container[2],
+		size40Container[1],
+		size40Container[0],
+	] satisfies [number, number, number];
 	const defaultSize40Horizontal = size40Container;
 
-	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], rotation: [number, number, number]): [number, number, number] => {
+	const getContainerDimensions = (
+		containerSize: string,
+		meshSize: [number, number, number],
+		rotation: [number, number, number]
+	): [number, number, number] => {
 		// Check if the block is rotated (not at cardinal directions)
 		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 			const cardinalAngles = [0, 90, 180, 270];
-			return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+			return !cardinalAngles.some(
+				(cardinal) =>
+					Math.abs(degrees - cardinal) <= tolerance ||
+					Math.abs(degrees - (cardinal + 360)) <= tolerance
+			);
 		};
 
-		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) => shouldApplyRotation(r));
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) =>
+			shouldApplyRotation(r)
+		);
 
 		if (containerSize === "20") {
 			// For 20ft containers, determine orientation based on mesh dimensions
@@ -72,24 +92,27 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			// If block is rotated, use standard dimensions, otherwise match mesh orientation
 			if (isRotated) {
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			} else {
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			}
 		} else if (containerSize === "40") {
-			// For 40ft containers, determine orientation based on mesh dimensions
-			const meshWidth = meshSize[0];
-			const meshDepth = meshSize[2];
-			const isVerticalMesh = meshDepth > meshWidth;
-
-			if (isRotated) {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
-			} else {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
-			}
-		}
-
-		// Fallback: use mesh dimensions with actual mesh height
+			// For 40ft containers, always use the default props dimensions
+			// Don't determine orientation based on mesh - use default size40 from props
+			console.log(
+				"Display-yard: Size 40 container using HORIZONTAL:",
+				defaultSize40Horizontal
+			);
+			console.log(
+				"Display-yard: Size 40 available vertical would be:",
+				defaultSize40Vertical
+			);
+			return defaultSize40Horizontal; // Always use horizontal orientation for size 40
+		} // Fallback: use mesh dimensions with actual mesh height
 		return [meshSize[0], meshSize[1], meshSize[2]];
 	};
 
@@ -157,57 +180,187 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 		depoData.blocks.forEach((block) => {
 			block.slots.forEach((slot) => {
-				const meshName = `${block.block_name}_${slot.column}_${slot.row}`;
+				// Helper function to detect if container name indicates fractional position
+				const getFractionalPosition = (
+					containerCode: string
+				): number | undefined => {
+					const match = containerCode.match(/(\d+)\.(\d+)/);
+					if (match) {
+						return parseFloat(`0.${match[2]}`); // Convert "1.5" to 0.5
+					}
+					return undefined;
+				};
 
-				// Find corresponding mesh position
-				const meshData = positions[meshName];
-				if (meshData) {
-					// Check if the block is rotated (not at cardinal directions)
-					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
-						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
-						const cardinalAngles = [0, 90, 180, 270];
-						return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
-					};
+				// Helper function to get mesh name with support for fractional columns
+				const getMeshName = (
+					blockName: string,
+					column: number,
+					row: number,
+					containerCode: string
+				): string => {
+					const fraction = getFractionalPosition(containerCode);
+					if (fraction !== undefined) {
+						return `${blockName}_${column}_${row}.${
+							fraction === 0.5 ? "5" : fraction
+						}`;
+					}
+					return `${blockName}_${column}_${row}`;
+				};
 
-					const isBlockRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
+				if (slot.size === "40") {
+					// Handle size 40 containers - use the correct mesh naming convention
+					// The 3D model uses "135" instead of "13.5" for fractional positions
+					const meshName = `${block.block_name}_${slot.column}_${slot.row}5`;
+					const meshData = positions[meshName];
 
-					// Determine block orientation based on mesh dimensions
-					const meshWidth = meshData.size[0];
-					const meshDepth = meshData.size[2];
-					const blockOrientation: "horizontal" | "vertical" = meshWidth > meshDepth ? "horizontal" : "vertical";
+					if (meshData) {
+						// Check if the block is rotated
+						const shouldApplyRotation = (
+							rotationRad: number,
+							tolerance = 10
+						) => {
+							const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+							const cardinalAngles = [0, 90, 180, 270];
+							return !cardinalAngles.some(
+								(cardinal) =>
+									Math.abs(degrees - cardinal) <= tolerance ||
+									Math.abs(degrees - (cardinal + 360)) <= tolerance
+							);
+						};
 
-					// Get container dimensions based on rotation and size
-					const containerDimensions = getContainerDimensions(slot.size, meshData.size, meshData.rotation);
+						const isBlockRotated = [
+							meshData.rotation[0],
+							meshData.rotation[1],
+							meshData.rotation[2],
+						].some((r) => shouldApplyRotation(r));
 
-					const containerHeight = containerDimensions[1]; // Y size
+						// Determine block orientation based on mesh dimensions
+						const meshWidth = meshData.size[0];
+						const meshDepth = meshData.size[2];
+						const blockOrientation: "horizontal" | "vertical" =
+							meshWidth > meshDepth ? "horizontal" : "vertical";
 
-					// Position container so its bottom sits on the top surface of the block
-					// For tier 1: bottom of container = top of block (meshData.position[1] + meshData.size[1] / 2)
-					// For higher tiers: stack containers on top of each other
-					// Since we now anchor containers at their bottom, we don't add containerHeight / 2
-					const yPosition = meshData.position[1] + meshData.size[1] / 2 + (slot.tier - 1) * containerHeight;
+						// For size 40 containers, always use the default props dimensions
+						const containerDimensions = containerSize.size40;
+						console.log(
+							`Size 40 container dimensions from props:`,
+							containerDimensions
+						);
+						console.log(`Mesh size for comparison:`, meshData.size);
+						console.log(`Container size prop:`, containerSize);
 
-					const container: PositionedContainer = {
-						position: [meshData.position[0], yPosition, meshData.position[2]],
-						meshSize: meshData.size,
-						rotation: meshData.rotation,
-						color: colors[containerIndex % colors.length],
-						name: `${meshName}_T${slot.tier}`,
-						containerCode: slot.container_code,
-						size: slot.size,
-						grade: slot.grade,
-						row: slot.row,
-						column: slot.column,
-						tier: slot.tier,
-						blockName: block.block_name,
-						blockOrientation: blockOrientation,
-						isBlockRotated: isBlockRotated,
-					};
+						const containerHeight = containerDimensions[1];
+						const yPosition =
+							meshData.position[1] +
+							meshData.size[1] / 2 +
+							(slot.tier - 1) * containerHeight;
 
-					newContainers.push(container);
-					containerIndex++;
+						const container: PositionedContainer = {
+							position: [meshData.position[0], yPosition, meshData.position[2]],
+							meshSize: containerDimensions, // Use container dimensions instead of mesh size for size 40
+							rotation: meshData.rotation,
+							color: colors[containerIndex % colors.length],
+							name: `${meshName}_T${slot.tier}`,
+							containerCode: slot.container_code,
+							size: slot.size,
+							grade: slot.grade,
+							row: slot.row,
+							column: slot.column,
+							tier: slot.tier,
+							blockName: block.block_name,
+							blockOrientation: blockOrientation,
+							isBlockRotated: isBlockRotated,
+						};
+
+						console.log(
+							`Created size 40 container with dimensions:`,
+							containerDimensions
+						);
+						console.log(`Final container object:`, container);
+
+						newContainers.push(container);
+						containerIndex++;
+					} else {
+						console.error(`Mesh not found for size 40 container: ${meshName}`);
+					}
 				} else {
-					console.error(`Mesh not found for ${meshName}`);
+					// Handle size 20 containers (including fractional positions)
+					const meshName = getMeshName(
+						block.block_name,
+						slot.column,
+						slot.row,
+						slot.container_code
+					);
+
+					// Find corresponding mesh position
+					const meshData = positions[meshName];
+					if (meshData) {
+						// Check if the block is rotated (not at cardinal directions)
+						const shouldApplyRotation = (
+							rotationRad: number,
+							tolerance = 10
+						) => {
+							const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+							const cardinalAngles = [0, 90, 180, 270];
+							return !cardinalAngles.some(
+								(cardinal) =>
+									Math.abs(degrees - cardinal) <= tolerance ||
+									Math.abs(degrees - (cardinal + 360)) <= tolerance
+							);
+						};
+
+						const isBlockRotated = [
+							meshData.rotation[0],
+							meshData.rotation[1],
+							meshData.rotation[2],
+						].some((r) => shouldApplyRotation(r));
+
+						// Determine block orientation based on mesh dimensions
+						const meshWidth = meshData.size[0];
+						const meshDepth = meshData.size[2];
+						const blockOrientation: "horizontal" | "vertical" =
+							meshWidth > meshDepth ? "horizontal" : "vertical";
+
+						// Get container dimensions based on rotation and size
+						const containerDimensions = getContainerDimensions(
+							slot.size,
+							meshData.size,
+							meshData.rotation
+						);
+
+						const containerHeight = containerDimensions[1]; // Y size
+
+						// Position container so its bottom sits on the top surface of the block
+						// For tier 1: bottom of container = top of block (meshData.position[1] + meshData.size[1] / 2)
+						// For higher tiers: stack containers on top of each other
+						// Since we now anchor containers at their bottom, we don't add containerHeight / 2
+						const yPosition =
+							meshData.position[1] +
+							meshData.size[1] / 2 +
+							(slot.tier - 1) * containerHeight;
+
+						const container: PositionedContainer = {
+							position: [meshData.position[0], yPosition, meshData.position[2]],
+							meshSize: meshData.size,
+							rotation: meshData.rotation,
+							color: colors[containerIndex % colors.length],
+							name: `${meshName}_T${slot.tier}`,
+							containerCode: slot.container_code,
+							size: slot.size,
+							grade: slot.grade,
+							row: slot.row,
+							column: slot.column,
+							tier: slot.tier,
+							blockName: block.block_name,
+							blockOrientation: blockOrientation,
+							isBlockRotated: isBlockRotated,
+						};
+
+						newContainers.push(container);
+						containerIndex++;
+					} else {
+						console.error(`Mesh not found for ${meshName}`);
+					}
 				}
 			});
 		});
@@ -216,7 +369,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	};
 
 	const handleContainerClick = (containerName: string) => {
-		setSelectedContainer(selectedContainer === containerName ? null : containerName);
+		setSelectedContainer(
+			selectedContainer === containerName ? null : containerName
+		);
 	};
 
 	return (
@@ -229,7 +384,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				style={{
 					width: "100%",
 					height: "100%",
-					background: "linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+					background:
+						"linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
 				}}
 				shadows
 			>
@@ -248,13 +404,26 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				/>
 
 				{/* Ground plane */}
-				<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
+				<mesh
+					rotation={[-Math.PI / 2, 0, 0]}
+					position={[0, -0.1, 0]}
+					receiveShadow
+				>
 					<planeGeometry args={[100, 100]} />
-					<meshStandardMaterial color="#1a1a1a" transparent opacity={0.8} roughness={0.8} metalness={0.1} />
+					<meshStandardMaterial
+						color="#1a1a1a"
+						transparent
+						opacity={0.8}
+						roughness={0.8}
+						metalness={0.1}
+					/>
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Floor path={PATH_MAPPING[name].model} onMeshPositionsReady={handleMeshPositionsReady} />
+				<Floor
+					path={PATH_MAPPING[name].model}
+					onMeshPositionsReady={handleMeshPositionsReady}
+				/>
 
 				{/* Render custom containers at mesh centers */}
 				{containers.map((containerData, index) => (
@@ -299,7 +468,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						minWidth: "300px",
 						fontSize: "14px",
 						fontFamily: "system-ui, -apple-system, sans-serif",
-						border: `3px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
+						border: `3px solid ${
+							containers.find((c) => c.name === selectedContainer)?.color ||
+							"#64b5f6"
+						}`,
 						boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
 						backdropFilter: "blur(10px)",
 						zIndex: 1000,
@@ -308,23 +480,29 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<h3
 						style={{
 							margin: "0 0 16px 0",
-							color: containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6",
+							color:
+								containers.find((c) => c.name === selectedContainer)?.color ||
+								"#64b5f6",
 						}}
 					>
 						Container Information - Depo 4
 					</h3>
 					{(() => {
-						const container = containers.find((c) => c.name === selectedContainer);
+						const container = containers.find(
+							(c) => c.name === selectedContainer
+						);
 						return container ? (
 							<div>
 								<div>
-									<strong>Container Code:</strong> {container.containerCode || "N/A"}
+									<strong>Container Code:</strong>{" "}
+									{container.containerCode || "N/A"}
 								</div>
 								<div>
 									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Position:</strong> Row {container.row}, Column {container.column}
+									<strong>Position:</strong> Row {container.row}, Column{" "}
+									{container.column}
 								</div>
 								<div>
 									<strong>Tier:</strong> {container.tier || "N/A"}
@@ -344,7 +522,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 							marginTop: "16px",
 							padding: "8px 16px",
 							backgroundColor: "transparent",
-							border: `2px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
+							border: `2px solid ${
+								containers.find((c) => c.name === selectedContainer)?.color ||
+								"#64b5f6"
+							}`,
 							color: "white",
 							borderRadius: "6px",
 							cursor: "pointer",
@@ -359,8 +540,16 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`} Containers ({containers.length}{" "}
-					total)
+					{name === "JAPFA"
+						? "Depo JAPFA"
+						: name === "4"
+						? "Depo 4"
+						: name === "BAYUR"
+						? "Depo Teluk Bayur"
+						: name === "YON"
+						? "Depo YON"
+						: `Depo ${name}`}{" "}
+					Containers ({containers.length} total)
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
@@ -370,10 +559,16 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 								className="flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors"
 								onClick={() => handleContainerClick(container.name)}
 							>
-								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: container.color }}
+								></div>
 								<span className="text-xs truncate">
-									{container.blockName}-{container.row}-{container.column} T{container.tier}
-									{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+									{container.blockName}-{container.row}-{container.column} T
+									{container.tier}
+									{container.containerCode
+										? ` (${container.containerCode.substring(0, 15)}...)`
+										: ""}
 								</span>
 							</div>
 						))}

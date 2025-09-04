@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { getAdjustedRotation, shouldApplyRotation } from "../helpers/depo-rotation-helpers";
+import {
+	getAdjustedRotation,
+	shouldApplyRotation,
+} from "../helpers/depo-rotation-helpers";
 
 export interface PositionedContainer {
 	position: [number, number, number];
@@ -67,22 +70,33 @@ export function Container({
 			// If the block is rotated, we need to consider the rotation when choosing orientation
 			if (isRotated) {
 				// For rotated blocks, match the mesh orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			} else {
 				// For non-rotated blocks, use mesh dimensions to determine orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			}
 		} else if (container.size === "40") {
-			// For 40ft containers, determine orientation based on mesh dimensions
+			// For 40ft containers
 			const meshWidth = container.meshSize[0];
 			const meshDepth = container.meshSize[2];
 			const isVerticalMesh = meshDepth > meshWidth;
 
+			let selectedDimensions;
 			if (isRotated) {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			} else {
-				return isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			}
+
+			return selectedDimensions;
 		}
 		// Fallback to 20ft vertical if size is not specified
 		return defaultSize20Vertical;
@@ -116,7 +130,13 @@ export function Container({
 			<group rotation={finalRotation}>
 				{/* Position the container so its bottom sits on the surface */}
 				<group position={[0, containerDimensions[1] / 2, 0]}>
-					<mesh onClick={handleClick} onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave} castShadow receiveShadow>
+					<mesh
+						onClick={handleClick}
+						onPointerEnter={handlePointerEnter}
+						onPointerLeave={handlePointerLeave}
+						castShadow
+						receiveShadow
+					>
 						{/* Use adaptive dimensions based on rotation */}
 						<boxGeometry args={containerDimensions} />
 						<meshStandardMaterial
