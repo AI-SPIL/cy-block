@@ -67,6 +67,7 @@ export function Container({
 	// Apply depo-specific rotation adjustments using the helper function
 	const finalRotation = getAdjustedRotation({
 		depoName,
+		blockName: container.blockName,
 		blockOrientation: container.blockOrientation,
 		isBlockRotated: container.isBlockRotated,
 		baseRotation: rotationToApply,

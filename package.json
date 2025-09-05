@@ -18,6 +18,7 @@
 		"@react-three/drei": "^10.7.4",
 		"@react-three/fiber": "^9.3.0",
 		"@tailwindcss/vite": "^4.1.12",
+		"camera-controls": "^3.1.0",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"gh-pages": "^6.3.0",

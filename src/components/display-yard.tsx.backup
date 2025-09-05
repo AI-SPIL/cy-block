@@ -9,7 +9,7 @@ import {
 	GRADE_COLORS,
 	getStatusColorName,
 } from "@/helpers/color-helpers";
-import { CameraControls } from "@react-three/drei";
+import { OrbitControls, CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState, useEffect, useRef } from "react";
 import { Container, type PositionedContainer } from "./container";
@@ -68,9 +68,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	// Camera controls ref for programmatic camera movement
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const cameraControls = useRef<any>(null);
-	
-	// Animation timeout refs for cleanup
-	const animationTimeouts = useRef<NodeJS.Timeout[]>([]);
 
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
@@ -417,16 +414,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		setSelectedContainer(null);
 	};
 
-	// Function to stop ongoing animation
-	const stopAnimation = () => {
-		console.log('Stopping animation...');
-		// Clear all timeouts
-		animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
-		animationTimeouts.current = [];
-		setIsAnimatingToContainer(false);
-		console.log('Animation stopped');
-	};
-
 	// Function to reset camera to default position
 	const resetCameraToDefault = () => {
 		if (cameraControls.current && !isAnimatingToContainer) {
@@ -442,64 +429,61 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const focusOnContainer = (containerName: string) => {
 		const container = containers.find(c => c.name === containerName);
 		if (container && cameraControls.current) {
-			// Clear any existing animation timeouts
-			animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
-			animationTimeouts.current = [];
-			
 			setSelectedContainer(containerName);
 			setIsAnimatingToContainer(true);
-			console.log('Starting animation to container:', containerName);
 			
 			const pos = container.position;
-			console.log('Container position:', pos);
 			
-			// Simplified 2-stage animation for better performance
-			const droneHeight = 25;      // High drone view
+			// Create a smooth 3-stage animation sequence
+			const droneHeight = 30;      // High drone view
+			const midHeight = 15;        // Medium height for transition
 			const targetHeight = 8;      // Final close view
 			
-			try {
-				// Stage 1: Move to high drone position above container (bird's eye view)
-				cameraControls.current.setLookAt(
-					pos[0],          // Directly above container X
-					droneHeight,     // High altitude for drone view
-					pos[2],          // Directly above container Z
-					pos[0],          // Look down at container X
-					pos[1],          // Look down at container Y
-					pos[2],          // Look down at container Z
-					true             // Animate transition
-				);
-				console.log('Stage 1 animation started');
-				
-				// Stage 2: Move to final close-up position
-				const timeout2 = setTimeout(() => {
-					if (cameraControls.current && container) {
-						console.log('Stage 2 animation starting');
-						cameraControls.current.setLookAt(
-							pos[0] + 12,     // Optimal viewing distance
-							targetHeight,    // Close but not too close
-							pos[2] + 12,     // Optimal viewing distance
-							pos[0],          // Look at container X
-							pos[1] + 2,      // Look slightly above container center
-							pos[2],          // Look at container Z
-							true             // Animate transition
-						);
-					}
-				}, 1500); // 1.5 seconds for drone view
-				animationTimeouts.current.push(timeout2);
-				
-				// Stage 3: Reset animation state after all animations complete
-				const timeout3 = setTimeout(() => {
-					console.log('Animation timeout finished');
-					setIsAnimatingToContainer(false);
-					// Clear timeouts array
-					animationTimeouts.current = [];
-				}, 3000); // Total animation time: 3 seconds
-				animationTimeouts.current.push(timeout3);
-				
-			} catch (error) {
-				console.error('Animation error:', error);
+			// Stage 1: Move to high drone position above container (bird's eye view)
+			cameraControls.current.setLookAt(
+				pos[0],          // Directly above container X
+				droneHeight,     // High altitude for drone view
+				pos[2],          // Directly above container Z
+				pos[0],          // Look down at container X
+				pos[1],          // Look down at container Y
+				pos[2],          // Look down at container Z
+				true             // Animate transition
+			);
+			
+			// Stage 2: Move to medium height with angle for better perspective
+			setTimeout(() => {
+				if (cameraControls.current) {
+					cameraControls.current.setLookAt(
+						pos[0] + 8,      // Small offset for perspective
+						midHeight,       // Medium height
+						pos[2] + 8,      // Small offset for perspective
+						pos[0],          // Look at container X
+						pos[1] + 1,      // Look slightly above container
+						pos[2],          // Look at container Z
+						true             // Animate transition
+					);
+				}
+			}, 1200); // 1.2 seconds for drone view
+			
+			// Stage 3: Move to final close-up position
+			setTimeout(() => {
+				if (cameraControls.current) {
+					cameraControls.current.setLookAt(
+						pos[0] + 12,     // Optimal viewing distance
+						targetHeight,    // Close but not too close
+						pos[2] + 12,     // Optimal viewing distance
+						pos[0],          // Look at container X
+						pos[1] + 2,      // Look slightly above container center
+						pos[2],          // Look at container Z
+						true             // Animate transition
+					);
+				}
+			}, 2200); // Additional 1 second for medium view
+			
+			// Stage 4: Reset animation state after all animations complete
+			setTimeout(() => {
 				setIsAnimatingToContainer(false);
-			}
+			}, 3500); // Total animation time: 3.5 seconds
 		}
 	};
 
@@ -526,29 +510,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			return currentContainers;
 		});
 	}, [colorBy]);
-
-	// Cleanup animation timeouts on component unmount
-	useEffect(() => {
-		return () => {
-			// Cleanup all timeouts when component unmounts
-			animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
-			animationTimeouts.current = [];
-		};
-	}, []);
-
-	// Keyboard event listener for ESC key to stop animation
-	useEffect(() => {
-		const handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === 'Escape' && isAnimatingToContainer) {
-				stopAnimation();
-			}
-		};
-
-		window.addEventListener('keydown', handleKeyPress);
-		return () => {
-			window.removeEventListener('keydown', handleKeyPress);
-		};
-	}, [isAnimatingToContainer]);
 
 	return (
 		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -621,13 +582,17 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				))}
 
 				{/* Camera Controls - Disabled when dragging or animating to container */}
-				<CameraControls
+				<OrbitControls
 					ref={cameraControls}
-					enabled={!isDragging && !isAnimatingToContainer}
+					enablePan={!isDragging && !isAnimatingToContainer}
+					enableZoom={!isDragging && !isAnimatingToContainer}
+					enableRotate={!isDragging && !isAnimatingToContainer}
 					minPolarAngle={0}
 					maxPolarAngle={Math.PI / 2.2}
-					smoothTime={0.25}
-					draggingSmoothTime={0.125}
+					target={[0, 2, 0]}
+					zoomSpeed={0.8}
+					panSpeed={0.8}
+					rotateSpeed={0.5}
 				/>
 			</Canvas>
 
@@ -639,13 +604,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						<div className="text-blue-300 font-bold text-xs flex items-center gap-2">
 							<span className="animate-spin">🎯</span>
 							<span>Flying to container...</span>
-							<Button
-								onClick={stopAnimation}
-								size="sm"
-								className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 ml-auto"
-							>
-								Stop
-							</Button>
 						</div>
 						<div className="text-blue-200 text-xs">
 							Camera controls temporarily disabled
