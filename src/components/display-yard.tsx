@@ -141,18 +141,43 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		const depoData = PATH_MAPPING[name].data;
 		const newContainers: PositionedContainer[] = [];
 
-		// Log all available mesh names to help debug
-		console.log("Available mesh names:", Object.keys(positions));
+		// Log all available mesh names
+		console.log("All detected meshes:", Object.keys(positions));
 
-		// Helper function to detect if container name indicates fractional position
+		// Helper function to detect if container position indicates fractional position
 		const getFractionalPosition = (
+			column: number,
+			row: number,
 			containerCode: string
-		): number | undefined => {
-			const match = containerCode.match(/(\d+)\.(\d+)/);
-			if (match) {
-				return parseFloat(`0.${match[2]}`); // Convert "1.5" to 0.5
+		): { column: number; row: number; hasFraction: boolean } => {
+			// Check if the column or row is a fractional number
+			const columnFraction = column % 1;
+			const rowFraction = row % 1;
+
+			// If either column or row has a decimal part
+			if (columnFraction !== 0 || rowFraction !== 0) {
+				return {
+					column: columnFraction,
+					row: rowFraction,
+					hasFraction: true,
+				};
 			}
-			return undefined;
+
+			// Also check if container code suggests fractional positioning
+			const fractionalMatch = containerCode.match(/(\d+)\.5/);
+			if (fractionalMatch) {
+				return {
+					column: 0.5,
+					row: 0,
+					hasFraction: true,
+				};
+			}
+
+			return {
+				column: 0,
+				row: 0,
+				hasFraction: false,
+			};
 		};
 
 		// Helper function to get mesh name with support for fractional columns
@@ -161,18 +186,43 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			column: number,
 			row: number,
 			containerCode: string,
-			size: string
+			size: string,
+			availableMeshes: string[]
 		): string => {
+			// Check for fractional positions first (applies to all sizes)
+			const fractionalInfo = getFractionalPosition(column, row, containerCode);
+
+			if (fractionalInfo.hasFraction) {
+				// Handle fractional positions for ANY size container
+				const baseColumn = Math.floor(column);
+				const baseRow = Math.floor(row);
+
+				if (fractionalInfo.column === 0.5) {
+					// Try format like "A_1_165" (16.5 becomes 165)
+					return `${blockName}_${baseColumn}_${baseRow}5`;
+				} else if (fractionalInfo.column > 0) {
+					// For other fractional values
+					const fractionStr = String(fractionalInfo.column).replace("0.", "");
+					return `${blockName}_${baseColumn}_${baseRow}${fractionStr}`;
+				}
+			}
+
+			// Special handling for 40ft containers - try .5 variant first
 			if (size === "40") {
-				// For 40ft containers, try standard format first
-				return `${blockName}_${column}_${row}`;
+				// Try fractional format without decimal point (e.g., "C_1_165" for position 16)
+				const fractionalMeshName = `${blockName}_${column}_${row}5`;
+				const standardMeshName = `${blockName}_${column}_${row}`;
+
+				if (availableMeshes.includes(fractionalMeshName)) {
+					return fractionalMeshName;
+				} else if (availableMeshes.includes(standardMeshName)) {
+					return standardMeshName;
+				} else {
+					return standardMeshName; // Return standard as fallback
+				}
 			}
-			const fraction = getFractionalPosition(containerCode);
-			if (fraction !== undefined) {
-				return `${blockName}_${column}_${row}.${
-					fraction === 0.5 ? "5" : String(fraction).replace("0.", "")
-				}`;
-			}
+
+			// Standard mesh name for whole number positions
 			return `${blockName}_${column}_${row}`;
 		};
 
@@ -183,15 +233,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					slot.column,
 					slot.row,
 					slot.container_code,
-					slot.size
+					slot.size,
+					Object.keys(positions)
 				);
 				const meshData = positions[meshName];
-
-				if (slot.size === "40") {
-					console.log(
-						`Looking for 40ft mesh: ${meshName}, found: ${!!meshData}`
-					);
-				}
 
 				if (meshData) {
 					// Check if the block is rotated (not at cardinal directions)
