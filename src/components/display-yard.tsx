@@ -63,12 +63,12 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const [, setDragPosition] = useState<[number, number, number] | null>(null);
 	const [searchQuery, setSearchQuery] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
-	const [isAnimatingToContainer, setIsAnimatingToContainer] = useState<boolean>(false);
+	const [isAnimatingToContainer, setIsAnimatingToContainer] =
+		useState<boolean>(false);
 
-	// Camera controls ref for programmatic camera movement
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const cameraControls = useRef<any>(null);
-	
+
 	// Animation timeout refs for cleanup
 	const animationTimeouts = useRef<NodeJS.Timeout[]>([]);
 
@@ -126,15 +126,6 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			}
 		} else if (containerSize === "40") {
 			// For 40ft containers, always use the default props dimensions
-			// Don't determine orientation based on mesh - use default size40 from props
-			console.log(
-				"Display-yard: Size 40 container using HORIZONTAL:",
-				defaultSize40Horizontal
-			);
-			console.log(
-				"Display-yard: Size 40 available vertical would be:",
-				defaultSize40Vertical
-			);
 			return defaultSize40Horizontal; // Always use horizontal orientation for size 40
 		} // Fallback: use mesh dimensions with actual mesh height
 		return [meshSize[0], meshSize[1], meshSize[2]];
@@ -197,7 +188,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				const meshData = positions[meshName];
 
 				if (slot.size === "40") {
-					console.log(`Looking for 40ft mesh: ${meshName}, found: ${!!meshData}`);
+					console.log(
+						`Looking for 40ft mesh: ${meshName}, found: ${!!meshData}`
+					);
 				}
 
 				if (meshData) {
@@ -419,85 +412,88 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 	// Function to stop ongoing animation
 	const stopAnimation = () => {
-		console.log('Stopping animation...');
+		console.log("Stopping animation...");
 		// Clear all timeouts
-		animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
+		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
 		animationTimeouts.current = [];
 		setIsAnimatingToContainer(false);
-		console.log('Animation stopped');
+		console.log("Animation stopped");
 	};
 
 	// Function to reset camera to default position
 	const resetCameraToDefault = () => {
 		if (cameraControls.current && !isAnimatingToContainer) {
 			cameraControls.current.setLookAt(
-				15, 10, 15,    // Default camera position
-				0, 2, 0,       // Default target position
-				true           // Animate transition
+				15,
+				10,
+				15, // Default camera position
+				0,
+				2,
+				0, // Default target position
+				true // Animate transition
 			);
 		}
 	};
 
 	// Function to focus camera on a container with smooth animation
 	const focusOnContainer = (containerName: string) => {
-		const container = containers.find(c => c.name === containerName);
+		const container = containers.find((c) => c.name === containerName);
 		if (container && cameraControls.current) {
 			// Clear any existing animation timeouts
-			animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
 			animationTimeouts.current = [];
-			
+
 			setSelectedContainer(containerName);
 			setIsAnimatingToContainer(true);
-			console.log('Starting animation to container:', containerName);
-			
+			console.log("Starting animation to container:", containerName);
+
 			const pos = container.position;
-			console.log('Container position:', pos);
-			
+			console.log("Container position:", pos);
+
 			// Simplified 2-stage animation for better performance
-			const droneHeight = 25;      // High drone view
-			const targetHeight = 8;      // Final close view
-			
+			const droneHeight = 25; // High drone view
+			const targetHeight = 8; // Final close view
+
 			try {
 				// Stage 1: Move to high drone position above container (bird's eye view)
 				cameraControls.current.setLookAt(
-					pos[0],          // Directly above container X
-					droneHeight,     // High altitude for drone view
-					pos[2],          // Directly above container Z
-					pos[0],          // Look down at container X
-					pos[1],          // Look down at container Y
-					pos[2],          // Look down at container Z
-					true             // Animate transition
+					pos[0], // Directly above container X
+					droneHeight, // High altitude for drone view
+					pos[2], // Directly above container Z
+					pos[0], // Look down at container X
+					pos[1], // Look down at container Y
+					pos[2], // Look down at container Z
+					true // Animate transition
 				);
-				console.log('Stage 1 animation started');
-				
+				console.log("Stage 1 animation started");
+
 				// Stage 2: Move to final close-up position
 				const timeout2 = setTimeout(() => {
 					if (cameraControls.current && container) {
-						console.log('Stage 2 animation starting');
+						console.log("Stage 2 animation starting");
 						cameraControls.current.setLookAt(
-							pos[0] + 12,     // Optimal viewing distance
-							targetHeight,    // Close but not too close
-							pos[2] + 12,     // Optimal viewing distance
-							pos[0],          // Look at container X
-							pos[1] + 2,      // Look slightly above container center
-							pos[2],          // Look at container Z
-							true             // Animate transition
+							pos[0] + 12, // Optimal viewing distance
+							targetHeight, // Close but not too close
+							pos[2] + 12, // Optimal viewing distance
+							pos[0], // Look at container X
+							pos[1] + 2, // Look slightly above container center
+							pos[2], // Look at container Z
+							true // Animate transition
 						);
 					}
 				}, 1500); // 1.5 seconds for drone view
 				animationTimeouts.current.push(timeout2);
-				
+
 				// Stage 3: Reset animation state after all animations complete
 				const timeout3 = setTimeout(() => {
-					console.log('Animation timeout finished');
+					console.log("Animation timeout finished");
 					setIsAnimatingToContainer(false);
 					// Clear timeouts array
 					animationTimeouts.current = [];
 				}, 3000); // Total animation time: 3 seconds
 				animationTimeouts.current.push(timeout3);
-				
 			} catch (error) {
-				console.error('Animation error:', error);
+				console.error("Animation error:", error);
 				setIsAnimatingToContainer(false);
 			}
 		}
@@ -531,7 +527,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	useEffect(() => {
 		return () => {
 			// Cleanup all timeouts when component unmounts
-			animationTimeouts.current.forEach(timeout => clearTimeout(timeout));
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
 			animationTimeouts.current = [];
 		};
 	}, []);
@@ -539,14 +535,14 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	// Keyboard event listener for ESC key to stop animation
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === 'Escape' && isAnimatingToContainer) {
+			if (event.key === "Escape" && isAnimatingToContainer) {
 				stopAnimation();
 			}
 		};
 
-		window.addEventListener('keydown', handleKeyPress);
+		window.addEventListener("keydown", handleKeyPress);
 		return () => {
-			window.removeEventListener('keydown', handleKeyPress);
+			window.removeEventListener("keydown", handleKeyPress);
 		};
 	}, [isAnimatingToContainer]);
 
@@ -652,7 +648,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						</div>
 					</div>
 				)}
-				
+
 				{/* Search Section */}
 				<div className="mb-3">
 					<div className="flex gap-2 items-center">
@@ -686,15 +682,16 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 											size="sm"
 											disabled={isAnimatingToContainer}
 											className={`text-xs px-2 py-1 h-6 transition-colors ${
-												isAnimatingToContainer 
-													? "bg-gray-500 cursor-not-allowed text-gray-300" 
+												isAnimatingToContainer
+													? "bg-gray-500 cursor-not-allowed text-gray-300"
 													: "bg-blue-600 hover:bg-blue-700 text-white"
 											}`}
 										>
 											{isAnimatingToContainer ? "🎯 Flying..." : "🎯 Focus"}
 										</Button>
 										<span className="text-white text-xs truncate">
-											{result.containerCode} ({result.blockName}-{result.row}-{result.column})
+											{result.containerCode} ({result.blockName}-{result.row}-
+											{result.column})
 										</span>
 									</div>
 								))}
@@ -702,12 +699,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						</div>
 					)}
 					{searchQuery && searchResults.length === 0 && (
-						<div className="mt-2 text-xs text-red-400">
-							No containers found
-						</div>
+						<div className="mt-2 text-xs text-red-400">No containers found</div>
 					)}
 				</div>
-				
+
 				<div className="flex gap-2 mb-2">
 					<Button
 						onClick={() => setColorBy("grade")}
@@ -930,33 +925,38 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
-						{(searchResults.length > 0 ? searchResults : containers).map((container) => {
-							const isSearchMatch = searchResults.length > 0 && searchResults.includes(container);
-							return (
-								<div
-									key={container.name}
-									className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
-										isSearchMatch ? "bg-green-900/30 border border-green-500" : ""
-									}`}
-									onClick={() => handleContainerClick(container.name)}
-								>
+						{(searchResults.length > 0 ? searchResults : containers).map(
+							(container) => {
+								const isSearchMatch =
+									searchResults.length > 0 && searchResults.includes(container);
+								return (
 									<div
-										className="w-3 h-3 rounded-sm flex-shrink-0"
-										style={{ backgroundColor: container.color }}
-									></div>
-									<span className="text-xs truncate">
-										{container.blockName}-{container.row}-{container.column} T
-										{container.tier}
-										{container.containerCode
-											? ` (${container.containerCode.substring(0, 15)}...)`
-											: ""}
-									</span>
-									{isSearchMatch && (
-										<span className="text-green-400 text-xs ml-auto">✓</span>
-									)}
-								</div>
-							);
-						})}
+										key={container.name}
+										className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+											isSearchMatch
+												? "bg-green-900/30 border border-green-500"
+												: ""
+										}`}
+										onClick={() => handleContainerClick(container.name)}
+									>
+										<div
+											className="w-3 h-3 rounded-sm flex-shrink-0"
+											style={{ backgroundColor: container.color }}
+										></div>
+										<span className="text-xs truncate">
+											{container.blockName}-{container.row}-{container.column} T
+											{container.tier}
+											{container.containerCode
+												? ` (${container.containerCode.substring(0, 15)}...)`
+												: ""}
+										</span>
+										{isSearchMatch && (
+											<span className="text-green-400 text-xs ml-auto">✓</span>
+										)}
+									</div>
+								);
+							}
+						)}
 					</div>
 				</ScrollArea>
 			</div>

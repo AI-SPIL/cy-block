@@ -6,15 +6,22 @@ export const STATUS_COLORS = {
 	MTB: "#806040", // Brown
 	FTL: "#ffa500", // Orange
 	STR: "#ffd700", // Yellow
+	MNA: "#800080", // Purple
+	FXD: "#ff1493", // Deep Pink
+	FIT: "#00bfff", // Deep Sky Blue
 } as const;
 
 export const GRADE_COLORS = {
 	A: "#ff4444", // Light Red
-	B: "#44ff44", // Light Green  
+	B: "#44ff44", // Light Green
 	C: "#4444ff", // Light Blue
 } as const;
 
-export function getContainerColor(status: string, grade: string | null, colorBy: "status" | "grade" = "grade"): string {
+export function getContainerColor(
+	status: string,
+	grade: string | null,
+	colorBy: "status" | "grade" = "grade"
+): string {
 	if (colorBy === "status") {
 		return STATUS_COLORS[status as keyof typeof STATUS_COLORS] || "#666666";
 	} else {
@@ -27,11 +34,14 @@ export function getContainerColor(status: string, grade: string | null, colorBy:
 export function getStatusColorName(status: string): string {
 	const colorNames = {
 		MTD: "Red",
-		MTA: "Green", 
+		MTA: "Green",
 		MTS: "Turquoise",
 		MTB: "Brown",
 		FTL: "Orange",
-		STR: "Yellow"
+		STR: "Yellow",
+		MNA: "Purple",
+		FXD: "Deep Pink",
+		FIT: "Deep Sky Blue",
 	};
 	return colorNames[status as keyof typeof colorNames] || "Unknown";
 }

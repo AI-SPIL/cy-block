@@ -4188,7 +4188,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "40",
 					grade: "null",
-					status: "FTL",
+					status: "FIT",
 				},
 				{
 					container_code: "STUC11126737",
@@ -4197,7 +4197,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "A",
-					status: "MTD",
+					status: "MNA",
 				},
 				{
 					container_code: "TUVD10986737",
@@ -4206,7 +4206,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "40",
 					grade: "null",
-					status: "MTA",
+					status: "FXD",
 				},
 				{
 					container_code: "UVWE15554337",
@@ -4215,7 +4215,7 @@ export const depoYonData = {
 					tier: 2,
 					size: "20",
 					grade: "B",
-					status: "MTS",
+					status: "FIT",
 				},
 				{
 					container_code: "VWXF10264337",
@@ -4224,7 +4224,7 @@ export const depoYonData = {
 					tier: 1,
 					size: "40",
 					grade: "null",
-					status: "MTD",
+					status: "FXD",
 				},
 				{
 					container_code: "WXYG14624337",

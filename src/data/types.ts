@@ -10,7 +10,16 @@ export interface ExampleResponse {
 			tier: number;
 			size: string;
 			grade: string | null;
-			status: "MTD" | "MTA" | "MTS" | "MTB" | "FTL" | "STR";
+			status:
+				| "MTD"
+				| "MTA"
+				| "MTS"
+				| "MTB"
+				| "FTL"
+				| "STR"
+				| "MNA"
+				| "FXD"
+				| "FIT";
 		}[];
 	}[];
 }
