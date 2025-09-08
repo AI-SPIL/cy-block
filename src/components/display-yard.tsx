@@ -442,8 +442,17 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		);
 		setSearchResults(results);
 
-		// Auto-select first result if only one match
+		// Auto-focus and select when there's exactly one match
 		if (results.length === 1) {
+			setSelectedContainer(results[0].name);
+			// Auto-focus on the container with a slight delay to ensure the container is selected first
+			setTimeout(() => {
+				focusOnContainer(results[0].name);
+			}, 100);
+		}
+		// Auto-focus on first result if there are multiple matches but less than 5
+		else if (results.length > 1 && results.length <= 3) {
+			// Just select the first one, but don't auto-focus to avoid being too aggressive
 			setSelectedContainer(results[0].name);
 		}
 	};
@@ -495,12 +504,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			const pos = container.position;
 			console.log("Container position:", pos);
 
-			// Simplified 2-stage animation for better performance
 			const droneHeight = 25; // High drone view
-			const targetHeight = 8; // Final close view
 
 			try {
-				// Stage 1: Move to high drone position above container (bird's eye view)
 				cameraControls.current.setLookAt(
 					pos[0], // Directly above container X
 					droneHeight, // High altitude for drone view
@@ -510,32 +516,14 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					pos[2], // Look down at container Z
 					true // Animate transition
 				);
-				console.log("Stage 1 animation started");
 
-				// Stage 2: Move to final close-up position
-				const timeout2 = setTimeout(() => {
-					if (cameraControls.current && container) {
-						console.log("Stage 2 animation starting");
-						cameraControls.current.setLookAt(
-							pos[0] + 12, // Optimal viewing distance
-							targetHeight, // Close but not too close
-							pos[2] + 12, // Optimal viewing distance
-							pos[0], // Look at container X
-							pos[1] + 2, // Look slightly above container center
-							pos[2], // Look at container Z
-							true // Animate transition
-						);
-					}
-				}, 1500); // 1.5 seconds for drone view
-				animationTimeouts.current.push(timeout2);
-
-				// Stage 3: Reset animation state after all animations complete
+				// Reset animation state after all animations complete
 				const timeout3 = setTimeout(() => {
 					console.log("Animation timeout finished");
 					setIsAnimatingToContainer(false);
 					// Clear timeouts array
 					animationTimeouts.current = [];
-				}, 3000); // Total animation time: 3 seconds
+				}, 2000); // Total animation time: 2 seconds
 				animationTimeouts.current.push(timeout3);
 			} catch (error) {
 				console.error("Animation error:", error);
@@ -718,6 +706,11 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						<div className="mt-2 text-xs">
 							<div className="text-green-400 mb-1">
 								Found {searchResults.length} container(s):
+								{searchResults.length === 1 && (
+									<span className="text-blue-300 ml-2 text-xs">
+										(Auto-focused)
+									</span>
+								)}
 							</div>
 							<div className="max-h-20 overflow-y-auto space-y-1">
 								{searchResults.map((result, idx) => (
@@ -734,7 +727,13 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 										>
 											{isAnimatingToContainer ? "🎯 Flying..." : "🎯 Focus"}
 										</Button>
-										<span className="text-white text-xs truncate">
+										<span
+											className="text-white text-xs truncate cursor-pointer hover:text-blue-300 transition-colors"
+											onClick={() =>
+												!isAnimatingToContainer && focusOnContainer(result.name)
+											}
+											title="Click to focus on container"
+										>
 											{result.containerCode} ({result.blockName}-{result.row}-
 											{result.column})
 										</span>
