@@ -3,20 +3,16 @@ import { depoJapfaData } from "@/data/depo-japfa";
 import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
-import {
-	getContainerColor,
-	STATUS_COLORS,
-	GRADE_COLORS,
-	getStatusColorName,
-} from "@/helpers/color-helpers";
+import { getContainerColor, getStatusColorName, GRADE_COLORS, STATUS_COLORS } from "@/helpers/color-helpers";
+import type { ApiResponse } from "@/types/api";
 import { CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
-import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { ScrollArea } from "./ui/scroll-area";
 
 type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
 
@@ -28,6 +24,7 @@ export interface ContainerDefaultSize {
 
 interface DisplayYardProps {
 	name: DepoType;
+	data?: ApiResponse;
 	containerSize: ContainerDefaultSize;
 }
 
@@ -50,21 +47,17 @@ const PATH_MAPPING = {
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
-export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
-	const [selectedContainer, setSelectedContainer] = useState<string | null>(
-		null
-	);
+export default function DisplayYard({ name, data, containerSize }: DisplayYardProps) {
+	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 	const [colorBy, setColorBy] = useState<"grade" | "status">("grade");
-	const [draggedContainer, setDraggedContainer] =
-		useState<PositionedContainer | null>(null);
+	const [draggedContainer, setDraggedContainer] = useState<PositionedContainer | null>(null);
 	const [dragMode, setDragMode] = useState<boolean>(false);
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	const [, setDragPosition] = useState<[number, number, number] | null>(null);
 	const [searchQuery, setSearchQuery] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
-	const [isAnimatingToContainer, setIsAnimatingToContainer] =
-		useState<boolean>(false);
+	const [isAnimatingToContainer, setIsAnimatingToContainer] = useState<boolean>(false);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const cameraControls = useRef<any>(null);
@@ -75,38 +68,20 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
 
-	const defaultSize20Vertical = [
-		size20Container[2],
-		size20Container[1],
-		size20Container[0],
-	] satisfies [number, number, number];
+	const defaultSize20Vertical = [size20Container[2], size20Container[1], size20Container[0]] satisfies [number, number, number];
 	const defaultSize20Horizontal = size20Container;
-	const defaultSize40Vertical = [
-		size40Container[2],
-		size40Container[1],
-		size40Container[0],
-	] satisfies [number, number, number];
+	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
 	const defaultSize40Horizontal = size40Container;
 
-	const getContainerDimensions = (
-		containerSize: string,
-		meshSize: [number, number, number],
-		rotation: [number, number, number]
-	): [number, number, number] => {
+	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], rotation: [number, number, number]): [number, number, number] => {
 		// Check if the block is rotated (not at cardinal directions)
 		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 			const cardinalAngles = [0, 90, 180, 270];
-			return !cardinalAngles.some(
-				(cardinal) =>
-					Math.abs(degrees - cardinal) <= tolerance ||
-					Math.abs(degrees - (cardinal + 360)) <= tolerance
-			);
+			return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
 		};
 
-		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) =>
-			shouldApplyRotation(r)
-		);
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) => shouldApplyRotation(r));
 
 		if (containerSize === "20") {
 			// For 20ft containers, determine orientation based on mesh dimensions
@@ -116,13 +91,9 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			// If block is rotated, use standard dimensions, otherwise match mesh orientation
 			if (isRotated) {
-				return isHorizontalMesh
-					? defaultSize20Horizontal
-					: defaultSize20Vertical;
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
 			} else {
-				return isHorizontalMesh
-					? defaultSize20Horizontal
-					: defaultSize20Vertical;
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
 			}
 		} else if (containerSize === "40") {
 			// For 40ft containers, always use the default props dimensions
@@ -138,18 +109,14 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			rotation: [number, number, number];
 		};
 	}) => {
-		const depoData = PATH_MAPPING[name].data;
+		const depoData = data?.data;
 		const newContainers: PositionedContainer[] = [];
 
 		// Log all available mesh names
-		console.log("All detected meshes:", Object.keys(positions));
+		// console.log("All detected meshes:", Object.keys(positions));
 
 		// Helper function to detect if container position indicates fractional position
-		const getFractionalPosition = (
-			column: number,
-			row: number,
-			containerCode: string
-		): { column: number; row: number; hasFraction: boolean } => {
+		const getFractionalPosition = (column: number, row: number, containerCode: string): { column: number; row: number; hasFraction: boolean } => {
 			// Check if the column or row is a fractional number
 			const columnFraction = column % 1;
 			const rowFraction = row % 1;
@@ -181,14 +148,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		};
 
 		// Helper function to get mesh name with support for fractional columns
-		const getMeshName = (
-			blockName: string,
-			column: number,
-			row: number,
-			containerCode: string,
-			size: string,
-			availableMeshes: string[]
-		): string => {
+		const getMeshName = (blockName: string, column: number, row: number, containerCode: string, size: string, availableMeshes: string[]): string => {
 			// Check for fractional positions first (applies to all sizes)
 			const fractionalInfo = getFractionalPosition(column, row, containerCode);
 
@@ -226,88 +186,64 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			return `${blockName}_${column}_${row}`;
 		};
 
-		depoData.depo_blocks.forEach((block) => {
-			block.block_slots.forEach((slot) => {
-				const meshName = getMeshName(
-					block.block_name,
-					slot.column,
-					slot.row,
-					slot.container_code,
-					slot.size,
-					Object.keys(positions)
-				);
-				const meshData = positions[meshName];
+		depoData?.forEach((containerData) => {
+			const meshSize = containerData.TYPE.split(" ")[0];
+			const meshName = getMeshName(containerData.Block, containerData.Column, containerData.Row, containerData.Container, meshSize, Object.keys(positions));
 
-				if (meshData) {
-					// Check if the block is rotated (not at cardinal directions)
-					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
-						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
-						const cardinalAngles = [0, 90, 180, 270];
-						return !cardinalAngles.some(
-							(cardinal) =>
-								Math.abs(degrees - cardinal) <= tolerance ||
-								Math.abs(degrees - (cardinal + 360)) <= tolerance
-						);
-					};
+			const meshData = positions[meshName];
 
-					const isBlockRotated = [
-						meshData.rotation[0],
-						meshData.rotation[1],
-						meshData.rotation[2],
-					].some((r) => shouldApplyRotation(r));
+			if (meshData) {
+				// Check if the block is rotated (not at cardinal directions)
+				const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+					const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+					const cardinalAngles = [0, 90, 180, 270];
+					return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
+				};
 
-					// Determine block orientation based on mesh dimensions
-					const meshWidth = meshData.size[0];
-					const meshDepth = meshData.size[2];
-					const blockOrientation: "horizontal" | "vertical" =
-						meshWidth > meshDepth ? "horizontal" : "vertical";
+				const isBlockRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
 
-					// Get container dimensions based on rotation and size
-					const containerDimensions = getContainerDimensions(
-						slot.size,
-						meshData.size,
-						meshData.rotation
-					);
+				// Determine block orientation based on mesh dimensions
+				const meshWidth = meshData.size[0];
+				const meshDepth = meshData.size[2];
+				const blockOrientation: "horizontal" | "vertical" = meshWidth > meshDepth ? "horizontal" : "vertical";
 
-					const containerHeight = containerDimensions[1]; // Y size
+				// Get container dimensions based on rotation and size
+				const containerDimensions = getContainerDimensions(meshSize, meshData.size, meshData.rotation);
 
-					const yPosition =
-						meshData.position[1] +
-						meshData.size[1] / 2 +
-						(slot.tier - 1) * containerHeight;
+				const containerHeight = containerDimensions[1]; // Y size
 
-					const container: PositionedContainer = {
-						position: [meshData.position[0], yPosition, meshData.position[2]],
-						meshSize: slot.size === "40" ? containerDimensions : meshData.size,
-						rotation: meshData.rotation,
-						color: getContainerColor(slot.status, slot.grade || null, colorBy),
-						name: `${block.block_name}_${slot.column}_${slot.row}_T${slot.tier}`,
-						containerCode: slot.container_code,
-						size: slot.size,
-						grade: slot.grade,
-						status: slot.status,
-						row: slot.row,
-						column: slot.column,
-						tier: slot.tier,
-						blockName: block.block_name,
-						blockOrientation: blockOrientation,
-						isBlockRotated: isBlockRotated,
-					};
+				const yPosition = meshData.position[1] + meshData.size[1] / 2 + (containerData.Tier - 1) * containerHeight;
 
-					newContainers.push(container);
-				} else {
-					console.error(`Mesh not found for ${meshName}`);
-				}
-			});
+				const container: PositionedContainer = {
+					position: [meshData.position[0], yPosition, meshData.position[2]],
+					meshSize: meshSize === "40" ? containerDimensions : meshData.size,
+					rotation: meshData.rotation,
+					color: getContainerColor(containerData.STATE, containerData["CONTAINER GRADE"] || null, colorBy),
+					name: `${containerData.Block}_${containerData.Column}_${containerData.Row}_T${containerData.Tier}`,
+
+					containerCode: containerData.Container,
+					size: meshSize,
+					grade: containerData["CONTAINER GRADE"],
+					status: containerData.STATE,
+					row: containerData.Row,
+					column: containerData.Column,
+					tier: containerData.Tier,
+					blockName: containerData.Block,
+					blockOrientation: blockOrientation,
+					isBlockRotated: isBlockRotated,
+				};
+
+				newContainers.push(container);
+			} else {
+				console.error(`Mesh not found for ${meshName}`);
+			}
 		});
 
 		setContainers(newContainers);
 	};
 
 	const handleContainerClick = (containerName: string) => {
-		setSelectedContainer(
-			selectedContainer === containerName ? null : containerName
-		);
+		setSelectedContainer(selectedContainer === containerName ? null : containerName);
 		if (dragMode && draggedContainer) {
 			// Handle drop operation
 			const targetContainer = containers.find((c) => c.name === containerName);
@@ -316,9 +252,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				return;
 			}
 		}
-		setSelectedContainer(
-			selectedContainer === containerName ? null : containerName
-		);
+		setSelectedContainer(selectedContainer === containerName ? null : containerName);
 	};
 
 	const handleDragMove = (newPosition: [number, number, number]) => {
@@ -367,12 +301,8 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				currentContainers.map((c) => {
 					if (c.name === draggedContainer.name) {
 						// Reset to original position
-						const originalContainer = containers.find(
-							(orig) => orig.name === c.name
-						);
-						return originalContainer
-							? { ...c, position: originalContainer.position }
-							: c;
+						const originalContainer = containers.find((orig) => orig.name === c.name);
+						return originalContainer ? { ...c, position: originalContainer.position } : c;
 					}
 					return {
 						...c,
@@ -388,10 +318,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 		setDragPosition(null);
 	};
 
-	const handleDrop = (
-		targetContainer: PositionedContainer,
-		draggedContainer: PositionedContainer
-	) => {
+	const handleDrop = (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => {
 		if (!draggedContainer || targetContainer.name === draggedContainer.name) {
 			return;
 		}
@@ -403,22 +330,14 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					return {
 						...c,
 						tier: targetContainer.tier,
-						position: [
-							targetContainer.position[0],
-							targetContainer.position[1],
-							targetContainer.position[2],
-						],
+						position: [targetContainer.position[0], targetContainer.position[1], targetContainer.position[2]],
 						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`,
 					};
 				} else if (c.name === targetContainer.name) {
 					return {
 						...c,
 						tier: draggedContainer.tier,
-						position: [
-							draggedContainer.position[0],
-							draggedContainer.position[1],
-							draggedContainer.position[2],
-						],
+						position: [draggedContainer.position[0], draggedContainer.position[1], draggedContainer.position[2]],
 						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`,
 					};
 				}
@@ -437,9 +356,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			return;
 		}
 
-		const results = containers.filter((container) =>
-			container.containerCode?.toLowerCase().includes(query.toLowerCase())
-		);
+		const results = containers.filter((container) => container.containerCode?.toLowerCase().includes(query.toLowerCase()));
 		setSearchResults(results);
 
 		// Auto-focus and select when there's exactly one match
@@ -466,12 +383,12 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 	// Function to stop ongoing animation
 	const stopAnimation = () => {
-		console.log("Stopping animation...");
+		// console.log("Stopping animation...");
 		// Clear all timeouts
 		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
 		animationTimeouts.current = [];
 		setIsAnimatingToContainer(false);
-		console.log("Animation stopped");
+		// console.log("Animation stopped");
 	};
 
 	// Function to reset camera to default position
@@ -499,10 +416,10 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			setSelectedContainer(containerName);
 			setIsAnimatingToContainer(true);
-			console.log("Starting animation to container:", containerName);
+			// console.log("Starting animation to container:", containerName);
 
 			const pos = container.position;
-			console.log("Container position:", pos);
+			// console.log("Container position:", pos);
 
 			const droneHeight = 25; // High drone view
 
@@ -519,7 +436,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 				// Reset animation state after all animations complete
 				const timeout3 = setTimeout(() => {
-					console.log("Animation timeout finished");
+					// console.log("Animation timeout finished");
 					setIsAnimatingToContainer(false);
 					// Clear timeouts array
 					animationTimeouts.current = [];
@@ -540,11 +457,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					try {
 						return {
 							...container,
-							color: getContainerColor(
-								container.status || "",
-								container.grade || null,
-								colorBy
-							),
+							color: getContainerColor(container.status || "", container.grade || null, colorBy),
 						};
 					} catch (error) {
 						console.warn("Error updating container color:", error);
@@ -589,8 +502,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				style={{
 					width: "100%",
 					height: "100%",
-					background:
-						"linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+					background: "linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
 				}}
 				shadows
 			>
@@ -609,26 +521,13 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				/>
 
 				{/* Ground plane */}
-				<mesh
-					rotation={[-Math.PI / 2, 0, 0]}
-					position={[0, -0.1, 0]}
-					receiveShadow
-				>
+				<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
 					<planeGeometry args={[100, 100]} />
-					<meshStandardMaterial
-						color="#1a1a1a"
-						transparent
-						opacity={0.8}
-						roughness={0.8}
-						metalness={0.1}
-					/>
+					<meshStandardMaterial color="#1a1a1a" transparent opacity={0.8} roughness={0.8} metalness={0.1} />
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Floor
-					path={PATH_MAPPING[name].model}
-					onMeshPositionsReady={handleMeshPositionsReady}
-				/>
+				<Floor path={PATH_MAPPING[name].model} onMeshPositionsReady={handleMeshPositionsReady} />
 
 				{/* Render custom containers at mesh centers */}
 				{containers.map((containerData, index) => (
@@ -650,14 +549,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 				))}
 
 				{/* Camera Controls - Disabled when dragging or animating to container */}
-				<CameraControls
-					ref={cameraControls}
-					enabled={!isDragging && !isAnimatingToContainer}
-					minPolarAngle={0}
-					maxPolarAngle={Math.PI / 2.2}
-					smoothTime={0.25}
-					draggingSmoothTime={0.125}
-				/>
+				<CameraControls ref={cameraControls} enabled={!isDragging && !isAnimatingToContainer} minPolarAngle={0} maxPolarAngle={Math.PI / 2.2} smoothTime={0.25} draggingSmoothTime={0.125} />
 			</Canvas>
 
 			{/* Color Mode Toggle and Drag Mode Toggle */}
@@ -668,17 +560,11 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						<div className="text-blue-300 font-bold text-xs flex items-center gap-2">
 							<span className="animate-spin">🎯</span>
 							<span>Flying to container...</span>
-							<Button
-								onClick={stopAnimation}
-								size="sm"
-								className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 ml-auto"
-							>
+							<Button onClick={stopAnimation} size="sm" className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 ml-auto">
 								Stop
 							</Button>
 						</div>
-						<div className="text-blue-200 text-xs">
-							Camera controls temporarily disabled
-						</div>
+						<div className="text-blue-200 text-xs">Camera controls temporarily disabled</div>
 					</div>
 				)}
 
@@ -693,11 +579,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 							className="w-64 text-xs bg-black/50 border-white/30 text-white placeholder-white/60"
 						/>
 						{searchQuery && (
-							<Button
-								onClick={clearSearch}
-								size="sm"
-								className="text-xs bg-red-600 hover:bg-red-700 text-white"
-							>
+							<Button onClick={clearSearch} size="sm" className="text-xs bg-red-600 hover:bg-red-700 text-white">
 								Clear
 							</Button>
 						)}
@@ -706,11 +588,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						<div className="mt-2 text-xs">
 							<div className="text-green-400 mb-1">
 								Found {searchResults.length} container(s):
-								{searchResults.length === 1 && (
-									<span className="text-blue-300 ml-2 text-xs">
-										(Auto-focused)
-									</span>
-								)}
+								{searchResults.length === 1 && <span className="text-blue-300 ml-2 text-xs">(Auto-focused)</span>}
 							</div>
 							<div className="max-h-20 overflow-y-auto space-y-1">
 								{searchResults.map((result, idx) => (
@@ -720,53 +598,38 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 											size="sm"
 											disabled={isAnimatingToContainer}
 											className={`text-xs px-2 py-1 h-6 transition-colors ${
-												isAnimatingToContainer
-													? "bg-gray-500 cursor-not-allowed text-gray-300"
-													: "bg-blue-600 hover:bg-blue-700 text-white"
+												isAnimatingToContainer ? "bg-gray-500 cursor-not-allowed text-gray-300" : "bg-blue-600 hover:bg-blue-700 text-white"
 											}`}
 										>
 											{isAnimatingToContainer ? "🎯 Flying..." : "🎯 Focus"}
 										</Button>
 										<span
 											className="text-white text-xs truncate cursor-pointer hover:text-blue-300 transition-colors"
-											onClick={() =>
-												!isAnimatingToContainer && focusOnContainer(result.name)
-											}
+											onClick={() => !isAnimatingToContainer && focusOnContainer(result.name)}
 											title="Click to focus on container"
 										>
-											{result.containerCode} ({result.blockName}-{result.row}-
-											{result.column})
+											{result.containerCode} ({result.blockName}-{result.row}-{result.column})
 										</span>
 									</div>
 								))}
 							</div>
 						</div>
 					)}
-					{searchQuery && searchResults.length === 0 && (
-						<div className="mt-2 text-xs text-red-400">No containers found</div>
-					)}
+					{searchQuery && searchResults.length === 0 && <div className="mt-2 text-xs text-red-400">No containers found</div>}
 				</div>
 
 				<div className="flex gap-2 mb-2">
 					<Button
 						onClick={() => setColorBy("grade")}
 						size="sm"
-						className={`text-xs ${
-							colorBy === "grade"
-								? "bg-white text-black hover:bg-gray-200"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
+						className={`text-xs ${colorBy === "grade" ? "bg-white text-black hover:bg-gray-200" : "bg-transparent text-white border border-white hover:bg-white/10"}`}
 					>
 						Grade Colors
 					</Button>
 					<Button
 						onClick={() => setColorBy("status")}
 						size="sm"
-						className={`text-xs ${
-							colorBy === "status"
-								? "bg-white text-black hover:bg-gray-200"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
+						className={`text-xs ${colorBy === "status" ? "bg-white text-black hover:bg-gray-200" : "bg-transparent text-white border border-white hover:bg-white/10"}`}
 					>
 						Status Colors
 					</Button>
@@ -775,11 +638,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<Button
 						onClick={() => setDragMode(!dragMode)}
 						size="sm"
-						className={`text-xs ${
-							dragMode
-								? "bg-yellow-500 text-black hover:bg-yellow-400"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
+						className={`text-xs ${dragMode ? "bg-yellow-500 text-black hover:bg-yellow-400" : "bg-transparent text-white border border-white hover:bg-white/10"}`}
 					>
 						{dragMode ? "🔒 Drag ON" : "🔓 Drag OFF"}
 					</Button>
@@ -787,11 +646,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						onClick={resetCameraToDefault}
 						size="sm"
 						disabled={isAnimatingToContainer}
-						className={`text-xs ${
-							isAnimatingToContainer
-								? "bg-gray-500 cursor-not-allowed text-gray-300"
-								: "bg-green-600 hover:bg-green-700 text-white"
-						}`}
+						className={`text-xs ${isAnimatingToContainer ? "bg-gray-500 cursor-not-allowed text-gray-300" : "bg-green-600 hover:bg-green-700 text-white"}`}
 						title="Reset camera to default view"
 					>
 						🏠 Home
@@ -801,27 +656,18 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 
 			{/* Color Legend - Moved down a bit */}
 			<div className="fixed top-16 right-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] text-xs min-w-[160px]">
-				<div className="font-bold mb-2">
-					{colorBy === "grade" ? "Grade Legend" : "Status Legend"}
-				</div>
+				<div className="font-bold mb-2">{colorBy === "grade" ? "Grade Legend" : "Status Legend"}</div>
 				{dragMode && (
 					<div className="mb-2 p-2 bg-yellow-900/50 rounded border border-yellow-500">
-						<div className="text-yellow-300 font-bold text-xs">
-							🔥 DRAG MODE ACTIVE
-						</div>
-						<div className="text-xs text-yellow-200">
-							Click & drag containers to move them between tiers
-						</div>
+						<div className="text-yellow-300 font-bold text-xs">🔥 DRAG MODE ACTIVE</div>
+						<div className="text-xs text-yellow-200">Click & drag containers to move them between tiers</div>
 					</div>
 				)}
 				{colorBy === "grade" ? (
 					<div className="space-y-1">
 						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
 							<div key={grade} className="flex items-center gap-2">
-								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: color }}
-								></div>
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
 								<span>Grade {grade}</span>
 							</div>
 						))}
@@ -830,10 +676,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<div className="space-y-1">
 						{Object.entries(STATUS_COLORS).map(([status, color]) => (
 							<div key={status} className="flex items-center gap-2">
-								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: color }}
-								></div>
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
 								<span className="text-xs">
 									{status} - {getStatusColorName(status)}
 								</span>
@@ -857,10 +700,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 						minWidth: "300px",
 						fontSize: "14px",
 						fontFamily: "system-ui, -apple-system, sans-serif",
-						border: `3px solid ${
-							containers.find((c) => c.name === selectedContainer)?.color ||
-							"#64b5f6"
-						}`,
+						border: `3px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
 						boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
 						backdropFilter: "blur(10px)",
 						zIndex: 1000,
@@ -869,29 +709,23 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 					<h3
 						style={{
 							margin: "0 0 16px 0",
-							color:
-								containers.find((c) => c.name === selectedContainer)?.color ||
-								"#64b5f6",
+							color: containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6",
 						}}
 					>
 						Container Information - Depo 4
 					</h3>
 					{(() => {
-						const container = containers.find(
-							(c) => c.name === selectedContainer
-						);
+						const container = containers.find((c) => c.name === selectedContainer);
 						return container ? (
 							<div>
 								<div>
-									<strong>Container Code:</strong>{" "}
-									{container.containerCode || "N/A"}
+									<strong>Container Code:</strong> {container.containerCode || "N/A"}
 								</div>
 								<div>
 									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Position:</strong> Row {container.row}, Column{" "}
-									{container.column}
+									<strong>Position:</strong> Row {container.row}, Column {container.column}
 								</div>
 								<div>
 									<strong>Tier:</strong> {container.tier || "N/A"}
@@ -911,11 +745,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 												padding: "2px 6px",
 												borderRadius: "4px",
 												fontSize: "10px",
-												backgroundColor: getContainerColor(
-													container.status,
-													null,
-													"status"
-												),
+												backgroundColor: getContainerColor(container.status, null, "status"),
 												color: "white",
 											}}
 										>
@@ -932,10 +762,7 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 							marginTop: "16px",
 							padding: "8px 16px",
 							backgroundColor: "transparent",
-							border: `2px solid ${
-								containers.find((c) => c.name === selectedContainer)?.color ||
-								"#64b5f6"
-							}`,
+							border: `2px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
 							color: "white",
 							borderRadius: "6px",
 							cursor: "pointer",
@@ -950,57 +777,30 @@ export default function DisplayYard({ name, containerSize }: DisplayYardProps) {
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA"
-						? "Depo JAPFA"
-						: name === "4"
-						? "Depo 4"
-						: name === "BAYUR"
-						? "Depo Teluk Bayur"
-						: name === "YON"
-						? "Depo YON"
-						: `Depo ${name}`}{" "}
-					{searchResults.length > 0 ? (
-						<span className="text-green-400">
-							Search Results ({searchResults.length})
-						</span>
-					) : (
-						<span>Containers ({containers.length} total)</span>
-					)}
+					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`}{" "}
+					{searchResults.length > 0 ? <span className="text-green-400">Search Results ({searchResults.length})</span> : <span>Containers ({containers.length} total)</span>}
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
-						{(searchResults.length > 0 ? searchResults : containers).map(
-							(container) => {
-								const isSearchMatch =
-									searchResults.length > 0 && searchResults.includes(container);
-								return (
-									<div
-										key={container.name}
-										className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
-											isSearchMatch
-												? "bg-green-900/30 border border-green-500"
-												: ""
-										}`}
-										onClick={() => handleContainerClick(container.name)}
-									>
-										<div
-											className="w-3 h-3 rounded-sm flex-shrink-0"
-											style={{ backgroundColor: container.color }}
-										></div>
-										<span className="text-xs truncate">
-											{container.blockName}-{container.row}-{container.column} T
-											{container.tier}
-											{container.containerCode
-												? ` (${container.containerCode.substring(0, 15)}...)`
-												: ""}
-										</span>
-										{isSearchMatch && (
-											<span className="text-green-400 text-xs ml-auto">✓</span>
-										)}
-									</div>
-								);
-							}
-						)}
+						{(searchResults.length > 0 ? searchResults : containers).map((container) => {
+							const isSearchMatch = searchResults.length > 0 && searchResults.includes(container);
+							return (
+								<div
+									key={container.name}
+									className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+										isSearchMatch ? "bg-green-900/30 border border-green-500" : ""
+									}`}
+									onClick={() => handleContainerClick(container.name)}
+								>
+									<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
+									<span className="text-xs truncate">
+										{container.blockName}-{container.row}-{container.column} T{container.tier}
+										{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+									</span>
+									{isSearchMatch && <span className="text-green-400 text-xs ml-auto">✓</span>}
+								</div>
+							);
+						})}
 					</div>
 				</ScrollArea>
 			</div>

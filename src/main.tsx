@@ -15,6 +15,8 @@ import SuperAdminRoutes from "./components/layouts/superadmin-routes.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { credentials } from "./constants/credentials.ts";
 import "./index.css";
+import { api } from "./lib/axios.ts";
+import type { ApiResponse } from "./types/api.ts";
 
 const router = createHashRouter([
 	{
@@ -66,6 +68,10 @@ const router = createHashRouter([
 					},
 					{
 						path: "/depo-yon",
+						loader: async () => {
+							const response = await api.get<ApiResponse>("/get-dummy", { params: { cy: "YON", user: "yon" } });
+							return { data: response };
+						},
 						element: <DepoYon />,
 					},
 				],
