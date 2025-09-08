@@ -42,7 +42,7 @@ const PATH_MAPPING = {
 		data: mappingBayurData,
 	},
 	YON: {
-		model: "/cy-block/new-depo-yon.glb",
+		model: "/cy-block/textured-new-depo-yon.glb",
 		data: depoYonData,
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
