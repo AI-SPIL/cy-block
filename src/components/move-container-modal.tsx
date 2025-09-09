@@ -186,7 +186,7 @@ export function MoveContainerModal({
 				const blocks = ["A", "B", "C"];
 				const maxRow = 14; // Realistic row count up to 14 like in image
 				const maxColumn = 7; // Realistic column count up to 7 like in image
-				const maxTier = 4;
+				const maxTier = depoName === "YON" ? 6 : 4; // YON depot supports up to 6 tiers
 
 				blocks.forEach((block) => {
 					for (let row = 1; row <= maxRow; row++) {
@@ -229,7 +229,7 @@ export function MoveContainerModal({
 			const blocks = [...new Set(data.map((c: ContainerDataResponse) => c.Block))].sort();
 			const maxRow = Math.max(...data.map((c: ContainerDataResponse) => +c.Row));
 			const maxColumn = Math.max(...data.map((c: ContainerDataResponse) => +c.Column));
-			const maxTier = 4; // Assuming max 4 tiers
+			const maxTier = depoName === "YON" ? 6 : 4; // YON depot supports up to 6 tiers
 
 			console.log("Grid info:", { blocks, maxRow, maxColumn, maxTier });
 
@@ -460,7 +460,7 @@ export function MoveContainerModal({
 										Tier for {selectedSlot.block}.{selectedSlot.row}.{selectedSlot.column}
 									</h3>
 									<div className="flex gap-1">
-										{[1, 2, 3, 4].map((tier) => {
+										{[1, 2, 3, 4, 5, 6].map((tier) => {
 											const tierSlot = availableSlots.find(
 												s => s.block === selectedSlot.block &&
 													s.row === selectedSlot.row &&
