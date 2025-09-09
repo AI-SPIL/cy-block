@@ -1,16 +1,16 @@
 export type ContainerDataResponse = {
-	Block: string;
-	"CONTAINER GRADE": string;
-	Column: string;
 	Container: string;
+	Block: string;
+	Row: number;
+	Column: number;
+	Tier: number;
+	STATE: string;
+	TYPE: string;
 	LOGISTIC: string;
 	OWNER: string;
-	Row: string;
-	STATE: string;
-	"TGL FXD": string;
 	"TGL. STATUS": string;
-	TYPE: string;
-	Tier: string;
+	"TGL FXD": string;
+	"CONTAINER GRADE": string;
 	"VESSEL TERAKHIR": string;
 };
 

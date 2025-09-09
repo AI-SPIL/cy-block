@@ -68,9 +68,9 @@ export function MoveContainerModal({
 					// Block A - Sample containers
 					{
 						Block: "A",
-						Row: "1",
-						Column: "1", 
-						Tier: "1",
+						Row: 1,
+						Column: 1, 
+						Tier: 1,
 						Container: "MOCK1234567",
 						STATE: "FTL",
 						"CONTAINER GRADE": "A",
@@ -83,9 +83,9 @@ export function MoveContainerModal({
 					},
 					{
 						Block: "A", 
-						Row: "1",
-						Column: "3",
-						Tier: "1", 
+						Row: 1,
+						Column: 3,
+						Tier: 1, 
 						Container: "MOCK2345678",
 						STATE: "MTD",
 						"CONTAINER GRADE": "B",
@@ -98,9 +98,9 @@ export function MoveContainerModal({
 					},
 					{
 						Block: "A", 
-						Row: "2",
-						Column: "2",
-						Tier: "1", 
+						Row: 2,
+						Column: 2,
+						Tier: 1, 
 						Container: "MOCK3456789",
 						STATE: "MTA",
 						"CONTAINER GRADE": "A",
@@ -114,9 +114,9 @@ export function MoveContainerModal({
 					// Block B - Sample containers
 					{
 						Block: "B", 
-						Row: "1",
-						Column: "2",
-						Tier: "1", 
+						Row: 1,
+						Column: 2,
+						Tier: 1, 
 						Container: "MOCK4567890",
 						STATE: "FTL",
 						"CONTAINER GRADE": "C",
@@ -129,9 +129,9 @@ export function MoveContainerModal({
 					},
 					{
 						Block: "B", 
-						Row: "3",
-						Column: "1",
-						Tier: "2", 
+						Row: 3,
+						Column: 1,
+						Tier: 2,
 						Container: "MOCK5678901",
 						STATE: "STR",
 						"CONTAINER GRADE": "B",
@@ -145,9 +145,9 @@ export function MoveContainerModal({
 					// Block C - Sample containers
 					{
 						Block: "C", 
-						Row: "1",
-						Column: "1",
-						Tier: "1", 
+						Row: 1,
+						Column: 1,
+						Tier: 1, 
 						Container: "MOCK6789012",
 						STATE: "MTB",
 						"CONTAINER GRADE": "A",
@@ -160,9 +160,9 @@ export function MoveContainerModal({
 					},
 					{
 						Block: "C", 
-						Row: "2",
-						Column: "3",
-						Tier: "1", 
+						Row: 2,
+						Column: 3,
+						Tier: 1, 
 						Container: "MOCK7890123",
 						STATE: "MTS",
 						"CONTAINER GRADE": "C",
@@ -227,8 +227,8 @@ export function MoveContainerModal({
 			
 			// Get unique blocks, rows, and columns from data
 			const blocks = [...new Set(data.map((c: ContainerDataResponse) => c.Block))].sort();
-			const maxRow = Math.max(...data.map((c: ContainerDataResponse) => parseInt(c.Row)));
-			const maxColumn = Math.max(...data.map((c: ContainerDataResponse) => parseInt(c.Column)));
+			const maxRow = Math.max(...data.map((c: ContainerDataResponse) => +c.Row));
+			const maxColumn = Math.max(...data.map((c: ContainerDataResponse) => +c.Column));
 			const maxTier = 4; // Assuming max 4 tiers
 
 			console.log("Grid info:", { blocks, maxRow, maxColumn, maxTier });
@@ -325,7 +325,7 @@ export function MoveContainerModal({
 
 	return (
 		<Dialog open={isOpen} onOpenChange={handleOpenChange}>
-			<DialogContent className="max-w-[96vw] w-[96vw] h-[92vh] max-h-[92vh] top-[4%] p-2">
+			<DialogContent className="max-w-[96vw] w-[96vw] h-[92vh] max-h-[92vh] top-[4%] p-2 z-[99999]">
 				<DialogHeader className="pb-1">
 					<DialogTitle className="text-sm font-medium">
 						Move Container: {selectedContainer && (
