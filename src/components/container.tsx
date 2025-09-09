@@ -112,15 +112,18 @@ export function Container({
 		: // For aligned containers, use exact mesh dimensions
 		  ([container.meshSize[0], getDefaultDimensions()[1], container.meshSize[2]] as const);
 
-	const handlePointerEnter = () => {
+	const handlePointerEnter = (event: ThreeEvent<PointerEvent>) => {
+		event.stopPropagation(); // Prevent event bubbling to containers behind
 		setHovered(true);
 	};
 
-	const handlePointerLeave = () => {
+	const handlePointerLeave = (event: ThreeEvent<PointerEvent>) => {
+		event.stopPropagation(); // Prevent event bubbling to containers behind
 		setHovered(false);
 	};
 
-	const handleClick = () => {
+	const handleClick = (event: ThreeEvent<PointerEvent>) => {
+		event.stopPropagation(); // Prevent clicking containers behind
 		if (!isDragging && !container.isDragging) {
 			onSelect(container.name);
 		}
@@ -134,6 +137,7 @@ export function Container({
 	};
 
 	const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
+		event.stopPropagation(); // Prevent event bubbling to containers behind
 		if (isDragging && onDragMove) {
 			// Calculate new position based on pointer movement
 			const newPosition: [number, number, number] = [

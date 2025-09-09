@@ -463,7 +463,23 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 			);
 		}
 
-		return containersToShow;
+		// Sort containers by distance from camera (closer containers rendered last for proper depth)
+		return containersToShow.sort((a, b) => {
+			// Calculate distance from camera position (approximate)
+			const cameraPos = [15, 10, 15]; // Default camera position
+			const distanceA = Math.sqrt(
+				Math.pow(a.position[0] - cameraPos[0], 2) + 
+				Math.pow(a.position[1] - cameraPos[1], 2) + 
+				Math.pow(a.position[2] - cameraPos[2], 2)
+			);
+			const distanceB = Math.sqrt(
+				Math.pow(b.position[0] - cameraPos[0], 2) + 
+				Math.pow(b.position[1] - cameraPos[1], 2) + 
+				Math.pow(b.position[2] - cameraPos[2], 2)
+			);
+			// Sort by distance (farthest first, closest last)
+			return distanceB - distanceA;
+		});
 	};
 
 	const containersToRender = getContainersToRender();
