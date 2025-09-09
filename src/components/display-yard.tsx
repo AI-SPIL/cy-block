@@ -3,12 +3,8 @@ import { depoJapfaData } from "@/data/depo-japfa";
 import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
-import {
-	getContainerColor,
-	getStatusColorName,
-	GRADE_COLORS,
-	STATUS_COLORS,
-} from "@/helpers/color-helpers";
+import { getContainerColor, getStatusColorName } from "@/helpers/color-helpers";
+import { cn } from "@/lib/utils";
 import type { ApiResponse } from "@/types/api";
 import { CameraControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
@@ -18,6 +14,7 @@ import { Floor } from "./floor";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from "./ui/select";
 
 type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
 
@@ -52,25 +49,19 @@ const PATH_MAPPING = {
 	},
 } satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
 
-export default function DisplayYard({
-	name,
-	data,
-	containerSize,
-}: DisplayYardProps) {
-	const [selectedContainer, setSelectedContainer] = useState<string | null>(
-		null
-	);
+export default function DisplayYard({ name, data, containerSize }: DisplayYardProps) {
+	const [selectedContainer, setSelectedContainer] = useState<string | null>(null);
 	const [containers, setContainers] = useState<PositionedContainer[]>([]);
 	const [colorBy, setColorBy] = useState<"grade" | "status">("grade");
-	const [draggedContainer, setDraggedContainer] =
-		useState<PositionedContainer | null>(null);
+	const [draggedContainer, setDraggedContainer] = useState<PositionedContainer | null>(null);
 	const [dragMode, setDragMode] = useState<boolean>(false);
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	const [, setDragPosition] = useState<[number, number, number] | null>(null);
 	const [searchQuery, setSearchQuery] = useState<string>("");
 	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
-	const [isAnimatingToContainer, setIsAnimatingToContainer] =
-		useState<boolean>(false);
+	const [isAnimatingToContainer, setIsAnimatingToContainer] = useState<boolean>(false);
+	const [selectedTier, setSelectedTier] = useState<string | null>(null);
+	const [focusedContainerInfo, setFocusedContainerInfo] = useState<{ row: number; column: number; blockName: string } | null>(null);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const cameraControls = useRef<any>(null);
@@ -81,38 +72,20 @@ export default function DisplayYard({
 	const size20Container = containerSize.size20;
 	const size40Container = containerSize.size40;
 
-	const defaultSize20Vertical = [
-		size20Container[2],
-		size20Container[1],
-		size20Container[0],
-	] satisfies [number, number, number];
+	const defaultSize20Vertical = [size20Container[2], size20Container[1], size20Container[0]] satisfies [number, number, number];
 	const defaultSize20Horizontal = size20Container;
-	const defaultSize40Vertical = [
-		size40Container[2],
-		size40Container[1],
-		size40Container[0],
-	] satisfies [number, number, number];
+	const defaultSize40Vertical = [size40Container[2], size40Container[1], size40Container[0]] satisfies [number, number, number];
 	const defaultSize40Horizontal = size40Container;
 
-	const getContainerDimensions = (
-		containerSize: string,
-		meshSize: [number, number, number],
-		rotation: [number, number, number]
-	): [number, number, number] => {
+	const getContainerDimensions = (containerSize: string, meshSize: [number, number, number], rotation: [number, number, number]): [number, number, number] => {
 		// Check if the block is rotated (not at cardinal directions)
 		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 			const cardinalAngles = [0, 90, 180, 270];
-			return !cardinalAngles.some(
-				(cardinal) =>
-					Math.abs(degrees - cardinal) <= tolerance ||
-					Math.abs(degrees - (cardinal + 360)) <= tolerance
-			);
+			return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
 		};
 
-		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) =>
-			shouldApplyRotation(r)
-		);
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) => shouldApplyRotation(r));
 
 		if (containerSize === "20") {
 			// For 20ft containers, determine orientation based on mesh dimensions
@@ -122,13 +95,9 @@ export default function DisplayYard({
 
 			// If block is rotated, use standard dimensions, otherwise match mesh orientation
 			if (isRotated) {
-				return isHorizontalMesh
-					? defaultSize20Horizontal
-					: defaultSize20Vertical;
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
 			} else {
-				return isHorizontalMesh
-					? defaultSize20Horizontal
-					: defaultSize20Vertical;
+				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
 			}
 		} else if (containerSize === "40") {
 			// For 40ft containers, always use the default props dimensions
@@ -151,11 +120,7 @@ export default function DisplayYard({
 		// console.log("All detected meshes:", Object.keys(positions));
 
 		// Helper function to detect if container position indicates fractional position
-		const getFractionalPosition = (
-			column: number,
-			row: number,
-			containerCode: string
-		): { column: number; row: number; hasFraction: boolean } => {
+		const getFractionalPosition = (column: number, row: number, containerCode: string): { column: number; row: number; hasFraction: boolean } => {
 			// Check if the column or row is a fractional number
 			const columnFraction = column % 1;
 			const rowFraction = row % 1;
@@ -187,14 +152,7 @@ export default function DisplayYard({
 		};
 
 		// Helper function to get mesh name with support for fractional columns
-		const getMeshName = (
-			blockName: string,
-			column: number,
-			row: number,
-			containerCode: string,
-			size: string,
-			availableMeshes: string[]
-		): string => {
+		const getMeshName = (blockName: string, column: number, row: number, containerCode: string, size: string, availableMeshes: string[]): string => {
 			// Check for fractional positions first (applies to all sizes)
 			const fractionalInfo = getFractionalPosition(column, row, containerCode);
 
@@ -245,14 +203,7 @@ export default function DisplayYard({
 
 		depoData?.forEach((containerData) => {
 			const meshSize = containerData.TYPE.split(" ")[0];
-			const meshName = getMeshName(
-				containerData.Block,
-				containerData.Column,
-				containerData.Row,
-				containerData.Container,
-				meshSize,
-				Object.keys(positions)
-			);
+			const meshName = getMeshName(containerData.Block, containerData.Column, containerData.Row, containerData.Container, meshSize, Object.keys(positions));
 
 			const meshData = positions[meshName];
 
@@ -261,48 +212,28 @@ export default function DisplayYard({
 				const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
 					const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
 					const cardinalAngles = [0, 90, 180, 270];
-					return !cardinalAngles.some(
-						(cardinal) =>
-							Math.abs(degrees - cardinal) <= tolerance ||
-							Math.abs(degrees - (cardinal + 360)) <= tolerance
-					);
+					return !cardinalAngles.some((cardinal) => Math.abs(degrees - cardinal) <= tolerance || Math.abs(degrees - (cardinal + 360)) <= tolerance);
 				};
 
-				const isBlockRotated = [
-					meshData.rotation[0],
-					meshData.rotation[1],
-					meshData.rotation[2],
-				].some((r) => shouldApplyRotation(r));
+				const isBlockRotated = [meshData.rotation[0], meshData.rotation[1], meshData.rotation[2]].some((r) => shouldApplyRotation(r));
 
 				// Determine block orientation based on mesh dimensions
 				const meshWidth = meshData.size[0];
 				const meshDepth = meshData.size[2];
-				const blockOrientation: "horizontal" | "vertical" =
-					meshWidth > meshDepth ? "horizontal" : "vertical";
+				const blockOrientation: "horizontal" | "vertical" = meshWidth > meshDepth ? "horizontal" : "vertical";
 
 				// Get container dimensions based on rotation and size
-				const containerDimensions = getContainerDimensions(
-					meshSize,
-					meshData.size,
-					meshData.rotation
-				);
+				const containerDimensions = getContainerDimensions(meshSize, meshData.size, meshData.rotation);
 
 				const containerHeight = containerDimensions[1]; // Y size
 
-				const yPosition =
-					meshData.position[1] +
-					meshData.size[1] / 2 +
-					(containerData.Tier - 1) * containerHeight;
+				const yPosition = meshData.position[1] + meshData.size[1] / 2 + (containerData.Tier - 1) * containerHeight;
 
 				const container: PositionedContainer = {
 					position: [meshData.position[0], yPosition, meshData.position[2]],
 					meshSize: meshSize === "40" ? containerDimensions : meshData.size,
 					rotation: meshData.rotation,
-					color: getContainerColor(
-						containerData.STATE,
-						containerData["CONTAINER GRADE"] || null,
-						colorBy
-					),
+					color: getContainerColor(containerData.STATE, containerData["CONTAINER GRADE"] || null, colorBy),
 					name: `${containerData.Block}_${containerData.Column}_${containerData.Row}_T${containerData.Tier}`,
 
 					containerCode: containerData.Container,
@@ -327,9 +258,6 @@ export default function DisplayYard({
 	};
 
 	const handleContainerClick = (containerName: string) => {
-		setSelectedContainer(
-			selectedContainer === containerName ? null : containerName
-		);
 		if (dragMode && draggedContainer) {
 			// Handle drop operation
 			const targetContainer = containers.find((c) => c.name === containerName);
@@ -338,9 +266,22 @@ export default function DisplayYard({
 				return;
 			}
 		}
-		setSelectedContainer(
-			selectedContainer === containerName ? null : containerName
-		);
+
+		// Toggle selection or select new container
+		const newSelectedContainer = selectedContainer === containerName ? null : containerName;
+		setSelectedContainer(newSelectedContainer);
+
+		// If a container is selected (not deselected), fly to it
+		if (newSelectedContainer) {
+			focusOnContainer(newSelectedContainer);
+		} else {
+			// If container is deselected, clear any focused state
+			setFocusedContainerInfo(null);
+			// Stop any ongoing animation
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+			animationTimeouts.current = [];
+			setIsAnimatingToContainer(false);
+		}
 	};
 
 	const handleDragMove = (newPosition: [number, number, number]) => {
@@ -389,12 +330,8 @@ export default function DisplayYard({
 				currentContainers.map((c) => {
 					if (c.name === draggedContainer.name) {
 						// Reset to original position
-						const originalContainer = containers.find(
-							(orig) => orig.name === c.name
-						);
-						return originalContainer
-							? { ...c, position: originalContainer.position }
-							: c;
+						const originalContainer = containers.find((orig) => orig.name === c.name);
+						return originalContainer ? { ...c, position: originalContainer.position } : c;
 					}
 					return {
 						...c,
@@ -410,10 +347,7 @@ export default function DisplayYard({
 		setDragPosition(null);
 	};
 
-	const handleDrop = (
-		targetContainer: PositionedContainer,
-		draggedContainer: PositionedContainer
-	) => {
+	const handleDrop = (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => {
 		if (!draggedContainer || targetContainer.name === draggedContainer.name) {
 			return;
 		}
@@ -425,22 +359,14 @@ export default function DisplayYard({
 					return {
 						...c,
 						tier: targetContainer.tier,
-						position: [
-							targetContainer.position[0],
-							targetContainer.position[1],
-							targetContainer.position[2],
-						],
+						position: [targetContainer.position[0], targetContainer.position[1], targetContainer.position[2]],
 						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`,
 					};
 				} else if (c.name === targetContainer.name) {
 					return {
 						...c,
 						tier: draggedContainer.tier,
-						position: [
-							draggedContainer.position[0],
-							draggedContainer.position[1],
-							draggedContainer.position[2],
-						],
+						position: [draggedContainer.position[0], draggedContainer.position[1], draggedContainer.position[2]],
 						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`,
 					};
 				}
@@ -451,65 +377,29 @@ export default function DisplayYard({
 		handleDragEnd();
 	};
 
-	// Search functionality
-	const handleSearch = (query: string) => {
-		setSearchQuery(query);
-		if (query.trim() === "") {
-			setSearchResults([]);
-			return;
+	// Get available tiers from containers data
+	const availableTiers = Array.from(new Set(containers.map((container) => container.tier))).sort();
+
+	// Get containers to render based on focus state and tier filter
+	const getContainersToRender = () => {
+		let containersToShow = containers;
+
+		// Apply tier filter first
+		if (selectedTier) {
+			containersToShow = containersToShow.filter((container) => container.tier === parseInt(selectedTier));
 		}
 
-		const results = containers.filter((container) =>
-			container.containerCode?.toLowerCase().includes(query.toLowerCase())
-		);
-		setSearchResults(results);
-
-		// Auto-focus and select when there's exactly one match
-		if (results.length === 1) {
-			setSelectedContainer(results[0].name);
-			// Auto-focus on the container with a slight delay to ensure the container is selected first
-			setTimeout(() => {
-				focusOnContainer(results[0].name);
-			}, 100);
-		}
-		// Auto-focus on first result if there are multiple matches but less than 5
-		else if (results.length > 1 && results.length <= 3) {
-			// Just select the first one, but don't auto-focus to avoid being too aggressive
-			setSelectedContainer(results[0].name);
-		}
-	};
-
-	// Clear search function
-	const clearSearch = () => {
-		setSearchQuery("");
-		setSearchResults([]);
-		setSelectedContainer(null);
-	};
-
-	// Function to stop ongoing animation
-	const stopAnimation = () => {
-		// console.log("Stopping animation...");
-		// Clear all timeouts
-		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
-		animationTimeouts.current = [];
-		setIsAnimatingToContainer(false);
-		// console.log("Animation stopped");
-	};
-
-	// Function to reset camera to default position
-	const resetCameraToDefault = () => {
-		if (cameraControls.current && !isAnimatingToContainer) {
-			cameraControls.current.setLookAt(
-				15,
-				10,
-				15, // Default camera position
-				0,
-				2,
-				0, // Default target position
-				true // Animate transition
+		// Apply focus filter (show only containers with same row, column, block)
+		if (focusedContainerInfo) {
+			containersToShow = containersToShow.filter(
+				(container) => container.row === focusedContainerInfo.row && container.column === focusedContainerInfo.column && container.blockName === focusedContainerInfo.blockName
 			);
 		}
+
+		return containersToShow;
 	};
+
+	const containersToRender = getContainersToRender();
 
 	// Function to focus camera on a container with smooth animation
 	const focusOnContainer = (containerName: string) => {
@@ -543,6 +433,12 @@ export default function DisplayYard({
 				const timeout3 = setTimeout(() => {
 					// console.log("Animation timeout finished");
 					setIsAnimatingToContainer(false);
+					// Set focused container info to filter containers
+					setFocusedContainerInfo({
+						row: container.row!,
+						column: container.column!,
+						blockName: container.blockName!,
+					});
 					// Clear timeouts array
 					animationTimeouts.current = [];
 				}, 2000); // Total animation time: 2 seconds
@@ -554,6 +450,61 @@ export default function DisplayYard({
 		}
 	};
 
+	// Function to stop ongoing animation and reset focus
+	const stopAnimation = () => {
+		// console.log("Stopping animation...");
+		// Clear all timeouts
+		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+		animationTimeouts.current = [];
+		setIsAnimatingToContainer(false);
+		// Clear focused container info to show all containers
+		setFocusedContainerInfo(null);
+		// console.log("Animation stopped");
+	};
+
+	// Clear search function
+	const clearSearch = () => {
+		setSearchQuery("");
+		setSearchResults([]);
+		setSelectedContainer(null);
+		// Clear focused container info when clearing search
+		setFocusedContainerInfo(null);
+	};
+
+	// Reset tier filter
+	const resetTierFilter = () => {
+		setSelectedTier(null);
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when resetting tier filter
+		setFocusedContainerInfo(null);
+	};
+
+	// Handle tier selection
+	const handleTierChange = (value: string) => {
+		setSelectedTier(value);
+		// Clear search results when tier filter changes
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when changing tier
+		setFocusedContainerInfo(null);
+	};
+
+	// Function to reset all filters and show all containers
+	const resetAllFilters = () => {
+		setSelectedTier(null);
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		setFocusedContainerInfo(null);
+		// Stop any ongoing animation
+		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+		animationTimeouts.current = [];
+		setIsAnimatingToContainer(false);
+	};
+
 	// Update container colors when colorBy mode changes
 	useEffect(() => {
 		setContainers((currentContainers) => {
@@ -562,11 +513,7 @@ export default function DisplayYard({
 					try {
 						return {
 							...container,
-							color: getContainerColor(
-								container.status || "",
-								container.grade || null,
-								colorBy
-							),
+							color: getContainerColor(container.status || "", container.grade || null, colorBy),
 						};
 					} catch (error) {
 						console.warn("Error updating container color:", error);
@@ -587,10 +534,10 @@ export default function DisplayYard({
 		};
 	}, []);
 
-	// Keyboard event listener for ESC key to stop animation
+	// Keyboard event listener for ESC key to stop animation and reset focus
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === "Escape" && isAnimatingToContainer) {
+			if (event.key === "Escape" && (isAnimatingToContainer || focusedContainerInfo)) {
 				stopAnimation();
 			}
 		};
@@ -599,7 +546,33 @@ export default function DisplayYard({
 		return () => {
 			window.removeEventListener("keydown", handleKeyPress);
 		};
-	}, [isAnimatingToContainer]);
+	}, [isAnimatingToContainer, focusedContainerInfo]);
+
+	function handleSearch(value: string): void {
+		setSearchQuery(value);
+
+		if (!value.trim()) {
+			setSearchResults([]);
+			setSelectedContainer(null);
+			setFocusedContainerInfo(null);
+			return;
+		}
+
+		const query = value.trim().toLowerCase();
+
+		// Search through all containers, not just filtered ones
+		// This ensures search works regardless of current filters
+		const results = containers.filter(
+			(container) => container.containerCode?.toLowerCase().includes(query) || `${container.blockName}-${container.row}-${container.column}`.toLowerCase().includes(query)
+		);
+
+		setSearchResults(results);
+
+		// Remove auto-focus and auto-selection behavior
+		// Let user manually click on containers they want to focus on
+		setSelectedContainer(null);
+		setFocusedContainerInfo(null);
+	}
 
 	return (
 		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
@@ -611,8 +584,7 @@ export default function DisplayYard({
 				style={{
 					width: "100%",
 					height: "100%",
-					background:
-						"linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+					background: "linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
 				}}
 				shadows
 			>
@@ -631,29 +603,16 @@ export default function DisplayYard({
 				/>
 
 				{/* Ground plane */}
-				<mesh
-					rotation={[-Math.PI / 2, 0, 0]}
-					position={[0, -0.1, 0]}
-					receiveShadow
-				>
+				<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]} receiveShadow>
 					<planeGeometry args={[100, 100]} />
-					<meshStandardMaterial
-						color="#1a1a1a"
-						transparent
-						opacity={0.8}
-						roughness={0.8}
-						metalness={0.1}
-					/>
+					<meshStandardMaterial color="#1a1a1a" transparent opacity={0.8} roughness={0.8} metalness={0.1} />
 				</mesh>
 
 				{/* Load and display Depo 4 GLB model */}
-				<Floor
-					path={PATH_MAPPING[name].model}
-					onMeshPositionsReady={handleMeshPositionsReady}
-				/>
+				<Floor path={PATH_MAPPING[name].model} onMeshPositionsReady={handleMeshPositionsReady} />
 
-				{/* Render custom containers at mesh centers */}
-				{containers.map((containerData, index) => (
+				{/* Render containers based on focus and tier filter */}
+				{containersToRender.map((containerData, index) => (
 					<Container
 						key={`container-${index}`}
 						container={containerData}
@@ -672,40 +631,13 @@ export default function DisplayYard({
 				))}
 
 				{/* Camera Controls - Disabled when dragging or animating to container */}
-				<CameraControls
-					ref={cameraControls}
-					enabled={!isDragging && !isAnimatingToContainer}
-					minPolarAngle={0}
-					maxPolarAngle={Math.PI / 2.2}
-					smoothTime={0.25}
-					draggingSmoothTime={0.125}
-				/>
+				<CameraControls ref={cameraControls} enabled={!isDragging && !isAnimatingToContainer} minPolarAngle={0} maxPolarAngle={Math.PI / 2.2} smoothTime={0.25} draggingSmoothTime={0.125} />
 			</Canvas>
 
 			{/* Color Mode Toggle and Drag Mode Toggle */}
-			<div className="fixed top-5 left-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000]">
-				{/* Camera Animation Indicator */}
-				{isAnimatingToContainer && (
-					<div className="mb-3 p-2 bg-blue-900/50 rounded border border-blue-500 animate-pulse">
-						<div className="text-blue-300 font-bold text-xs flex items-center gap-2">
-							<span className="animate-spin">🎯</span>
-							<span>Flying to container...</span>
-							<Button
-								onClick={stopAnimation}
-								size="sm"
-								className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 ml-auto"
-							>
-								Stop
-							</Button>
-						</div>
-						<div className="text-blue-200 text-xs">
-							Camera controls temporarily disabled
-						</div>
-					</div>
-				)}
-
+			<div className="fixed top-5 left-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] flex flex-col gap-y-4">
 				{/* Search Section */}
-				<div className="mb-3">
+				<div className="flex flex-col gap-y-4">
 					<div className="flex gap-2 items-center">
 						<Input
 							type="text"
@@ -713,155 +645,117 @@ export default function DisplayYard({
 							value={searchQuery}
 							onChange={(e) => handleSearch(e.target.value)}
 							className="w-64 text-xs bg-black/50 border-white/30 text-white placeholder-white/60"
+							autoComplete="off"
 						/>
 						{searchQuery && (
-							<Button
-								onClick={clearSearch}
-								size="sm"
-								className="text-xs bg-red-600 hover:bg-red-700 text-white"
-							>
+							<Button onClick={clearSearch} size="sm" className="text-xs bg-red-600 hover:bg-red-700 text-white">
 								Clear
 							</Button>
 						)}
 					</div>
-					{searchResults.length > 0 && (
-						<div className="mt-2 text-xs">
-							<div className="text-green-400 mb-1">
-								Found {searchResults.length} container(s):
-								{searchResults.length === 1 && (
-									<span className="text-blue-300 ml-2 text-xs">
-										(Auto-focused)
-									</span>
-								)}
-							</div>
-							<div className="max-h-20 overflow-y-auto space-y-1">
-								{searchResults.map((result, idx) => (
-									<div key={idx} className="flex items-center gap-2">
-										<Button
-											onClick={() => focusOnContainer(result.name)}
-											size="sm"
-											disabled={isAnimatingToContainer}
-											className={`text-xs px-2 py-1 h-6 transition-colors ${
-												isAnimatingToContainer
-													? "bg-gray-500 cursor-not-allowed text-gray-300"
-													: "bg-blue-600 hover:bg-blue-700 text-white"
-											}`}
-										>
-											{isAnimatingToContainer ? "🎯 Flying..." : "🎯 Focus"}
+
+					{/* Camera Animation Indicator */}
+					{(isAnimatingToContainer || focusedContainerInfo) && (
+						<div className="p-2 bg-blue-900/50 rounded border border-blue-500">
+							{isAnimatingToContainer ? (
+								<div className="animate-pulse">
+									<div className="flex justify-between items-center w-full">
+										<div className="text-blue-300 font-bold text-xs flex gap-2">
+											<span className="animate-spin">🎯</span>
+											<span>Flying to container...</span>
+										</div>
+										<Button onClick={stopAnimation} size="sm" className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5">
+											Stop
 										</Button>
-										<span
-											className="text-white text-xs truncate cursor-pointer hover:text-blue-300 transition-colors"
-											onClick={() =>
-												!isAnimatingToContainer && focusOnContainer(result.name)
-											}
-											title="Click to focus on container"
-										>
-											{result.containerCode} ({result.blockName}-{result.row}-
-											{result.column})
-										</span>
 									</div>
-								))}
-							</div>
+									<div className="text-blue-200 text-xs">Camera controls temporarily disabled</div>
+								</div>
+							) : (
+								<div>
+									<div className="flex justify-between items-center w-full">
+										<div className="text-blue-300 font-bold text-xs flex gap-2">
+											<span>👁️</span>
+											<span>
+												Focused: {focusedContainerInfo?.blockName}-{focusedContainerInfo?.row}-{focusedContainerInfo?.column}
+											</span>
+										</div>
+										<Button onClick={stopAnimation} size="sm" className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 mb-1">
+											Show All
+										</Button>
+									</div>
+									<div className="text-blue-200 text-xs">Showing only containers at this position ({containersToRender.length} containers)</div>
+								</div>
+							)}
 						</div>
 					)}
-					{searchQuery && searchResults.length === 0 && (
-						<div className="mt-2 text-xs text-red-400">No containers found</div>
-					)}
-				</div>
 
-				<div className="flex gap-2 mb-2">
-					<Button
-						onClick={() => setColorBy("grade")}
-						size="sm"
-						className={`text-xs ${
-							colorBy === "grade"
-								? "bg-white text-black hover:bg-gray-200"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
-					>
-						Grade Colors
-					</Button>
-					<Button
-						onClick={() => setColorBy("status")}
-						size="sm"
-						className={`text-xs ${
-							colorBy === "status"
-								? "bg-white text-black hover:bg-gray-200"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
-					>
-						Status Colors
-					</Button>
-				</div>
-				<div className="flex gap-2">
-					<Button
-						onClick={() => setDragMode(!dragMode)}
-						size="sm"
-						className={`text-xs ${
-							dragMode
-								? "bg-yellow-500 text-black hover:bg-yellow-400"
-								: "bg-transparent text-white border border-white hover:bg-white/10"
-						}`}
-					>
-						{dragMode ? "🔒 Drag ON" : "🔓 Drag OFF"}
-					</Button>
-					<Button
-						onClick={resetCameraToDefault}
-						size="sm"
-						disabled={isAnimatingToContainer}
-						className={`text-xs ${
-							isAnimatingToContainer
-								? "bg-gray-500 cursor-not-allowed text-gray-300"
-								: "bg-green-600 hover:bg-green-700 text-white"
-						}`}
-						title="Reset camera to default view"
-					>
-						🏠 Home
-					</Button>
+					{searchResults.length > 0 && (
+						<div className="text-xs">
+							<div className="text-green-400 mb-1">Found {searchResults.length} container(s)</div>
+							<ScrollArea className="h-40">
+								<div className="space-y-0.5 pr-3">
+									{searchResults.map((container) => (
+										<div
+											key={container.name}
+											className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+												selectedContainer === container.name ? "bg-green-900/50 border border-green-400" : ""
+											}`}
+											onClick={() => handleContainerClick(container.name)}
+										>
+											<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
+											<span className="text-xs truncate w-full">
+												{container.blockName}-{container.row}-{container.column} T{container.tier}
+												{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+											</span>
+											{selectedContainer === container.name && <span className="ml-auto">✓</span>}
+										</div>
+									))}
+								</div>
+							</ScrollArea>
+						</div>
+					)}
+					{searchQuery && searchResults.length === 0 && <div className="mt-2 text-xs text-red-400">No containers found</div>}
 				</div>
 			</div>
 
-			{/* Color Legend - Moved down a bit */}
-			<div className="fixed top-16 right-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] text-xs min-w-[160px]">
-				<div className="font-bold mb-2">
-					{colorBy === "grade" ? "Grade Legend" : "Status Legend"}
-				</div>
-				{dragMode && (
-					<div className="mb-2 p-2 bg-yellow-900/50 rounded border border-yellow-500">
-						<div className="text-yellow-300 font-bold text-xs">
-							🔥 DRAG MODE ACTIVE
-						</div>
-						<div className="text-xs text-yellow-200">
-							Click & drag containers to move them between tiers
-						</div>
-					</div>
+			<div className={cn("fixed top-5 rounded-lg z-[10000] flex gap-x-4", searchQuery ? "left-[23.5rem]" : "left-[19.5rem]")}>
+				{availableTiers && availableTiers.length !== 0 && (
+					<Select value={selectedTier || ""} onValueChange={handleTierChange}>
+						<SelectTrigger className="bg-black/80 border-white/30 text-white data-[placeholder]:text-white/60">
+							<SelectValue placeholder="Choose tier to show" />
+						</SelectTrigger>
+						<SelectContent className="bg-black/90 border-white/30 text-white">
+							<SelectGroup>
+								<SelectLabel className="text-white/80">Tier</SelectLabel>
+								{availableTiers.map(
+									(tier) =>
+										tier && (
+											<SelectItem key={tier} value={tier.toString()} className="!text-white hover:!text-white/90 hover:bg-white/10 focus:bg-white/10">
+												Tier {tier}
+											</SelectItem>
+										)
+								)}
+							</SelectGroup>
+							<SelectSeparator className="bg-white/20" />
+							<Button onClick={resetTierFilter} className="w-full px-2 bg-white/10 hover:bg-white/20 text-white border-none" variant="secondary" size="sm">
+								Show All Tiers
+							</Button>
+						</SelectContent>
+					</Select>
 				)}
-				{colorBy === "grade" ? (
-					<div className="space-y-1">
-						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
-							<div key={grade} className="flex items-center gap-2">
-								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: color }}
-								></div>
-								<span>Grade {grade}</span>
-							</div>
-						))}
-					</div>
-				) : (
-					<div className="space-y-1">
-						{Object.entries(STATUS_COLORS).map(([status, color]) => (
-							<div key={status} className="flex items-center gap-2">
-								<div
-									className="w-3 h-3 rounded-sm flex-shrink-0"
-									style={{ backgroundColor: color }}
-								></div>
-								<span className="text-xs">
-									{status} - {getStatusColorName(status)}
-								</span>
-							</div>
-						))}
-					</div>
+
+				<Button
+					className={`text-xs cursor-pointer ${colorBy === "grade" ? "bg-white text-black hover:bg-gray-200" : "bg-black text-white border border-white hover:bg-black/90"}`}
+					onClick={() => setColorBy(colorBy === "grade" ? "status" : "grade")}
+				>
+					Container Color By {colorBy.charAt(0).toUpperCase() + colorBy.slice(1)}
+				</Button>
+
+				{/* Reset All Filters Button */}
+				{(selectedTier || focusedContainerInfo || searchQuery) && (
+					<Button onClick={resetAllFilters} className="text-xs bg-destructive hover:bg-red-700 text-white">
+						Reset All Filters
+					</Button>
 				)}
 			</div>
 
@@ -879,10 +773,7 @@ export default function DisplayYard({
 						minWidth: "300px",
 						fontSize: "14px",
 						fontFamily: "system-ui, -apple-system, sans-serif",
-						border: `3px solid ${
-							containers.find((c) => c.name === selectedContainer)?.color ||
-							"#64b5f6"
-						}`,
+						border: `3px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
 						boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
 						backdropFilter: "blur(10px)",
 						zIndex: 1000,
@@ -891,29 +782,23 @@ export default function DisplayYard({
 					<h3
 						style={{
 							margin: "0 0 16px 0",
-							color:
-								containers.find((c) => c.name === selectedContainer)?.color ||
-								"#64b5f6",
+							color: containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6",
 						}}
 					>
-						Container Information - Depo 4
+						Container Information - {name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`}
 					</h3>
 					{(() => {
-						const container = containers.find(
-							(c) => c.name === selectedContainer
-						);
+						const container = containers.find((c) => c.name === selectedContainer);
 						return container ? (
 							<div>
 								<div>
-									<strong>Container Code:</strong>{" "}
-									{container.containerCode || "N/A"}
+									<strong>Container Code:</strong> {container.containerCode || "N/A"}
 								</div>
 								<div>
 									<strong>Block:</strong> {container.blockName || "N/A"}
 								</div>
 								<div>
-									<strong>Position:</strong> Row {container.row}, Column{" "}
-									{container.column}
+									<strong>Position:</strong> Row {container.row}, Column {container.column}
 								</div>
 								<div>
 									<strong>Tier:</strong> {container.tier || "N/A"}
@@ -933,11 +818,7 @@ export default function DisplayYard({
 												padding: "2px 6px",
 												borderRadius: "4px",
 												fontSize: "10px",
-												backgroundColor: getContainerColor(
-													container.status,
-													null,
-													"status"
-												),
+												backgroundColor: getContainerColor(container.status, null, "status"),
 												color: "white",
 											}}
 										>
@@ -954,10 +835,7 @@ export default function DisplayYard({
 							marginTop: "16px",
 							padding: "8px 16px",
 							backgroundColor: "transparent",
-							border: `2px solid ${
-								containers.find((c) => c.name === selectedContainer)?.color ||
-								"#64b5f6"
-							}`,
+							border: `2px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
 							color: "white",
 							borderRadius: "6px",
 							cursor: "pointer",
@@ -972,57 +850,40 @@ export default function DisplayYard({
 			{/* Container Legend */}
 			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
 				<div className="mb-2 font-bold text-sm">
-					{name === "JAPFA"
-						? "Depo JAPFA"
-						: name === "4"
-						? "Depo 4"
-						: name === "BAYUR"
-						? "Depo Teluk Bayur"
-						: name === "YON"
-						? "Depo YON"
-						: `Depo ${name}`}{" "}
-					{searchResults.length > 0 ? (
+					{name === "JAPFA" ? "Depo JAPFA" : name === "4" ? "Depo 4" : name === "BAYUR" ? "Depo Teluk Bayur" : name === "YON" ? "Depo YON" : `Depo ${name}`}{" "}
+					{focusedContainerInfo && (
 						<span className="text-green-400">
-							Search Results ({searchResults.length})
+							Focused: {focusedContainerInfo.blockName}-{focusedContainerInfo.row}-{focusedContainerInfo.column} ({containersToRender.length})
 						</span>
+					)}
+					{!focusedContainerInfo && selectedTier && (
+						<span className="text-blue-400">
+							Tier {selectedTier} Only ({containersToRender.length})
+						</span>
+					)}
+					{!focusedContainerInfo && searchResults.length > 0 ? (
+						<span className="text-green-400">Search Results ({searchResults.length})</span>
 					) : (
-						<span>Containers ({containers.length} total)</span>
+						!focusedContainerInfo && !selectedTier && <span>Containers ({containers.length} total)</span>
 					)}
 				</div>
 				<ScrollArea className="h-44">
 					<div className="space-y-0.5 pr-3">
-						{(searchResults.length > 0 ? searchResults : containers).map(
-							(container) => {
-								const isSearchMatch =
-									searchResults.length > 0 && searchResults.includes(container);
-								return (
-									<div
-										key={container.name}
-										className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
-											isSearchMatch
-												? "bg-green-900/30 border border-green-500"
-												: ""
-										}`}
-										onClick={() => handleContainerClick(container.name)}
-									>
-										<div
-											className="w-3 h-3 rounded-sm flex-shrink-0"
-											style={{ backgroundColor: container.color }}
-										></div>
-										<span className="text-xs truncate">
-											{container.blockName}-{container.row}-{container.column} T
-											{container.tier}
-											{container.containerCode
-												? ` (${container.containerCode.substring(0, 15)}...)`
-												: ""}
-										</span>
-										{isSearchMatch && (
-											<span className="text-green-400 text-xs ml-auto">✓</span>
-										)}
-									</div>
-								);
-							}
-						)}
+						{(searchResults.length > 0 ? searchResults : containersToRender).map((container) => (
+							<div
+								key={container.name}
+								className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+									selectedContainer === container.name ? "bg-blue-900/50 border border-blue-400" : ""
+								}`}
+								onClick={() => handleContainerClick(container.name)}
+							>
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
+								<span className="text-xs truncate">
+									{container.blockName}-{container.row}-{container.column} T{container.tier}
+									{container.containerCode ? ` (${container.containerCode.substring(0, 15)}...)` : ""}
+								</span>
+							</div>
+						))}
 					</div>
 				</ScrollArea>
 			</div>
