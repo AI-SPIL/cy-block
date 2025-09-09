@@ -1,7 +1,10 @@
 import { Edges } from "@react-three/drei";
 import type { ThreeEvent } from "@react-three/fiber";
 import { useState } from "react";
-import { getAdjustedRotation, shouldApplyRotation } from "../helpers/depo-rotation-helpers";
+import {
+	getAdjustedRotation,
+	shouldApplyRotation,
+} from "../helpers/depo-rotation-helpers";
 
 export interface PositionedContainer {
 	position: [number, number, number];
@@ -59,7 +62,10 @@ export function Container({
 	onSelect: (name: string) => void;
 	onDragStart?: (container: PositionedContainer) => void;
 	onDragEnd?: () => void;
-	onDrop?: (targetContainer: PositionedContainer, draggedContainer: PositionedContainer) => void;
+	onDrop?: (
+		targetContainer: PositionedContainer,
+		draggedContainer: PositionedContainer
+	) => void;
 	onDragMove?: (position: [number, number, number]) => void;
 	depoName?: string;
 }) {
@@ -95,10 +101,14 @@ export function Container({
 			// If the block is rotated, we need to consider the rotation when choosing orientation
 			if (isRotated) {
 				// For rotated blocks, match the mesh orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			} else {
 				// For non-rotated blocks, use mesh dimensions to determine orientation
-				return isHorizontalMesh ? defaultSize20Horizontal : defaultSize20Vertical;
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
 			}
 		} else if (container.size === "40") {
 			// For 40ft containers
@@ -108,9 +118,13 @@ export function Container({
 
 			let selectedDimensions;
 			if (isRotated) {
-				selectedDimensions = isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			} else {
-				selectedDimensions = isVerticalMesh ? defaultSize40Vertical : defaultSize40Horizontal;
+				selectedDimensions = isVerticalMesh
+					? defaultSize40Vertical
+					: defaultSize40Horizontal;
 			}
 
 			return selectedDimensions;
@@ -123,7 +137,11 @@ export function Container({
 	const containerDimensions = isRotated
 		? getDefaultDimensions()
 		: // For aligned containers, use exact mesh dimensions
-		  ([container.meshSize[0], getDefaultDimensions()[1], container.meshSize[2]] as const);
+		  ([
+				container.meshSize[0],
+				getDefaultDimensions()[1],
+				container.meshSize[2],
+		  ] as const);
 
 	const handlePointerEnter = (event: ThreeEvent<PointerEvent>) => {
 		event.stopPropagation(); // Prevent event bubbling to containers behind
