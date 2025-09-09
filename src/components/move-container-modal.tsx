@@ -285,15 +285,66 @@ export function MoveContainerModal({
 		try {
 			const newPosition = `${selectedSlot.block}.${selectedSlot.row}.${selectedSlot.column}.${selectedTier}`;
 			
+			// First, move the selected container
 			await api.post("/update-dummy", {
 				cy: depoName,
 				nc: selectedContainer.containerCode,
 				blockbaru: newPosition,
 			});
 
-			toast.success("Container moved successfully!");
+			// Check if there are containers above the moved container that need to be lowered
+			const containersAbove = availableSlots
+				.filter(slot => 
+					slot.block === selectedContainer.blockName &&
+					slot.row === selectedContainer.row &&
+					slot.column === selectedContainer.column &&
+					slot.tier > selectedContainer.tier &&
+					!slot.available // Only occupied slots (containers exist)
+				)
+				.sort((a, b) => a.tier - b.tier); // Sort by tier ascending
+
+			// Move each container above down by 1 tier
+			for (const containerAbove of containersAbove) {
+				const newTierForAbove = containerAbove.tier - 1;
+				const newPositionForAbove = `${containerAbove.block}.${containerAbove.row}.${containerAbove.column}.${newTierForAbove}`;
+				
+				// Find the container code for this position
+				// We need to get fresh data to find which container is at this position
+				try {
+					const response = await api.get(`/get-dummy?cy=${depoName}&user=yon`);
+					const currentData = response.data || response;
+					
+					const containerAtPosition = currentData.find((c: ContainerDataResponse) => 
+						c.Block === containerAbove.block &&
+						Number(c.Row) === containerAbove.row &&
+						Number(c.Column) === containerAbove.column &&
+						Number(c.Tier) === containerAbove.tier
+					);
+
+					if (containerAtPosition) {
+						console.log(`Lowering container ${containerAtPosition.Container} from tier ${containerAbove.tier} to ${newTierForAbove}`);
+						await api.post("/update-dummy", {
+							cy: depoName,
+							nc: containerAtPosition.Container,
+							blockbaru: newPositionForAbove,
+						});
+					}
+				} catch (error) {
+					console.error("Error moving container above:", error);
+					// Continue with other containers even if one fails
+				}
+			}
+
+			toast.success(`Container moved successfully! ${containersAbove.length > 0 ? `${containersAbove.length} container(s) above were lowered.` : ''}`);
+			
+			// Refresh available slots after successful move
+			await fetchAvailableSlots();
+			
+			// Reset selection but keep modal open for potential next move
+			setSelectedSlot(null);
+			setSelectedTier(1);
+			
 			onMoveComplete();
-			onOpenChange(false);
 		} catch (error) {
 			console.error("Error moving container:", error);
 			toast.error("Failed to move container");
