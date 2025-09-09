@@ -186,7 +186,7 @@ export function MoveContainerModal({
 				const blocks = ["A", "B", "C"];
 				const maxRow = 14; // Realistic row count up to 14 like in image
 				const maxColumn = 7; // Realistic column count up to 7 like in image
-				const maxTier = 4;
+				const maxTier = depoName === "YON" ? 6 : 4; // YON depot supports up to 6 tiers
 
 				blocks.forEach((block) => {
 					for (let row = 1; row <= maxRow; row++) {
@@ -229,7 +229,7 @@ export function MoveContainerModal({
 			const blocks = [...new Set(data.map((c: ContainerDataResponse) => c.Block))].sort();
 			const maxRow = Math.max(...data.map((c: ContainerDataResponse) => +c.Row));
 			const maxColumn = Math.max(...data.map((c: ContainerDataResponse) => +c.Column));
-			const maxTier = 4; // Assuming max 4 tiers
+			const maxTier = depoName === "YON" ? 6 : 4; // YON depot supports up to 6 tiers
 
 			console.log("Grid info:", { blocks, maxRow, maxColumn, maxTier });
 
@@ -285,15 +285,66 @@ export function MoveContainerModal({
 		try {
 			const newPosition = `${selectedSlot.block}.${selectedSlot.row}.${selectedSlot.column}.${selectedTier}`;
 			
+			// First, move the selected container
 			await api.post("/update-dummy", {
 				cy: depoName,
 				nc: selectedContainer.containerCode,
 				blockbaru: newPosition,
 			});
 
-			toast.success("Container moved successfully!");
+			// Check if there are containers above the moved container that need to be lowered
+			const containersAbove = availableSlots
+				.filter(slot => 
+					slot.block === selectedContainer.blockName &&
+					slot.row === selectedContainer.row &&
+					slot.column === selectedContainer.column &&
+					slot.tier > selectedContainer.tier &&
+					!slot.available // Only occupied slots (containers exist)
+				)
+				.sort((a, b) => a.tier - b.tier); // Sort by tier ascending
+
+			// Move each container above down by 1 tier
+			for (const containerAbove of containersAbove) {
+				const newTierForAbove = containerAbove.tier - 1;
+				const newPositionForAbove = `${containerAbove.block}.${containerAbove.row}.${containerAbove.column}.${newTierForAbove}`;
+				
+				// Find the container code for this position
+				// We need to get fresh data to find which container is at this position
+				try {
+					const response = await api.get(`/get-dummy?cy=${depoName}&user=yon`);
+					const currentData = response.data || response;
+					
+					const containerAtPosition = currentData.find((c: ContainerDataResponse) => 
+						c.Block === containerAbove.block &&
+						Number(c.Row) === containerAbove.row &&
+						Number(c.Column) === containerAbove.column &&
+						Number(c.Tier) === containerAbove.tier
+					);
+
+					if (containerAtPosition) {
+						console.log(`Lowering container ${containerAtPosition.Container} from tier ${containerAbove.tier} to ${newTierForAbove}`);
+						await api.post("/update-dummy", {
+							cy: depoName,
+							nc: containerAtPosition.Container,
+							blockbaru: newPositionForAbove,
+						});
+					}
+				} catch (error) {
+					console.error("Error moving container above:", error);
+					// Continue with other containers even if one fails
+				}
+			}
+
+			toast.success(`Container moved successfully! ${containersAbove.length > 0 ? `${containersAbove.length} container(s) above were lowered.` : ''}`);
+			
+			// Refresh available slots after successful move
+			await fetchAvailableSlots();
+			
+			// Reset selection but keep modal open for potential next move
+			setSelectedSlot(null);
+			setSelectedTier(1);
+			
 			onMoveComplete();
-			onOpenChange(false);
 		} catch (error) {
 			console.error("Error moving container:", error);
 			toast.error("Failed to move container");
@@ -460,7 +511,7 @@ export function MoveContainerModal({
 										Tier for {selectedSlot.block}.{selectedSlot.row}.{selectedSlot.column}
 									</h3>
 									<div className="flex gap-1">
-										{[1, 2, 3, 4].map((tier) => {
+										{[1, 2, 3, 4, 5, 6].map((tier) => {
 											const tierSlot = availableSlots.find(
 												s => s.block === selectedSlot.block &&
 													s.row === selectedSlot.row &&
