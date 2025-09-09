@@ -9,12 +9,14 @@ export const STATUS_COLORS = {
 	MNA: "#800080", // Purple
 	FXD: "#ff1493", // Deep Pink
 	FIT: "#00bfff", // Deep Sky Blue
+	MXD: "#c0c0c0", // Silver
 } as const;
 
 export const GRADE_COLORS = {
-	A: "#ff4444", // Light Red
-	B: "#44ff44", // Light Green
-	C: "#4444ff", // Light Blue
+	A: "#00ff00", // Green
+	B: "#ffd700", // Yellow
+	C: "#ffa500", // Orange
+	"-": "#ff0000", // Red
 } as const;
 
 export function getContainerColor(
@@ -42,6 +44,7 @@ export function getStatusColorName(status: string): string {
 		MNA: "Purple",
 		FXD: "Deep Pink",
 		FIT: "Deep Sky Blue",
+		MXD: "Silver",
 	};
 	return colorNames[status as keyof typeof colorNames] || "Unknown";
 }
