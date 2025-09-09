@@ -23,6 +23,19 @@ export interface PositionedContainer {
 	isDropTarget?: boolean;
 }
 
+const darkenColor = (color: string, factor: number = 0.3): string => {
+	const hex = color.replace("#", "");
+	const r = parseInt(hex.substr(0, 2), 16);
+	const g = parseInt(hex.substr(2, 2), 16);
+	const b = parseInt(hex.substr(4, 2), 16);
+
+	const newR = Math.round(r * (1 - factor));
+	const newG = Math.round(g * (1 - factor));
+	const newB = Math.round(b * (1 - factor));
+
+	return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+};
+
 export function Container({
 	container,
 	defaultSize20Vertical,
@@ -195,32 +208,22 @@ export function Container({
 								isDragging
 									? "#ffff00" // Yellow when dragging
 									: hovered || selected
-									? "#ffffff"
+									? darkenColor(container.color, 0.4) // Darker version of container color when hovered/selected
 									: container.isDragging
 									? "#ffff00" // Yellow when being dragged from parent state
 									: container.isDropTarget
 									? "#00ff00" // Green when valid drop target
 									: container.color
 							}
-							transparent
-							opacity={
-								isDragging || container.isDragging
-									? 0.7 // More transparent when dragging
-									: hovered
-									? 0.95
-									: selected
-									? 0.8
-									: container.isDropTarget
-									? 0.9 // Slightly transparent when drop target
-									: 1.0
-							}
+							transparent={false} // Make it solid, no transparency
+							opacity={1.0} // Always fully opaque
 							metalness={0.2}
 							roughness={0.4}
 							emissive={
 								isDragging || container.isDragging
 									? "#ffff00" // Yellow glow when dragging
-									: hovered
-									? container.color
+									: hovered || selected
+									? darkenColor(container.color, 0.6) // Even darker emissive for selected/hovered
 									: container.isDropTarget
 									? "#00ff00" // Green glow when drop target
 									: "#000000"
@@ -228,8 +231,8 @@ export function Container({
 							emissiveIntensity={
 								isDragging || container.isDragging
 									? 0.3 // Stronger glow when dragging
-									: hovered
-									? 0.1
+									: hovered || selected
+									? 0.15 // Slight glow for selected/hovered
 									: container.isDropTarget
 									? 0.2 // Green glow when drop target
 									: 0
@@ -239,8 +242,7 @@ export function Container({
 						<Edges color="white" linewidth={1} />
 					</mesh>
 				</group>
-			</group>{" "}
-			{/* Smart rotation group */}
+			</group>
 		</group>
 	);
 }

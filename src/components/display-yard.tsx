@@ -3,7 +3,7 @@ import { depoJapfaData } from "@/data/depo-japfa";
 import { depoYonData } from "@/data/depo-yon";
 import { mappingBayurData } from "@/data/mapping-bayur";
 import type { ExampleResponse } from "@/data/types";
-import { getContainerColor, getStatusColorName } from "@/helpers/color-helpers";
+import { getContainerColor, getStatusColorName, GRADE_COLORS, STATUS_COLORS } from "@/helpers/color-helpers";
 import { api } from "@/lib/axios";
 import { cn } from "@/lib/utils";
 import type { ApiResponse } from "@/types/api";
@@ -210,14 +210,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 
 		depoData?.forEach((containerData) => {
 			const meshSize = containerData.TYPE.split(" ")[0];
-			const meshName = getMeshName(
-				containerData.Block,
-				containerData.Column,
-				containerData.Row,
-				containerData.Container,
-				meshSize,
-				Object.keys(positions)
-			);
+			const meshName = getMeshName(containerData.Block, containerData.Column, containerData.Row, containerData.Container, meshSize, Object.keys(positions));
 
 			const meshData = positions[meshName];
 
@@ -271,7 +264,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 		setContainers(newContainers);
 	};
 
-	const handleContainerClick = (containerName: string) => {
+	const handleContainerClick = (containerName: string, shouldFocus: boolean = false) => {
 		if (dragMode && draggedContainer) {
 			// Handle drop operation
 			const targetContainer = containers.find((c) => c.name === containerName);
@@ -285,10 +278,10 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 		const newSelectedContainer = selectedContainer === containerName ? null : containerName;
 		setSelectedContainer(newSelectedContainer);
 
-		// If a container is selected (not deselected), fly to it
-		if (newSelectedContainer) {
+		// Only fly to container if shouldFocus is true (from search results)
+		if (newSelectedContainer && shouldFocus) {
 			focusOnContainer(newSelectedContainer);
-		} else {
+		} else if (!newSelectedContainer) {
 			// If container is deselected, clear any focused state
 			setFocusedContainerInfo(null);
 			// Stop any ongoing animation
@@ -308,21 +301,21 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 	const handleMoveComplete = async () => {
 		setShowMoveModal(false);
 		setSelectedContainer(null);
-		
+
 		// Refresh data after successful move
 		setIsRefreshing(true);
 		try {
 			console.log("Refreshing data after container move...");
-			const response = await api.get("/get-dummy", { 
-				params: { cy: name, user: "yon" } 
+			const response = await api.get("/get-dummy", {
+				params: { cy: name, user: "yon" },
 			});
-			
+
 			if (response.data && Array.isArray(response.data)) {
 				// Update the fresh data state which will trigger re-render
-				setFreshData({ 
-					cy: name, 
-					user: "yon", 
-					data: response.data 
+				setFreshData({
+					cy: name,
+					user: "yon",
+					data: response.data,
 				});
 				console.log("Data refreshed successfully:", response.data.length, "containers");
 				toast.success("Data refreshed after move");
@@ -338,7 +331,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 	// Get selected container data for move modal
 	const getSelectedContainerData = () => {
 		if (!selectedContainer) return null;
-		
+
 		const container = containers.find((c) => c.name === selectedContainer);
 		if (!container) return null;
 
@@ -467,16 +460,8 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 		return containersToShow.sort((a, b) => {
 			// Calculate distance from camera position (approximate)
 			const cameraPos = [15, 10, 15]; // Default camera position
-			const distanceA = Math.sqrt(
-				Math.pow(a.position[0] - cameraPos[0], 2) + 
-				Math.pow(a.position[1] - cameraPos[1], 2) + 
-				Math.pow(a.position[2] - cameraPos[2], 2)
-			);
-			const distanceB = Math.sqrt(
-				Math.pow(b.position[0] - cameraPos[0], 2) + 
-				Math.pow(b.position[1] - cameraPos[1], 2) + 
-				Math.pow(b.position[2] - cameraPos[2], 2)
-			);
+			const distanceA = Math.sqrt(Math.pow(a.position[0] - cameraPos[0], 2) + Math.pow(a.position[1] - cameraPos[1], 2) + Math.pow(a.position[2] - cameraPos[2], 2));
+			const distanceB = Math.sqrt(Math.pow(b.position[0] - cameraPos[0], 2) + Math.pow(b.position[1] - cameraPos[1], 2) + Math.pow(b.position[2] - cameraPos[2], 2));
 			// Sort by distance (farthest first, closest last)
 			return distanceB - distanceA;
 		});
@@ -713,7 +698,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 						defaultSize40Horizontal={defaultSize40Horizontal}
 						defaultSize40Vertical={defaultSize40Vertical}
 						selected={selectedContainer === containerData.name}
-						onSelect={handleContainerClick}
+						onSelect={(name) => handleContainerClick(name, false)}
 						onDragStart={dragMode ? handleDragStart : undefined}
 						onDragEnd={dragMode ? handleDragEnd : undefined}
 						onDrop={dragMode ? handleDrop : undefined}
@@ -802,7 +787,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 											className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
 												selectedContainer === container.name ? "bg-green-900/50 border border-green-400" : ""
 											}`}
-											onClick={() => handleContainerClick(container.name)}
+											onClick={() => handleContainerClick(container.name, true)}
 										>
 											<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
 											<span className="text-xs truncate w-full">
@@ -858,6 +843,30 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 					<Button onClick={resetAllFilters} className="text-xs bg-destructive hover:bg-red-700 text-white">
 						Reset All Filters
 					</Button>
+				)}
+			</div>
+
+			<div className="fixed bottom-[17rem] right-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] text-xs min-w-[160px]">
+				{colorBy === "grade" ? (
+					<div className="space-y-1">
+						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
+							<div key={grade} className="flex items-center gap-2">
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
+								<span>Grade {grade}</span>
+							</div>
+						))}
+					</div>
+				) : (
+					<div className="space-y-1">
+						{Object.entries(STATUS_COLORS).map(([status, color]) => (
+							<div key={status} className="flex items-center gap-2">
+								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: color }}></div>
+								<span className="text-xs">
+									{status} - {getStatusColorName(status)}
+								</span>
+							</div>
+						))}
+					</div>
 				)}
 			</div>
 
@@ -937,10 +946,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 							style={{
 								padding: "8px 16px",
 								backgroundColor: "transparent",
-								border: `2px solid ${
-									containers.find((c) => c.name === selectedContainer)?.color ||
-									"#64b5f6"
-								}`,
+								border: `2px solid ${containers.find((c) => c.name === selectedContainer)?.color || "#64b5f6"}`,
 								color: "white",
 								borderRadius: "6px",
 								cursor: "pointer",
@@ -998,7 +1004,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 								className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
 									selectedContainer === container.name ? "bg-blue-900/50 border border-blue-400" : ""
 								}`}
-								onClick={() => handleContainerClick(container.name)}
+								onClick={() => handleContainerClick(container.name, false)}
 							>
 								<div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: container.color }}></div>
 								<span className="text-xs truncate">
@@ -1012,13 +1018,7 @@ export default function DisplayYard({ name, data, containerSize }: DisplayYardPr
 			</div>
 
 			{/* Move Container Modal */}
-			<MoveContainerModal
-				isOpen={showMoveModal}
-				onOpenChange={setShowMoveModal}
-				selectedContainer={getSelectedContainerData()}
-				depoName={name}
-				onMoveComplete={handleMoveComplete}
-			/>
+			<MoveContainerModal isOpen={showMoveModal} onOpenChange={setShowMoveModal} selectedContainer={getSelectedContainerData()} depoName={name} onMoveComplete={handleMoveComplete} />
 		</div>
 	);
 }
