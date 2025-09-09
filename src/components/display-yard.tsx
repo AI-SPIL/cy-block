@@ -15,6 +15,7 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { Container, type PositionedContainer } from "./container";
 import { Floor } from "./floor";
+import { MoveContainerModal } from "./move-container-modal";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
@@ -71,6 +72,7 @@ export default function DisplayYard({
 	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
 	const [isAnimatingToContainer, setIsAnimatingToContainer] =
 		useState<boolean>(false);
+	const [showMoveModal, setShowMoveModal] = useState<boolean>(false);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const cameraControls = useRef<any>(null);
@@ -247,8 +249,8 @@ export default function DisplayYard({
 			const meshSize = containerData.TYPE.split(" ")[0];
 			const meshName = getMeshName(
 				containerData.Block,
-				containerData.Column,
-				containerData.Row,
+				parseInt(containerData.Column),
+				parseInt(containerData.Row),
 				containerData.Container,
 				meshSize,
 				Object.keys(positions)
@@ -292,7 +294,7 @@ export default function DisplayYard({
 				const yPosition =
 					meshData.position[1] +
 					meshData.size[1] / 2 +
-					(containerData.Tier - 1) * containerHeight;
+					(parseInt(containerData.Tier) - 1) * containerHeight;
 
 				const container: PositionedContainer = {
 					position: [meshData.position[0], yPosition, meshData.position[2]],
@@ -309,9 +311,9 @@ export default function DisplayYard({
 					size: meshSize,
 					grade: containerData["CONTAINER GRADE"],
 					status: containerData.STATE,
-					row: containerData.Row,
-					column: containerData.Column,
-					tier: containerData.Tier,
+					row: parseInt(containerData.Row),
+					column: parseInt(containerData.Column),
+					tier: parseInt(containerData.Tier),
 					blockName: containerData.Block,
 					blockOrientation: blockOrientation,
 					isBlockRotated: isBlockRotated,
@@ -341,6 +343,37 @@ export default function DisplayYard({
 		setSelectedContainer(
 			selectedContainer === containerName ? null : containerName
 		);
+	};
+
+	// Handle move container button click
+	const handleMoveContainerClick = () => {
+		if (!selectedContainer) return;
+		setShowMoveModal(true);
+	};
+
+	// Handle move complete - refresh data
+	const handleMoveComplete = () => {
+		// Here you would typically refresh the data from the API
+		// For now, we'll just close the modal
+		setShowMoveModal(false);
+		setSelectedContainer(null);
+		// You might want to add a data refresh mechanism here
+	};
+
+	// Get selected container data for move modal
+	const getSelectedContainerData = () => {
+		if (!selectedContainer) return null;
+		
+		const container = containers.find((c) => c.name === selectedContainer);
+		if (!container) return null;
+
+		return {
+			containerCode: container.containerCode || "",
+			blockName: container.blockName || "",
+			row: container.row || 0,
+			column: container.column || 0,
+			tier: container.tier || 0,
+		};
 	};
 
 	const handleDragMove = (newPosition: [number, number, number]) => {
@@ -948,24 +981,42 @@ export default function DisplayYard({
 							</div>
 						) : null;
 					})()}
-					<button
-						onClick={() => setSelectedContainer(null)}
-						style={{
-							marginTop: "16px",
-							padding: "8px 16px",
-							backgroundColor: "transparent",
-							border: `2px solid ${
-								containers.find((c) => c.name === selectedContainer)?.color ||
-								"#64b5f6"
-							}`,
-							color: "white",
-							borderRadius: "6px",
-							cursor: "pointer",
-							fontSize: "12px",
-						}}
-					>
-						Close
-					</button>
+					<div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
+						<button
+							onClick={() => setSelectedContainer(null)}
+							style={{
+								padding: "8px 16px",
+								backgroundColor: "transparent",
+								border: `2px solid ${
+									containers.find((c) => c.name === selectedContainer)?.color ||
+									"#64b5f6"
+								}`,
+								color: "white",
+								borderRadius: "6px",
+								cursor: "pointer",
+								fontSize: "12px",
+							}}
+						>
+							Close
+						</button>
+						{/* Move Container Button - Only show for YON depot */}
+						{name === "YON" && (
+							<button
+								onClick={handleMoveContainerClick}
+								style={{
+									padding: "8px 16px",
+									backgroundColor: "#3b82f6",
+									border: "2px solid #3b82f6",
+									color: "white",
+									borderRadius: "6px",
+									cursor: "pointer",
+									fontSize: "12px",
+								}}
+							>
+								🚚 Move Container
+							</button>
+						)}
+					</div>
 				</div>
 			)}
 
@@ -1026,6 +1077,15 @@ export default function DisplayYard({
 					</div>
 				</ScrollArea>
 			</div>
+
+			{/* Move Container Modal */}
+			<MoveContainerModal
+				isOpen={showMoveModal}
+				onOpenChange={setShowMoveModal}
+				selectedContainer={getSelectedContainerData()}
+				depoName={name}
+				onMoveComplete={handleMoveComplete}
+			/>
 		</div>
 	);
 }
