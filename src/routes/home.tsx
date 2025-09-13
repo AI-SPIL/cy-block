@@ -1,31 +1,23 @@
 import { Button } from "@/components/ui/button";
+import type { Depo } from "@/types/main";
 import { LogOut } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 export default function Landing() {
+	const { data } = useLoaderData<{ data: Depo[] | undefined }>();
+
 	return (
 		<div className="flex flex-col gap-y-8 items-center justify-center min-h-svh bg-neutral-900">
-			<Button
-				variant="destructive"
-				onClick={() => {
-					localStorage.removeItem("user");
-					window.location.href = "/";
-				}}
-			>
-				Logout <LogOut className="size-4" />
+			<Button asChild variant="destructive">
+				<Link to="/logout">
+					Logout <LogOut className="size-4" />
+				</Link>
 			</Button>
-			<Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
-				<Link to="/depo-4">Go to Depo 4</Link>
-			</Button>
-			<Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
-				<Link to="/depo-japfa">Go to Depo Japfa</Link>
-			</Button>
-			<Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
-				<Link to="/depo-teluk-bayur">Go to Depo Teluk Bayur</Link>
-			</Button>
-			<Button asChild className="bg-blue-500 hover:bg-blue-600 text-white">
-				<Link to="/depo-yon">Go to Depo Yon</Link>
-			</Button>
+			{data?.map((depo) => (
+				<Button key={depo.id} asChild className="bg-blue-500 hover:bg-blue-600 text-white">
+					<Link to={`/depo/${depo.id}`}>Go to {depo.name}</Link>
+				</Button>
+			))}
 		</div>
 	);
 }

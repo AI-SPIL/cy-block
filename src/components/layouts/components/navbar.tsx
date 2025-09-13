@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import type { IUser } from "@/constants/credentials";
+import type { UserData } from "@/types/auth";
 import { ArrowLeft, LogOut } from "lucide-react";
 import { Link } from "react-router";
 
@@ -33,8 +33,8 @@ function RoutesDropdown() {
 	);
 }
 
-export default function Navbar({ user }: { user: IUser }) {
-	return user.role === "superadmin" ? (
+export default function Navbar({ user }: { user: UserData }) {
+	return user.permissions === "ALL" ? (
 		<div className="w-full flex absolute top-4 px-4 z-[9999] items-center justify-end gap-x-4">
 			<Button asChild className="bg-black text-white border font-mono">
 				<Link to="/home">
@@ -43,27 +43,19 @@ export default function Navbar({ user }: { user: IUser }) {
 				</Link>
 			</Button>
 			<RoutesDropdown />
-			<Button
-				className="bg-black text-white border font-mono"
-				onClick={() => {
-					localStorage.removeItem("user");
-					window.location.href = "/";
-				}}
-			>
-				Logout
-				<LogOut className="size-4" />
+			<Button asChild className="bg-black text-white border font-mono">
+				<Link to="/logout">
+					Logout
+					<LogOut className="size-4" />
+				</Link>
 			</Button>
 		</div>
 	) : (
-		<Button
-			className="absolute top-4 right-4 z-[9999] bg-black text-white border font-mono"
-			onClick={() => {
-				localStorage.removeItem("user");
-				window.location.href = "/";
-			}}
-		>
-			Logout
-			<LogOut className="size-4" />
+		<Button asChild className="absolute top-4 right-4 z-[9999] bg-black text-white border font-mono">
+			<Link to="/logout">
+				Logout
+				<LogOut className="size-4" />
+			</Link>
 		</Button>
 	);
 }

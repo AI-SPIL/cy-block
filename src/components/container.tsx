@@ -7,9 +7,7 @@ import {
 	getAdjustedRotation,
 	shouldApplyRotation,
 } from "../helpers/depo-rotation-helpers";
-import { createTextTexture } from "../helpers/canvas-texture"; // ✅ import helper
-
-
+import { createTextTexture } from "../helpers/canvas-texture";
 
 export interface PositionedContainer {
 	position: [number, number, number];
@@ -17,6 +15,7 @@ export interface PositionedContainer {
 	rotation: [number, number, number];
 	color: string;
 	name: string;
+	id?: string;
 	containerCode?: string;
 	size?: string;
 	grade?: string | null;
@@ -266,7 +265,6 @@ export function Container({
 							container.isDropTarget && onDrop
 								? (event) => {
 										event.stopPropagation();
-										// Will trigger drop logic in parent
 								  }
 								: handleClick
 						}
@@ -275,8 +273,6 @@ export function Container({
 						onPointerDown={onDragStart ? handleDragStart : undefined}
 						onPointerMove={isDragging ? handlePointerMove : undefined}
 						onPointerUp={onDragEnd ? handleDragEnd : undefined}
-						castShadow
-						receiveShadow
 					>
 						{/* Use adaptive dimensions based on rotation */}
 						<boxGeometry args={containerDimensions} />
@@ -284,8 +280,6 @@ export function Container({
 							ref={materialRef}
 							transparent={false}
 							opacity={1.0}
-							metalness={0.2}
-							roughness={0.4}
 						/>
 						{/* White border edges */}
 						<Edges color="white" linewidth={1} />

@@ -1,3 +1,16 @@
+interface BaseApiResponse {
+	success: boolean;
+	message: string;
+}
+
+export interface SuccessApiResponse<T> extends BaseApiResponse {
+	data: T;
+}
+
+export interface ErrorApiResponse extends BaseApiResponse {
+	error: string | string[] | Record<string, string>;
+}
+
 export type ContainerDataResponse = {
 	Container: string;
 	Block: string;
