@@ -3,27 +3,28 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, redirect, RouterProvider } from "react-router";
+
 import Depo4 from "./routes/authenticated/depo-4.tsx";
 import DepoJapfa from "./routes/authenticated/depo-japfa.tsx";
 import DepoTelukBayur from "./routes/authenticated/depo-teluk-bayur.tsx";
 import DepoYon from "./routes/authenticated/depo-yon.tsx";
 import Landing from "./routes/home.tsx";
 import Login from "./routes/login.tsx";
-
 import AdminRoutes from "./components/layouts/admin-routes.tsx";
 import ProtectedRoutes from "./components/layouts/protected-routes.tsx";
 import SuperAdminRoutes from "./components/layouts/superadmin-routes.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { api } from "./lib/axios.ts";
-import type { Depo, DepoDetail, AvailableSlot, Slot } from "./types/main.ts";
 
-// Define the actual API response structure for available slots
+import type { Depo, DepoDetail, Slot } from "./types/main.ts";
+import type { LoginResponse, UserData } from "./types/auth.ts";
+import type { SuccessApiResponse } from "./types/api.ts";
+
+import "./index.css";
+
 interface DepoDetailWithAvailableSlots extends DepoDetail {
 	available_slots: Slot[];
 }
-import type { LoginResponse, UserData } from "./types/auth.ts";
-import type { SuccessApiResponse } from "./types/api.ts";
-import "./index.css";
 
 const router = createBrowserRouter([
 	{
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
 			try {
 				const response = await api.get<SuccessApiResponse<UserData>>("/auth/me");
 				return { user: response.data };
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (_) {
 				return { user: null };
 			}
@@ -120,10 +122,10 @@ const router = createBrowserRouter([
 								api.get<SuccessApiResponse<DepoDetail>>(`/depo/${depoId}`),
 								api.get<DepoDetailWithAvailableSlots>(`/depo/${depoId}/available-slots`)
 							]);
-							
-							return { 
-								data: depoResponse.data, 
-								availableSlots: slotsResponse.data 
+
+							return {
+								data: depoResponse.data,
+								availableSlots: slotsResponse.data
 							};
 						},
 						element: <DepoYon />,

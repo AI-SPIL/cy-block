@@ -8,7 +8,9 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"docker:build": "docker build -t cy-block .",
+		"docker:run": "docker-compose up cy-block"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.15",

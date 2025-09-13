@@ -1,0 +1,15 @@
+services:
+    cy-block:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "3001:5173"
+        volumes:
+            - .:/app
+            - /app/node_modules
+        environment:
+            - NODE_ENV=development
+        container_name: cy-block
+        profiles:
+            - dev
