@@ -1,7 +1,7 @@
 {
 	"name": "cy-mapping",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"homepage": "https://ai-spil.github.io/",
 	"type": "module",
 	"scripts": {
