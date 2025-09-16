@@ -65,13 +65,13 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/logout",
-		action: async () => {
+		loader: async () => {
 			try {
 				await api.post("/auth/logout");
+				return redirect("/");
 			} catch (error) {
 				console.error("Logout error:", error);
 			}
-			return redirect("/");
 		},
 	},
 	{
