@@ -1,0 +1,1494 @@
+import { depo4Data } from "@/data/depo-4";
+import { depoJapfaData } from "@/data/depo-japfa";
+import { depoYonData } from "@/data/depo-yon";
+import { mappingBayurData } from "@/data/mapping-bayur";
+import type { ExampleResponse } from "@/data/types";
+import {
+	getContainerColor,
+	getStatusColorName,
+	GRADE_COLORS,
+	STATUS_COLORS,
+} from "@/helpers/color-helpers";
+import { api } from "@/lib/axios";
+import { cn } from "@/lib/utils";
+import { CameraControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { toast } from "sonner";
+import { Container, type PositionedContainer } from "./container";
+import { Floor } from "./floor";
+import { MoveContainerModal } from "./move-container-modal";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { ScrollArea } from "./ui/scroll-area";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+} from "./ui/select";
+import { ChartPie } from "./ui/pie-chart";
+import { Eye, EyeOff } from "lucide-react";
+import type { ContainerSize, DepoDetail, Slot } from "@/types/main";
+
+// Define the actual API response structure for available slots
+interface DepoDetailWithAvailableSlots extends DepoDetail {
+	available_slots: Slot[];
+}
+import type { SuccessApiResponse } from "@/types/api";
+import { useParams } from "react-router";
+
+type DepoType = "JAPFA" | "4" | "BAYUR" | "YON";
+
+// Default to Horizontal
+export interface ContainerDefaultSize {
+	size20: [number, number, number];
+	size40: [number, number, number];
+}
+
+interface DisplayYardProps {
+	name: DepoType;
+	data?: DepoDetail;
+	availableSlots?: DepoDetailWithAvailableSlots;
+	containerSize: ContainerDefaultSize;
+}
+
+const PATH_MAPPING = {
+	JAPFA: {
+		model: "/depo-japfa.glb",
+		data: depoJapfaData,
+	},
+	"4": {
+		model: "/depo-4.glb",
+		data: depo4Data,
+	},
+	BAYUR: {
+		model: "/mapping-bayur.glb",
+		data: mappingBayurData,
+	},
+	YON: {
+		model: "/depo-yon-mini.glb",
+		data: depoYonData,
+	},
+} satisfies Record<DepoType, { model: string; data: ExampleResponse }>;
+
+export default function DisplayYard({
+	name,
+	data,
+	availableSlots,
+	containerSize,
+}: DisplayYardProps) {
+	const { depoId } = useParams();
+
+	const [selectedContainer, setSelectedContainer] = useState<string | null>(
+		null
+	);
+	const [containers, setContainers] = useState<PositionedContainer[]>([]);
+	const [colorBy, setColorBy] = useState<"grade" | "status">("grade");
+	const [draggedContainer, setDraggedContainer] =
+		useState<PositionedContainer | null>(null);
+	const [dragMode, setDragMode] = useState<boolean>(false);
+	const [isDragging, setIsDragging] = useState<boolean>(false);
+	const [, setDragPosition] = useState<[number, number, number] | null>(null);
+	const [searchQuery, setSearchQuery] = useState<string>("");
+	const [searchResults, setSearchResults] = useState<PositionedContainer[]>([]);
+	const [isAnimatingToContainer, setIsAnimatingToContainer] =
+		useState<boolean>(false);
+	const [showMoveModal, setShowMoveModal] = useState<boolean>(false);
+	const [selectedTier, setSelectedTier] = useState<string | null>(null);
+	const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
+	const [focusedContainerInfo, setFocusedContainerInfo] = useState<{
+		row: number;
+		column: number;
+		blockName: string;
+	} | null>(null);
+	const [freshData, setFreshData] = useState<DepoDetail | null>(null);
+	const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+	const [showCharts, setShowCharts] = useState<boolean>(false);
+	const [chartMode, setChartMode] = useState<"status" | "grade">("status");
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const cameraControls = useRef<any>(null);
+
+	// Animation timeout refs for cleanup
+	const animationTimeouts = useRef<NodeJS.Timeout[]>([]);
+
+	const size20Container = containerSize.size20;
+	const size40Container = containerSize.size40;
+
+	const defaultSize20Vertical = [
+		size20Container[2],
+		size20Container[1],
+		size20Container[0],
+	] satisfies [number, number, number];
+	const defaultSize20Horizontal = size20Container;
+	const defaultSize40Vertical = [
+		size40Container[2],
+		size40Container[1],
+		size40Container[0],
+	] satisfies [number, number, number];
+	const defaultSize40Horizontal = size40Container;
+
+	// Chart data computation - single chart that switches between status and grade
+	const chartData = useMemo(() => {
+		if (chartMode === "status") {
+			const statusCounts: Record<string, number> = {};
+
+			containers.forEach((container) => {
+				const status = container.status || "Unknown";
+				statusCounts[status] = (statusCounts[status] || 0) + 1;
+			});
+
+			return {
+				data: Object.entries(statusCounts).map(([status, count]) => ({
+					name: status,
+					value: count,
+					fill:
+						STATUS_COLORS[status as keyof typeof STATUS_COLORS] || "#666666",
+				})),
+				title: "Containers by Status",
+				description: `Total: ${containers.length} containers`,
+			};
+		} else {
+			// Grade mode - only show MTA containers
+			const gradeCounts: Record<string, number> = {};
+
+			containers
+				.filter((container) => container.status === "MTA")
+				.forEach((container) => {
+					const grade = container.grade || "No Grade";
+					gradeCounts[grade] = (gradeCounts[grade] || 0) + 1;
+				});
+
+			const mtaContainers = containers.filter(
+				(container) => container.status === "MTA"
+			);
+
+			return {
+				data: Object.entries(gradeCounts).map(([grade, count]) => ({
+					name: grade,
+					value: count,
+					fill: GRADE_COLORS[grade as keyof typeof GRADE_COLORS] || "#666666",
+				})),
+				title: "MTA Containers by Grade",
+				description: `Total MTA: ${mtaContainers.length} containers`,
+			};
+		}
+	}, [containers, chartMode]);
+
+	const getContainerDimensions = (
+		containerSize: ContainerSize,
+		meshSize: [number, number, number],
+		rotation: [number, number, number]
+	): [number, number, number] => {
+		// Check if the block is rotated (not at cardinal directions)
+		const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+			const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+			const cardinalAngles = [0, 90, 180, 270];
+			return !cardinalAngles.some(
+				(cardinal) =>
+					Math.abs(degrees - cardinal) <= tolerance ||
+					Math.abs(degrees - (cardinal + 360)) <= tolerance
+			);
+		};
+
+		const isRotated = [rotation[0], rotation[1], rotation[2]].some((r) =>
+			shouldApplyRotation(r)
+		);
+
+		if (containerSize === "SIZE_20") {
+			// For 20ft containers, determine orientation based on mesh dimensions
+			const meshWidth = meshSize[0];
+			const meshDepth = meshSize[2];
+			const isHorizontalMesh = meshWidth > meshDepth;
+
+			// If block is rotated, use standard dimensions, otherwise match mesh orientation
+			if (isRotated) {
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
+			} else {
+				return isHorizontalMesh
+					? defaultSize20Horizontal
+					: defaultSize20Vertical;
+			}
+		} else if (containerSize === "SIZE_40") {
+			// For 40ft containers, always use the default props dimensions
+			return defaultSize40Horizontal; // Always use horizontal orientation for size 40
+		} // Fallback: use mesh dimensions with actual mesh height
+		return [meshSize[0], meshSize[1], meshSize[2]];
+	};
+
+	const handleMeshPositionsReady = (positions: {
+		[key: string]: {
+			position: [number, number, number];
+			size: [number, number, number];
+			rotation: [number, number, number];
+		};
+	}) => {
+		// Use fresh data if available, otherwise fall back to prop data
+		const depoData = freshData || data;
+		const newContainers: PositionedContainer[] = [];
+
+		// Helper function to detect if container position indicates fractional position
+		const getFractionalPosition = (
+			column: number,
+			row: number,
+			containerCode: string
+		): { column: number; row: number; hasFraction: boolean } => {
+			// Check if the column or row is a fractional number
+			const columnFraction = column % 1;
+			const rowFraction = row % 1;
+
+			// If either column or row has a decimal part
+			if (columnFraction !== 0 || rowFraction !== 0) {
+				return {
+					column: columnFraction,
+					row: rowFraction,
+					hasFraction: true,
+				};
+			}
+
+			// Also check if container code suggests fractional positioning
+			const fractionalMatch = containerCode.match(/(\d+)\.5/);
+			if (fractionalMatch) {
+				return {
+					column: 0.5,
+					row: 0,
+					hasFraction: true,
+				};
+			}
+
+			return {
+				column: 0,
+				row: 0,
+				hasFraction: false,
+			};
+		};
+
+		// Helper function to get mesh name with support for fractional columns
+		const getMeshName = (
+			blockName: string,
+			column: number,
+			row: number,
+			containerCode: string,
+			size: ContainerSize,
+			availableMeshes: string[]
+		): string => {
+			// Check for fractional positions first (applies to all sizes)
+			const fractionalInfo = getFractionalPosition(column, row, containerCode);
+
+			if (fractionalInfo.hasFraction) {
+				// Handle fractional positions for ANY size container
+				const baseColumn = Math.floor(column);
+				const baseRow = Math.floor(row);
+
+				if (fractionalInfo.column === 0.5) {
+					// Fractional column: "C_1,5_1" (column 1.5 becomes 1,5)
+					return `${blockName}_${baseColumn},5_${baseRow}`;
+				} else if (fractionalInfo.column > 0) {
+					// For other fractional values in column
+					const fractionStr = String(fractionalInfo.column).replace("0.", ",");
+					return `${blockName}_${baseColumn}${fractionStr}_${baseRow}`;
+				} else if (fractionalInfo.row === 0.5) {
+					// Fractional row: "C_1_1,5" (row 1.5 becomes 1,5)
+					return `${blockName}_${baseColumn}_${baseRow},5`;
+				} else if (fractionalInfo.row > 0) {
+					// For other fractional values in row
+					const fractionStr = String(fractionalInfo.row).replace("0.", ",");
+					return `${blockName}_${baseColumn}_${baseRow}${fractionStr}`;
+				}
+			}
+
+			// Special handling for 40ft containers - try fractional variant first
+			if (size === "SIZE_40") {
+				// Try fractional column format first (e.g., "C_1,5_2" for column 1.5)
+				const fractionalColumnMeshName = `${blockName}_${column},5_${row}`;
+				// Try fractional row format as fallback (e.g., "C_1_2,5" for row 2.5)
+				const fractionalRowMeshName = `${blockName}_${column}_${row},5`;
+				const standardMeshName = `${blockName}_${column}_${row}`;
+
+				if (availableMeshes.includes(fractionalColumnMeshName)) {
+					return fractionalColumnMeshName;
+				} else if (availableMeshes.includes(fractionalRowMeshName)) {
+					return fractionalRowMeshName;
+				} else if (availableMeshes.includes(standardMeshName)) {
+					return standardMeshName;
+				} else {
+					return standardMeshName; // Return standard as fallback
+				}
+			}
+
+			// Standard mesh name for whole number positions
+			const standardMeshName = `${blockName}_${column}_${row}`;
+			return standardMeshName;
+		};
+
+		depoData?.blocks.forEach((block) => {
+			block.containers.forEach((containerData) => {
+				const meshSize = containerData.size;
+				const meshName = getMeshName(
+					containerData.block,
+					containerData.column,
+					containerData.row,
+					containerData.code,
+					meshSize,
+					Object.keys(positions)
+				);
+
+				const meshData = positions[meshName];
+				if (meshData) {
+					// Check if the block is rotated (not at cardinal directions)
+					const shouldApplyRotation = (rotationRad: number, tolerance = 10) => {
+						const degrees = Math.abs((rotationRad * 180) / Math.PI) % 360;
+						const cardinalAngles = [0, 90, 180, 270];
+						return !cardinalAngles.some(
+							(cardinal) =>
+								Math.abs(degrees - cardinal) <= tolerance ||
+								Math.abs(degrees - (cardinal + 360)) <= tolerance
+						);
+					};
+
+					const isBlockRotated = [
+						meshData.rotation[0],
+						meshData.rotation[1],
+						meshData.rotation[2],
+					].some((r) => shouldApplyRotation(r));
+
+					// Determine block orientation based on mesh dimensions
+					const meshWidth = meshData.size[0];
+					const meshDepth = meshData.size[2];
+					const blockOrientation: "horizontal" | "vertical" =
+						meshWidth > meshDepth ? "horizontal" : "vertical";
+
+					// Get container dimensions based on rotation and size
+					const containerDimensions = getContainerDimensions(
+						meshSize,
+						meshData.size,
+						meshData.rotation
+					);
+
+					const containerHeight = containerDimensions[1]; // Y size
+
+					const yPosition =
+						meshData.position[1] +
+						meshData.size[1] / 2 +
+						(Number(containerData.tier) - 1) * containerHeight;
+
+					const container: PositionedContainer = {
+						position: [meshData.position[0], yPosition, meshData.position[2]],
+						meshSize:
+							meshSize === "SIZE_40" ? containerDimensions : meshData.size,
+						rotation: meshData.rotation,
+						color: getContainerColor(
+							containerData.status,
+							containerData.grade || null,
+							colorBy
+						),
+						name: `${containerData.block}_${containerData.column}_${containerData.row}_T${containerData.tier}`,
+						id: containerData.id,
+						containerCode: containerData.code,
+						size: meshSize,
+						grade: containerData.grade,
+						status: containerData.status,
+						row: containerData.row,
+						column: containerData.column,
+						tier: containerData.tier,
+						blockName: containerData.block,
+						blockOrientation: blockOrientation,
+						isBlockRotated: isBlockRotated,
+					};
+
+					newContainers.push(container);
+				} else {
+					console.error(`Mesh not found for ${meshName}`);
+				}
+			});
+		});
+
+		setContainers(newContainers);
+	};
+
+	const handleContainerClick = (
+		containerName: string,
+		shouldFocus: boolean = false
+	) => {
+		if (dragMode && draggedContainer) {
+			// Handle drop operation
+			const targetContainer = containers.find((c) => c.name === containerName);
+			if (targetContainer && targetContainer.isDropTarget) {
+				handleDrop(targetContainer, draggedContainer);
+				return;
+			}
+		}
+
+		// Toggle selection or select new container
+		const newSelectedContainer =
+			selectedContainer === containerName ? null : containerName;
+		setSelectedContainer(newSelectedContainer);
+
+		// Only fly to container if shouldFocus is true (from search results)
+		if (newSelectedContainer && shouldFocus) {
+			focusOnContainer(newSelectedContainer);
+		} else if (!newSelectedContainer) {
+			// If container is deselected, clear any focused state
+			setFocusedContainerInfo(null);
+			// Stop any ongoing animation
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+			animationTimeouts.current = [];
+			setIsAnimatingToContainer(false);
+		}
+	};
+
+	// Handle move container button click
+	const handleMoveContainerClick = () => {
+		if (!selectedContainer) return;
+		setShowMoveModal(true);
+	};
+
+	// Handle move complete - refresh data
+	const handleMoveComplete = async () => {
+		setShowMoveModal(false);
+		setSelectedContainer(null);
+
+		// Refresh data after successful move
+		setIsRefreshing(true);
+		try {
+			// console.log("Refreshing data after container move...");
+			const response = await api.get<SuccessApiResponse<DepoDetail>>(
+				`/depo/${depoId}`
+			);
+
+			if (response.data && response.data.data) {
+				setFreshData(response.data.data);
+				toast.success("Data refreshed after move");
+			}
+		} catch (error) {
+			console.error("Error refreshing data after move:", error);
+			toast.error("Failed to refresh data after move");
+		} finally {
+			setIsRefreshing(false);
+		}
+	};
+
+	// Get selected container data for move modal
+	const getSelectedContainerData = () => {
+		if (!selectedContainer) return null;
+
+		const container = containers.find((c) => c.name === selectedContainer);
+		if (!container) return null;
+
+		return {
+			id: container.id || "",
+			containerCode: container.containerCode || "",
+			blockName: container.blockName || "",
+			row: container.row || 0,
+			column: container.column || 0,
+			tier: container.tier || 0,
+		};
+	};
+
+	const handleDragMove = (newPosition: [number, number, number]) => {
+		setDragPosition(newPosition);
+
+		// Update the dragged container's position in real-time
+		if (draggedContainer) {
+			setContainers((currentContainers) =>
+				currentContainers.map((c) =>
+					c.name === draggedContainer.name
+						? {
+								...c,
+								position: [newPosition[0], newPosition[1], newPosition[2]],
+						  }
+						: c
+				)
+			);
+		}
+	};
+
+	const handleDragStart = (container: PositionedContainer) => {
+		setDraggedContainer(container);
+		setDragMode(true);
+		setIsDragging(true);
+		setDragPosition(container.position);
+
+		// Update containers to show drag state
+		setContainers((currentContainers) =>
+			currentContainers.map((c) => ({
+				...c,
+				isDragging: c.name === container.name,
+				isDropTarget:
+					c.name !== container.name &&
+					c.blockName === container.blockName && // Same block
+					c.row === container.row &&
+					c.column === container.column &&
+					c.tier !== container.tier, // Different tier only
+			}))
+		);
+	};
+
+	const handleDragEnd = () => {
+		// Reset dragged container position if not dropped on valid target
+		if (draggedContainer) {
+			setContainers((currentContainers) =>
+				currentContainers.map((c) => {
+					if (c.name === draggedContainer.name) {
+						// Reset to original position
+						const originalContainer = containers.find(
+							(orig) => orig.name === c.name
+						);
+						return originalContainer
+							? { ...c, position: originalContainer.position }
+							: c;
+					}
+					return {
+						...c,
+						isDragging: false,
+						isDropTarget: false,
+					};
+				})
+			);
+		}
+
+		setDraggedContainer(null);
+		setIsDragging(false);
+		setDragPosition(null);
+	};
+
+	const handleDrop = (
+		targetContainer: PositionedContainer,
+		draggedContainer: PositionedContainer
+	) => {
+		if (!draggedContainer || targetContainer.name === draggedContainer.name) {
+			return;
+		}
+
+		// Swap container positions/tiers
+		setContainers((currentContainers) =>
+			currentContainers.map((c) => {
+				if (c.name === draggedContainer.name) {
+					return {
+						...c,
+						tier: targetContainer.tier,
+						position: [
+							targetContainer.position[0],
+							targetContainer.position[1],
+							targetContainer.position[2],
+						],
+						name: `${c.blockName}_${c.column}_${c.row}_T${targetContainer.tier}`,
+					};
+				} else if (c.name === targetContainer.name) {
+					return {
+						...c,
+						tier: draggedContainer.tier,
+						position: [
+							draggedContainer.position[0],
+							draggedContainer.position[1],
+							draggedContainer.position[2],
+						],
+						name: `${c.blockName}_${c.column}_${c.row}_T${draggedContainer.tier}`,
+					};
+				}
+				return c;
+			})
+		);
+
+		handleDragEnd();
+	};
+
+	// Get available tiers from containers data
+	const availableTiers = Array.from(
+		new Set(containers.map((container) => container.tier))
+	).sort();
+
+	// Get available blocks from containers data
+	const availableBlocks = Array.from(
+		new Set(containers.map((container) => container.blockName))
+	)
+		.filter(Boolean)
+		.sort();
+
+	// Get containers to render based on focus state and tier filter
+	const getContainersToRender = () => {
+		let containersToShow = containers;
+
+		// Apply tier filter
+		if (selectedTier) {
+			containersToShow = containersToShow.filter(
+				(container) => container.tier === parseInt(selectedTier)
+			);
+		}
+
+		// Apply block filter
+		if (selectedBlock) {
+			containersToShow = containersToShow.filter(
+				(container) => container.blockName === selectedBlock
+			);
+		}
+
+		// Apply focus filter (show only containers with same row, column, block)
+		if (focusedContainerInfo) {
+			containersToShow = containersToShow.filter(
+				(container) =>
+					container.row === focusedContainerInfo.row &&
+					container.column === focusedContainerInfo.column &&
+					container.blockName === focusedContainerInfo.blockName
+			);
+		}
+
+		// Sort containers by distance from camera (closer containers rendered last for proper depth)
+		return containersToShow.sort((a, b) => {
+			// Calculate distance from camera position (approximate)
+			const cameraPos = [15, 10, 15]; // Default camera position
+			const distanceA = Math.sqrt(
+				Math.pow(a.position[0] - cameraPos[0], 2) +
+					Math.pow(a.position[1] - cameraPos[1], 2) +
+					Math.pow(a.position[2] - cameraPos[2], 2)
+			);
+			const distanceB = Math.sqrt(
+				Math.pow(b.position[0] - cameraPos[0], 2) +
+					Math.pow(b.position[1] - cameraPos[1], 2) +
+					Math.pow(b.position[2] - cameraPos[2], 2)
+			);
+			// Sort by distance (farthest first, closest last)
+			return distanceB - distanceA;
+		});
+	};
+
+	const containersToRender = getContainersToRender();
+
+	// Function to focus camera on a container with smooth animation
+	const focusOnContainer = (containerName: string) => {
+		const container = containers.find((c) => c.name === containerName);
+		if (container && cameraControls.current) {
+			// Clear any existing animation timeouts
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+			animationTimeouts.current = [];
+
+			setSelectedContainer(containerName);
+			setIsAnimatingToContainer(true);
+			// console.log("Starting animation to container:", containerName);
+
+			const pos = container.position;
+			// console.log("Container position:", pos);
+
+			const droneHeight = 25; // High drone view
+
+			try {
+				cameraControls.current.setLookAt(
+					pos[0], // Directly above container X
+					droneHeight, // High altitude for drone view
+					pos[2], // Directly above container Z
+					pos[0], // Look down at container X
+					pos[1], // Look down at container Y
+					pos[2], // Look down at container Z
+					true // Animate transition
+				);
+
+				// Reset animation state after all animations complete
+				const timeout3 = setTimeout(() => {
+					// console.log("Animation timeout finished");
+					setIsAnimatingToContainer(false);
+					// Set focused container info to filter containers
+					setFocusedContainerInfo({
+						row: container.row!,
+						column: container.column!,
+						blockName: container.blockName!,
+					});
+					// Clear timeouts array
+					animationTimeouts.current = [];
+				}, 2000); // Total animation time: 2 seconds
+				animationTimeouts.current.push(timeout3);
+			} catch (error) {
+				console.error("Animation error:", error);
+				setIsAnimatingToContainer(false);
+			}
+		}
+	};
+
+	// Function to stop ongoing animation and reset focus
+	const stopAnimation = () => {
+		// console.log("Stopping animation...");
+		// Clear all timeouts
+		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+		animationTimeouts.current = [];
+		setIsAnimatingToContainer(false);
+		// Clear focused container info to show all containers
+		setFocusedContainerInfo(null);
+		// console.log("Animation stopped");
+	};
+
+	// Clear search function
+	const clearSearch = () => {
+		setSearchQuery("");
+		setSearchResults([]);
+		setSelectedContainer(null);
+		// Clear focused container info when clearing search
+		setFocusedContainerInfo(null);
+	};
+
+	// Reset tier filter
+	const resetTierFilter = () => {
+		setSelectedTier(null);
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when resetting tier filter
+		setFocusedContainerInfo(null);
+	};
+
+	// Reset block filter
+	const resetBlockFilter = () => {
+		setSelectedBlock(null);
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when resetting block filter
+		setFocusedContainerInfo(null);
+	};
+
+	// Handle tier selection
+	const handleTierChange = (value: string) => {
+		setSelectedTier(value);
+		// Clear search results when tier filter changes
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when changing tier
+		setFocusedContainerInfo(null);
+	};
+
+	// Handle block selection
+	const handleBlockChange = (value: string) => {
+		setSelectedBlock(value);
+		// Clear search results when block filter changes
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		// Clear focused container info when changing block
+		setFocusedContainerInfo(null);
+	};
+
+	// Function to reset all filters and show all containers
+	const resetAllFilters = () => {
+		setSelectedTier(null);
+		setSelectedBlock(null);
+		setSearchResults([]);
+		setSearchQuery("");
+		setSelectedContainer(null);
+		setFocusedContainerInfo(null);
+		// Stop any ongoing animation
+		animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+		animationTimeouts.current = [];
+		setIsAnimatingToContainer(false);
+	};
+
+	// Update container colors when colorBy mode changes
+	useEffect(() => {
+		setContainers((currentContainers) => {
+			if (currentContainers.length > 0) {
+				return currentContainers.map((container) => {
+					try {
+						return {
+							...container,
+							color: getContainerColor(
+								container.status || "",
+								container.grade || null,
+								colorBy
+							),
+						};
+					} catch (error) {
+						console.warn("Error updating container color:", error);
+						return container; // Keep original container if color update fails
+					}
+				});
+			}
+			return currentContainers;
+		});
+	}, [colorBy]);
+
+	// Cleanup animation timeouts on component unmount
+	useEffect(() => {
+		return () => {
+			// Cleanup all timeouts when component unmounts
+			animationTimeouts.current.forEach((timeout) => clearTimeout(timeout));
+			animationTimeouts.current = [];
+		};
+	}, []);
+
+	// Keyboard event listener for ESC key to stop animation and reset focus
+	useEffect(() => {
+		const handleKeyPress = (event: KeyboardEvent) => {
+			if (
+				event.key === "Escape" &&
+				(isAnimatingToContainer || focusedContainerInfo)
+			) {
+				stopAnimation();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyPress);
+		return () => {
+			window.removeEventListener("keydown", handleKeyPress);
+		};
+	}, [isAnimatingToContainer, focusedContainerInfo]);
+
+	// Handle fresh data changes - trigger mesh reprocessing
+	useEffect(() => {
+		if (freshData) {
+			// Force a re-render of the Floor component to reprocess mesh positions with fresh data
+			// The Floor component will call handleMeshPositionsReady with the latest data
+			// console.log("Fresh data received, triggering container reprocessing...");
+		}
+	}, [freshData]);
+
+	function handleSearch(value: string): void {
+		setSearchQuery(value);
+
+		if (!value.trim()) {
+			setSearchResults([]);
+			setSelectedContainer(null);
+			setFocusedContainerInfo(null);
+			return;
+		}
+
+		const query = value.trim().toLowerCase();
+
+		// Search through all containers, not just filtered ones
+		// This ensures search works regardless of current filters
+		const results = containers.filter(
+			(container) =>
+				container.containerCode?.toLowerCase().includes(query) ||
+				`${container.blockName}-${container.row}-${container.column}`
+					.toLowerCase()
+					.includes(query)
+		);
+
+		setSearchResults(results);
+
+		// Remove auto-focus and auto-selection behavior
+		// Let user manually click on containers they want to focus on
+		setSelectedContainer(null);
+		setFocusedContainerInfo(null);
+	}
+
+	return (
+		<div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+			<Canvas
+				camera={{
+					position: [10, 10, 10],
+					fov: 0.5,
+				}}
+				style={{
+					width: "100%",
+					height: "100%",
+					background:
+						"linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)",
+				}}
+				shadows
+			>
+				{/* Lighting */}
+				<ambientLight intensity={0.6} />
+				<directionalLight
+					position={[10, 15, 5]}
+					intensity={0.8}
+					castShadow
+					shadow-mapSize={[2048, 2048]}
+					shadow-camera-far={50}
+					shadow-camera-left={-20}
+					shadow-camera-right={20}
+					shadow-camera-top={20}
+					shadow-camera-bottom={-20}
+				/>
+
+				{/* Ground plane */}
+				<mesh
+					rotation={[-Math.PI / 2, 0, 0]}
+					position={[0, -0.1, 0]}
+					receiveShadow
+				>
+					<planeGeometry args={[100, 100]} />
+					<meshStandardMaterial
+						color="#1a1a1a"
+						transparent
+						opacity={0.8}
+						roughness={0.8}
+						metalness={0.1}
+					/>
+				</mesh>
+
+				{/* Load and display Depo 4 GLB model */}
+				<Floor
+					path={PATH_MAPPING[name].model}
+					onMeshPositionsReady={handleMeshPositionsReady}
+				/>
+
+				{/* Render containers based on focus and tier filter */}
+				{containersToRender.map((containerData, index) => (
+					<Container
+						key={`container-${index}`}
+						container={containerData}
+						defaultSize20Vertical={defaultSize20Vertical}
+						defaultSize20Horizontal={defaultSize20Horizontal}
+						defaultSize40Horizontal={defaultSize40Horizontal}
+						defaultSize40Vertical={defaultSize40Vertical}
+						selected={selectedContainer === containerData.name}
+						onSelect={(name) => handleContainerClick(name, false)}
+						onDragStart={dragMode ? handleDragStart : undefined}
+						onDragEnd={dragMode ? handleDragEnd : undefined}
+						onDrop={dragMode ? handleDrop : undefined}
+						onDragMove={dragMode ? handleDragMove : undefined}
+						depoName={name}
+					/>
+				))}
+
+				{/* Camera Controls - Disabled when dragging or animating to container */}
+				<CameraControls
+					ref={cameraControls}
+					enabled={!isDragging && !isAnimatingToContainer}
+					minPolarAngle={0}
+					maxPolarAngle={Math.PI / 2.2}
+					smoothTime={0.25}
+					draggingSmoothTime={0.125}
+				/>
+			</Canvas>
+
+			{/* Color Mode Toggle and Drag Mode Toggle */}
+			<div className="fixed top-5 left-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] flex flex-col gap-y-4">
+				{/* Search Section */}
+				<div className="flex flex-col gap-y-4">
+					<div className="flex gap-2 items-center">
+						<Input
+							type="text"
+							placeholder="Search container code..."
+							value={searchQuery}
+							onChange={(e) => handleSearch(e.target.value)}
+							className="w-64 text-xs bg-black/50 border-white/30 text-white placeholder-white/60"
+							autoComplete="off"
+						/>
+						{searchQuery && (
+							<Button
+								onClick={clearSearch}
+								size="sm"
+								className="text-xs bg-red-600 hover:bg-red-700 text-white"
+							>
+								Clear
+							</Button>
+						)}
+					</div>
+
+					{/* Camera Animation Indicator */}
+					{(isAnimatingToContainer || focusedContainerInfo || isRefreshing) && (
+						<div className="p-2 bg-blue-900/50 rounded border border-blue-500">
+							{isAnimatingToContainer ? (
+								<div className="animate-pulse">
+									<div className="flex justify-between items-center w-full">
+										<div className="text-blue-300 font-bold text-xs flex gap-2">
+											<span className="animate-spin">🎯</span>
+											<span>Flying to container...</span>
+										</div>
+										<Button
+											onClick={stopAnimation}
+											size="sm"
+											className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5"
+										>
+											Stop
+										</Button>
+									</div>
+									<div className="text-blue-200 text-xs">
+										Camera controls temporarily disabled
+									</div>
+								</div>
+							) : isRefreshing ? (
+								<div className="animate-pulse">
+									<div className="flex justify-between items-center w-full">
+										<div className="text-green-300 font-bold text-xs flex gap-2">
+											<span className="animate-spin">🔄</span>
+											<span>Refreshing data...</span>
+										</div>
+									</div>
+									<div className="text-green-200 text-xs">
+										Loading updated container positions
+									</div>
+								</div>
+							) : (
+								<div>
+									<div className="flex justify-between items-center w-full">
+										<div className="text-blue-300 font-bold text-xs flex gap-2">
+											<span>👁️</span>
+											<span>
+												Focused: {focusedContainerInfo?.blockName}-
+												{focusedContainerInfo?.row}-
+												{focusedContainerInfo?.column}
+											</span>
+										</div>
+										<Button
+											onClick={stopAnimation}
+											size="sm"
+											className="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-1 h-5 mb-1"
+										>
+											Show All
+										</Button>
+									</div>
+									<div className="text-blue-200 text-xs">
+										Showing only containers at this position (
+										{containersToRender.length} containers)
+									</div>
+								</div>
+							)}
+						</div>
+					)}
+
+					{searchResults.length > 0 && (
+						<div className="text-xs">
+							<div className="text-green-400 mb-1">
+								Found {searchResults.length} container(s)
+							</div>
+							<ScrollArea className="h-40">
+								<div className="space-y-0.5 pr-3">
+									{searchResults.map((container) => (
+										<div
+											key={container.name}
+											className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+												selectedContainer === container.name
+													? "bg-green-900/50 border border-green-400"
+													: ""
+											}`}
+											onClick={() => handleContainerClick(container.name, true)}
+										>
+											<div
+												className="w-3 h-3 rounded-sm flex-shrink-0"
+												style={{ backgroundColor: container.color }}
+											></div>
+											<span className="text-xs truncate w-full">
+												{container.blockName}-{container.row}-{container.column}{" "}
+												T{container.tier}
+												{container.containerCode
+													? ` (${container.containerCode.substring(0, 15)}...)`
+													: ""}
+											</span>
+											{selectedContainer === container.name && (
+												<span className="ml-auto">✓</span>
+											)}
+										</div>
+									))}
+								</div>
+							</ScrollArea>
+						</div>
+					)}
+					{searchQuery && searchResults.length === 0 && (
+						<div className="mt-2 text-xs text-red-400">No containers found</div>
+					)}
+				</div>
+			</div>
+
+			<div
+				className={cn(
+					"fixed top-5 rounded-lg z-[10000] flex gap-x-4",
+					searchQuery ? "left-[23.5rem]" : "left-[19.5rem]"
+				)}
+			>
+				{/* Block Filter */}
+				{availableBlocks && availableBlocks.length > 0 && (
+					<Select value={selectedBlock || ""} onValueChange={handleBlockChange}>
+						<SelectTrigger className="bg-black/80 border-white/30 text-white data-[placeholder]:text-white/60">
+							<SelectValue placeholder="Choose block to show" />
+						</SelectTrigger>
+						<SelectContent className="bg-black/90 border-white/30 text-white">
+							<SelectGroup>
+								<SelectLabel className="text-white/80">Block</SelectLabel>
+								{availableBlocks.map((block) => (
+									<SelectItem
+										key={block}
+										value={String(block)}
+										className="!text-white hover:!text-white/90 hover:bg-white/10 focus:bg-white/10"
+									>
+										Block {block}
+									</SelectItem>
+								))}
+							</SelectGroup>
+							<SelectSeparator className="bg-white/20" />
+							<Button
+								onClick={resetBlockFilter}
+								className="w-full px-2 bg-white/10 hover:bg-white/20 text-white border-none"
+								variant="secondary"
+								size="sm"
+							>
+								Show All Blocks
+							</Button>
+						</SelectContent>
+					</Select>
+				)}
+
+				{/* Tier Filter */}
+				{availableTiers && availableTiers.length > 0 && (
+					<Select value={selectedTier || ""} onValueChange={handleTierChange}>
+						<SelectTrigger className="bg-black/80 border-white/30 text-white data-[placeholder]:text-white/60">
+							<SelectValue placeholder="Choose tier to show" />
+						</SelectTrigger>
+						<SelectContent className="bg-black/90 border-white/30 text-white">
+							<SelectGroup>
+								<SelectLabel className="text-white/80">Tier</SelectLabel>
+								{availableTiers.map(
+									(tier) =>
+										tier && (
+											<SelectItem
+												key={tier}
+												value={tier.toString()}
+												className="!text-white hover:!text-white/90 hover:bg-white/10 focus:bg-white/10"
+											>
+												Tier {tier}
+											</SelectItem>
+										)
+								)}
+							</SelectGroup>
+							<SelectSeparator className="bg-white/20" />
+							<Button
+								onClick={resetTierFilter}
+								className="w-full px-2 bg-white/10 hover:bg-white/20 text-white border-none"
+								variant="secondary"
+								size="sm"
+							>
+								Show All Tiers
+							</Button>
+						</SelectContent>
+					</Select>
+				)}
+
+				{/* Color Mode Toggle Button */}
+				<Button
+					className={`text-xs cursor-pointer ${
+						colorBy === "grade"
+							? "bg-white text-black hover:bg-gray-200"
+							: "bg-black text-white border border-white hover:bg-black/90"
+					}`}
+					onClick={() => setColorBy(colorBy === "grade" ? "status" : "grade")}
+				>
+					Container Color By{" "}
+					{colorBy.charAt(0).toUpperCase() + colorBy.slice(1)}
+				</Button>
+
+				{/* Chart Toggle Button */}
+				<Button
+					className="text-xs cursor-pointer bg-blue-600 text-white hover:bg-blue-700"
+					onClick={() => setShowCharts(!showCharts)}
+				>
+					{showCharts ? (
+						<EyeOff className="w-4 h-4 mr-1" />
+					) : (
+						<Eye className="w-4 h-4 mr-1" />
+					)}
+					{showCharts ? "Hide Charts" : "Show Charts"}
+				</Button>
+
+				{/* Reset All Filters Button */}
+				{(selectedTier ||
+					selectedBlock ||
+					focusedContainerInfo ||
+					searchQuery) && (
+					<Button variant="destructive" onClick={resetAllFilters}>
+						Reset All Filters
+					</Button>
+				)}
+			</div>
+
+			<div className="fixed bottom-[17rem] right-5 bg-black/80 text-white p-3 rounded-lg backdrop-blur-lg z-[1000] text-xs min-w-[160px]">
+				{colorBy === "grade" ? (
+					<div className="space-y-1">
+						{Object.entries(GRADE_COLORS).map(([grade, color]) => (
+							<div key={grade} className="flex items-center gap-2">
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: color }}
+								></div>
+								<span>Grade {grade}</span>
+							</div>
+						))}
+					</div>
+				) : (
+					<div className="space-y-1">
+						{Object.entries(STATUS_COLORS).map(([status, color]) => (
+							<div key={status} className="flex items-center gap-2">
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: color }}
+								></div>
+								<span className="text-xs">
+									{status} - {getStatusColorName(status)}
+								</span>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+
+			{/* Info Panel */}
+			{selectedContainer && (
+				<div
+					style={{
+						position: "absolute",
+						bottom: "20px",
+						left: "20px",
+						backgroundColor: "rgba(0, 0, 0, 0.9)",
+						color: "white",
+						padding: "20px",
+						borderRadius: "12px",
+						minWidth: "300px",
+						fontSize: "14px",
+						fontFamily: "system-ui, -apple-system, sans-serif",
+						border: `3px solid ${
+							containers.find((c) => c.name === selectedContainer)?.color ||
+							"#64b5f6"
+						}`,
+						boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+						backdropFilter: "blur(10px)",
+						zIndex: 1000,
+					}}
+				>
+					<h3
+						style={{
+							margin: "0 0 16px 0",
+							color:
+								containers.find((c) => c.name === selectedContainer)?.color ||
+								"#64b5f6",
+						}}
+					>
+						Container Information -{" "}
+						{name === "JAPFA"
+							? "Depo JAPFA"
+							: name === "4"
+							? "Depo 4"
+							: name === "BAYUR"
+							? "Depo Teluk Bayur"
+							: name === "YON"
+							? "Depo YON"
+							: `Depo ${name}`}
+					</h3>
+					{(() => {
+						const container = containers.find(
+							(c) => c.name === selectedContainer
+						);
+						return container ? (
+							<div>
+								<div>
+									<strong>Container Code:</strong>{" "}
+									{container.containerCode || "N/A"}
+								</div>
+								<div>
+									<strong>Block:</strong> {container.blockName || "N/A"}
+								</div>
+								<div>
+									<strong>Position:</strong> Row {container.row}, Column{" "}
+									{container.column}
+								</div>
+								<div>
+									<strong>Tier:</strong> {container.tier || "N/A"}
+								</div>
+								<div>
+									<strong>Size:</strong>{" "}
+									{container.size === "SIZE_20"
+										? "20"
+										: container.size === "SIZE_40"
+										? "40"
+										: "N/A"}
+									ft Container
+								</div>
+								<div>
+									<strong>Grade:</strong> {container.grade || "No Grade"}
+								</div>
+								<div>
+									<strong>Status:</strong> {container.status || "N/A"}
+									{container.status && (
+										<span
+											style={{
+												marginLeft: "8px",
+												padding: "2px 6px",
+												borderRadius: "4px",
+												fontSize: "10px",
+												backgroundColor: getContainerColor(
+													container.status,
+													null,
+													"status"
+												),
+												color: "white",
+											}}
+										>
+											{getStatusColorName(container.status)}
+										</span>
+									)}
+								</div>
+							</div>
+						) : null;
+					})()}
+					<div style={{ display: "flex", gap: "12px", marginTop: "16px" }}>
+						<button
+							onClick={() => setSelectedContainer(null)}
+							style={{
+								padding: "8px 16px",
+								backgroundColor: "transparent",
+								border: `2px solid ${
+									containers.find((c) => c.name === selectedContainer)?.color ||
+									"#64b5f6"
+								}`,
+								color: "white",
+								borderRadius: "6px",
+								cursor: "pointer",
+								fontSize: "12px",
+							}}
+						>
+							Close
+						</button>
+						{/* Move Container Button - Only show for YON depot */}
+						{name === "YON" && (
+							<button
+								onClick={handleMoveContainerClick}
+								style={{
+									padding: "8px 16px",
+									backgroundColor: "#3b82f6",
+									border: "2px solid #3b82f6",
+									color: "white",
+									borderRadius: "6px",
+									cursor: "pointer",
+									fontSize: "12px",
+								}}
+							>
+								🚚 Move Container
+							</button>
+						)}
+					</div>
+				</div>
+			)}
+
+			{/* Container Legend */}
+			<div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs font-mono backdrop-blur-lg z-[1000] w-80">
+				<div className="mb-2 font-bold text-sm">
+					{name === "JAPFA"
+						? "Depo JAPFA"
+						: name === "4"
+						? "Depo 4"
+						: name === "BAYUR"
+						? "Depo Teluk Bayur"
+						: name === "YON"
+						? "Depo YON"
+						: `Depo ${name}`}{" "}
+					{focusedContainerInfo && (
+						<span className="text-green-400">
+							Focused: {focusedContainerInfo.blockName}-
+							{focusedContainerInfo.row}-{focusedContainerInfo.column} (
+							{containersToRender.length})
+						</span>
+					)}
+					{!focusedContainerInfo && selectedBlock && (
+						<span className="text-orange-400">
+							Block {selectedBlock} ({containersToRender.length})
+							{selectedTier && <span> - Tier {selectedTier}</span>}
+						</span>
+					)}
+					{!focusedContainerInfo && !selectedBlock && selectedTier && (
+						<span className="text-blue-400">
+							Tier {selectedTier} Only ({containersToRender.length})
+						</span>
+					)}
+					{!focusedContainerInfo &&
+					!selectedBlock &&
+					!selectedTier &&
+					searchResults.length > 0 ? (
+						<span className="text-green-400">
+							Search Results ({searchResults.length})
+						</span>
+					) : (
+						!focusedContainerInfo &&
+						!selectedBlock &&
+						!selectedTier && <span>Containers ({containers.length} total)</span>
+					)}
+				</div>
+				<ScrollArea className="h-44">
+					<div className="space-y-0.5 pr-3">
+						{(searchResults.length > 0
+							? searchResults
+							: containersToRender
+						).map((container) => (
+							<div
+								key={container.name}
+								className={`flex items-center gap-2 p-2 rounded hover:bg-white/10 cursor-pointer transition-colors ${
+									selectedContainer === container.name
+										? "bg-blue-900/50 border border-blue-400"
+										: ""
+								}`}
+								onClick={() => handleContainerClick(container.name, false)}
+							>
+								<div
+									className="w-3 h-3 rounded-sm flex-shrink-0"
+									style={{ backgroundColor: container.color }}
+								></div>
+								<span className="text-xs truncate">
+									{container.blockName}-{container.row}-{container.column} T
+									{container.tier}
+									{container.containerCode
+										? ` (${container.containerCode.substring(0, 15)}...)`
+										: ""}
+								</span>
+							</div>
+						))}
+					</div>
+				</ScrollArea>
+			</div>
+
+			{/* Charts Panel */}
+			{showCharts && (
+				<div className="fixed top-20 left-5 bg-black/90 text-white p-4 rounded-lg backdrop-blur-lg z-[1000] max-w-md my-5">
+					<div className="space-y-4">
+						{/* Single Chart with Mode Toggle */}
+						<div className="space-y-2">
+							<div className="flex justify-between items-center">
+								<h3 className="text-sm font-medium text-white mr-3">
+									Container Analytics
+								</h3>
+								<Button
+									size="sm"
+									variant="outline"
+									className={`text-xs ${
+										chartMode === "status"
+											? "bg-green-900/50 border-green-400 text-green-300"
+											: "bg-purple-900/50 border-purple-400 text-purple-300"
+									}`}
+									onClick={() =>
+										setChartMode(chartMode === "status" ? "grade" : "status")
+									}
+								>
+									{chartMode === "status" ? "📊 Status" : "🎯 Grade"}
+								</Button>
+							</div>
+
+							{/* Show message if grade mode but no MTA containers */}
+							{chartMode === "grade" && chartData.data.length === 0 ? (
+								<div className="p-4 bg-yellow-900/50 border border-yellow-400 rounded text-yellow-300 text-sm text-center">
+									No MTA containers found for grade analysis
+								</div>
+							) : (
+								<ChartPie
+									chartData={chartData.data}
+									title={chartData.title}
+									description={chartData.description}
+								/>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Move Container Modal */}
+			<MoveContainerModal
+				isOpen={showMoveModal}
+				onOpenChange={setShowMoveModal}
+				selectedContainer={getSelectedContainerData()}
+				availableSlots={availableSlots}
+				onMoveComplete={handleMoveComplete}
+			/>
+		</div>
+	);
+}
